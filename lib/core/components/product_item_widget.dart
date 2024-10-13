@@ -1,4 +1,4 @@
-import 'package:ecommerce/core/components/app_image.dart';
+import 'package:ecommerce/core/components/app_network_image.dart';
 import 'package:ecommerce/core/services/navigation/app_endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,7 +66,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
         child: Column(
           children: [
             Flexible(
-              child: AppNetwork(
+              child: AppNetworkImage(
                 imageUrl: widget.image,
                 width: 100.w,
                 height: 100.h,

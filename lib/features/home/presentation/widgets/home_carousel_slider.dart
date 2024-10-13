@@ -2,11 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce/features/home/domain/hom_entity/home_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/components/app_image.dart';
-import '../../../../core/helpers/spacing.dart';
+import '../../../../core/components/app_network_image.dart';
 import '../../../../core/theming/app_colors.dart';
-import '../../../../generated/l10n.dart';
-import '../../data/models/home_model.dart';
 
 class HomeCarouselSlider extends StatelessWidget {
   const HomeCarouselSlider({super.key, required this.banners});
@@ -30,8 +27,8 @@ class HomeCarouselSlider extends StatelessWidget {
         itemCount: banners.length,
         itemBuilder:
             (BuildContext context, int itemIndex, int pageViewIndex) =>
-                AppNetwork(
-          imageUrl: banners[itemIndex].image!,
+                AppNetworkImage(
+          imageUrl: banners[itemIndex].image,
           width: double.infinity,
           height: 120.h,
           fit: BoxFit.cover, borderRadius: BorderRadius.circular(20.r),),
