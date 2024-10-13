@@ -27,6 +27,7 @@ class AppTextFormField extends StatelessWidget {
   final String? title;
   final bool? isFilled;
   final BorderRadius? borderRadius;
+  final bool? enable;
   const AppTextFormField({
     super.key,
     this.contentPadding,
@@ -39,7 +40,7 @@ class AppTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.backgroundColor,
     this.controller,
-     this.validator,
+    this.validator,
     this.onChanged,
     this.withTitle,
     this.initialValue,
@@ -51,11 +52,13 @@ class AppTextFormField extends StatelessWidget {
     this.textInputAction,
     this.borderRadius,
     this.isFilled,
+    this.enable,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: enable??true,
       keyboardType: keyboardType,
       textInputAction: textInputAction,
       minLines: minLines,
@@ -64,7 +67,7 @@ class AppTextFormField extends StatelessWidget {
       controller: controller,
       initialValue: initialValue,
       decoration: InputDecoration(
-        border:  OutlineInputBorder(
+        border: OutlineInputBorder(
           borderRadius: borderRadius ?? BorderRadius.circular(20.0.r),
         ),
         isDense: true,
@@ -100,13 +103,13 @@ class AppTextFormField extends StatelessWidget {
             color: Colors.red,
             width: 1.3,
           ),
-          borderRadius:borderRadius ?? BorderRadius.circular(20.0.r),
+          borderRadius: borderRadius ?? BorderRadius.circular(20.0.r),
         ),
         hintStyle: hintStyle ?? TextStyles.font14grayRegular,
         hintText: hintText,
         suffixIcon: suffixIcon,
         fillColor: backgroundColor ?? Colors.transparent,
-        filled: isFilled??false,
+        filled: isFilled ?? false,
       ),
       obscureText: isObscureText ?? false,
       style: TextStyles.font14primaryMedium,
