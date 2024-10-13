@@ -35,7 +35,6 @@ class _TestState extends State<Test> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-
           child: AppImage(
         path: "app_icon2.png",
         width: 100.w,

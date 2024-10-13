@@ -1,4 +1,4 @@
-
+import 'package:ecommerce/core/components/app_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -46,36 +46,39 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           } else if (state is HomeSuccess) {
-            return SingleChildScrollView(
-              child: Container(
+            return Scaffold(
+              bottomNavigationBar: AppBottomNavBar(index: 0,),
+              body: Container(
                 color: AppColors.primary.withOpacity(0.2),
-                child: Column(
-                  children: [
-                    verticalSpacing(20.h),
-                    const HomeAppbar(),
-                    Search(searchCubit: searchCubit,),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30.r),
-                          topRight: Radius.circular(30.r),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      verticalSpacing(20.h),
+                      const HomeAppbar(),
+                      Search(searchCubit: searchCubit,),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30.r),
+                            topRight: Radius.circular(30.r),
+                          ),
                         ),
+                        child: Column(
+                            children: [
+                          verticalSpacing(20.h),
+                           HomeCarouselSlider(
+                            banners: state.homeEntity.data.banners,
+                          ),
+                          //const HomeCategories(),
+                          HomeProductsListView(
+                            products: state.homeEntity.data.products,
+                           // favoriteCubit: favoriteCubit,
+                          ),
+                        ]),
                       ),
-                      child: Column(
-                          children: [
-                        verticalSpacing(20.h),
-                         HomeCarouselSlider(
-                          banners: state.homeEntity.data.banners,
-                        ),
-                        //const HomeCategories(),
-                        HomeProductsListView(
-                          products: state.homeEntity.data.products,
-                         // favoriteCubit: favoriteCubit,
-                        ),
-                      ]),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             );
