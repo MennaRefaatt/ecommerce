@@ -1,4 +1,5 @@
 
+import 'package:ecommerce/core/helpers/shared_pref_keys.dart';
 import 'package:flutter/material.dart';
 import 'core/components/app_entry_point.dart';
 import 'core/di/di.dart';
@@ -14,6 +15,8 @@ Future<void> main() async {
   ApiService.init();
   await init();
   await SharedPref.init();
+  safePrint(  SharedPref.getString(key: MySharedKeys.userId)
+  );
   SecureStorageService();
 
 

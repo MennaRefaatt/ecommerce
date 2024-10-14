@@ -19,14 +19,15 @@ class LoginSuccessResponse {
 
 @JsonSerializable()
 class LoginData {
-  int? id;
+  @JsonKey(name: 'id')
+  int? userId;
   String? name;
   String? email;
   String? phone;
   String? token;
 
   LoginData({
-    required this.id,
+    required this.userId,
     required this.name,
     required this.email,
     required this.phone,

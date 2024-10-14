@@ -1,13 +1,15 @@
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'message.g.dart';
+
 @JsonSerializable()
 class MessageModel {
   final String id;
   final String message;
-  final DateTime createdAt;
+  final String createdAt;
+  final String userId;
 
   MessageModel({
+    required this.userId,
     required this.id,
     required this.message,
     required this.createdAt,
@@ -18,4 +20,3 @@ class MessageModel {
 
   Map<String, dynamic> toJson() => _$MessageModelToJson(this);
 }
-

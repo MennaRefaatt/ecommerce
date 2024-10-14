@@ -25,7 +25,7 @@ Map<String, dynamic> _$LoginSuccessResponseToJson(
     };
 
 LoginData _$LoginDataFromJson(Map<String, dynamic> json) => LoginData(
-      id: (json['id'] as num?)?.toInt(),
+      userId: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
       email: json['email'] as String?,
       phone: json['phone'] as String?,
@@ -33,7 +33,7 @@ LoginData _$LoginDataFromJson(Map<String, dynamic> json) => LoginData(
     );
 
 Map<String, dynamic> _$LoginDataToJson(LoginData instance) => <String, dynamic>{
-      'id': instance.id,
+      'id': instance.userId,
       'name': instance.name,
       'email': instance.email,
       'phone': instance.phone,

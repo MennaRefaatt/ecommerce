@@ -45,7 +45,7 @@ class DSLoginLocalImpl implements DSLoginLocal {
   Future<void> saveDataToLocal({required LoginData loginData}) async {
     SharedPref.putString(key: MySharedKeys.email, value: loginData.email);
     SharedPref.putString(key: MySharedKeys.name, value: loginData.name);
-    SharedPref.putString(key: MySharedKeys.userId, value: loginData.id.toString());
+    SharedPref.putString(key: MySharedKeys.userId, value: loginData.userId.toString());
     SharedPref.putString(key: MySharedKeys.userName, value: loginData.name);
     SharedPref.putString(key: MySharedKeys.phone, value: loginData.phone);
   }
