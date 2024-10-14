@@ -16,9 +16,13 @@ class SearchScreen extends StatelessWidget {
   SearchScreen({super.key});
 
   final SearchCubit searchCubit = SearchCubit(sl());
+  final FocusNode searchFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FocusScope.of(context).requestFocus(searchFocusNode);
+    });
     return BlocProvider(
       create: (context) => searchCubit,
       child: SafeArea(
@@ -41,10 +45,11 @@ class SearchScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Column(
                     children: [
-                      SizedBox(height: 32.h),
+                      SizedBox(height: 34.h),
                       Padding(
                         padding: EdgeInsets.all(15.sp),
                         child: AppTextFormField(
+                          focusNode: searchFocusNode,
                           borderRadius: BorderRadius.circular(30.r),
                           backgroundColor: Colors.white,
                           isFilled: true,

@@ -1,8 +1,10 @@
 import 'package:ecommerce/core/utils/app_image.dart';
 import 'package:ecommerce/core/utils/app_svg.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/services/navigation/app_endpoints.dart';
 import '../../../../../core/theming/app_colors.dart';
 import '../../../../../generated/l10n.dart';
@@ -45,6 +47,13 @@ class HomeAppbar extends StatelessWidget {
               ),
             ),
           ),
+          horizontalSpacing(10.sp),
+          InkWell(
+              borderRadius: BorderRadius.circular(30.sp),
+              onTap: ()=>Modular.to.pushNamed(AppEndpoints.chatScreen),
+              child: const CircleAvatar(
+                  backgroundColor: AppColors.greyInput,
+                  child: Icon(CupertinoIcons.chat_bubble_2, color: AppColors.primary))),
         ],
       ),
     );

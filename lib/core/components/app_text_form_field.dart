@@ -28,6 +28,7 @@ class AppTextFormField extends StatelessWidget {
   final bool? isFilled;
   final BorderRadius? borderRadius;
   final bool? enable;
+  final FocusNode? focusNode;
   const AppTextFormField({
     super.key,
     this.contentPadding,
@@ -53,12 +54,14 @@ class AppTextFormField extends StatelessWidget {
     this.borderRadius,
     this.isFilled,
     this.enable,
+    this.focusNode,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      enabled: enable??true,
+      enabled: enable ?? true,
+      focusNode: focusNode ?? FocusNode(),
       keyboardType: keyboardType,
       textInputAction: textInputAction,
       minLines: minLines,
