@@ -9,6 +9,7 @@ class AppEndpoints {
   static const contactUsScreen = '/contactUsScreen';
   static const complaintsScreen = '/complaintsScreen';
   static const fAQsScreen = '/fAQsScreen';
+  static const searchScreen = '/searchScreen';
   static const favoriteScreen = '/favoriteScreen';
   static const updateAccountScreen = '/updateAccountScreen';
   static const changePassword = '/changePassword';

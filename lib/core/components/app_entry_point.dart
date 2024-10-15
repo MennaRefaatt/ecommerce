@@ -6,9 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:toastification/toastification.dart';
 import '../services/navigation/router.dart';
-import '../theming/app_theme.dart';
-import '../theming/theming_manager.dart';
-
 class AppEntryPoint extends StatefulWidget {
   final String initialRoute;
 
