@@ -10,6 +10,7 @@ class AppEndpoints {
   static const complaintsScreen = '/complaintsScreen';
   static const fAQsScreen = '/fAQsScreen';
   static const searchScreen = '/searchScreen';
+  static const favoriteScreen = '/favoriteScreen';
   static const updateAccountScreen = '/updateAccountScreen';
   static const changePassword = '/changePassword';
   static const productDetailsScreen = '/productDetailsScreen';
@@ -18,6 +19,8 @@ class AppEndpoints {
   static const categoryDetailsScreen = '/categoryDetailsScreen';
   static const cartScreen = '/cartScreen';
   static const chatScreen = '/chatScreen';
+  static const settingsScreen = '/settingsScreen';
+  static const ordersScreen = '/ordersScreen';
   static const addressScreen = '/addressScreen';
   static const addAddressScreen = '/addAddressScreen';
   static const confirmOrderScreen = '/confirmOrderScreen';

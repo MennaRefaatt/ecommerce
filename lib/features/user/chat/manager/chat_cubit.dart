@@ -18,8 +18,7 @@ class ChatCubit extends Cubit<ChatState> {
     _socketService.socket.on('chat message', (data) {
       final newMessage = MessageModel.fromJson(data);
       messages.add(newMessage);
-      emit(
-          ChatMessagesLoaded(List.from(messages)));
+      emit(ChatMessagesLoaded(List.from(messages)));
     });
   }
 
@@ -43,6 +42,7 @@ class ChatCubit extends Cubit<ChatState> {
       emit(ChatError('Error fetching messages: $e'));
     }
   }
+
   Future<void> sendMessage({required MessageReq message}) async {
     var uuid = const Uuid();
 

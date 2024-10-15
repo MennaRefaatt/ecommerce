@@ -1,3 +1,5 @@
+
+import 'package:ecommerce/core/components/app_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -78,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-            );
+            ));
           } else {
             return const SizedBox();
           }
