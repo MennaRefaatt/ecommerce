@@ -1,3 +1,4 @@
+
 import 'package:ecommerce/core/components/app_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
         BlocProvider(
           create: (context) => cubit..getHomeData(),
         ),
+
         // BlocProvider(
         //   create: (context) => categoryCubit..getCategoriesData(),
         // ),
@@ -46,19 +48,17 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           } else if (state is HomeSuccess) {
-            return Scaffold(
-              bottomNavigationBar: AppBottomNavBar(index: 0,),
-              body: Container(
-                color: AppColors.primary.withOpacity(0.2),
-                child: SingleChildScrollView(
-                  child:Column(
+            return SingleChildScrollView(
+              child: Container(
+                color: Theme.of(context).colorScheme.onPrimary,
+                child: Column(
                   children: [
                     verticalSpacing(20.h),
-                    HomeAppbar(),
+                     HomeAppbar(),
                     SearchBarr(searchCubit: searchCubit,),
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onPrimary,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(30.r),
                           topRight: Radius.circular(30.r),

@@ -49,7 +49,7 @@ class _HomeProductsListViewState extends State<HomeProductsListView> {
                   style: TextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w800,
-                      color: AppColors.primary),
+                     ),
                 ),
               ),
             ],
