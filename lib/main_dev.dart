@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'core/components/app_entry_point.dart';
 import 'core/di/di.dart';
 import 'core/helpers/safe_print.dart';
-import 'core/helpers/secure_storage/secure_keys.dart';
 import 'core/helpers/secure_storage/secure_storage.dart';
 import 'core/helpers/shared_pref.dart';
 import 'core/services/navigation/app_endpoints.dart';
@@ -15,13 +14,12 @@ Future<void> main() async {
   ApiService.init();
   await init();
   await SharedPref.init();
-  safePrint(  SharedPref.getString(key: MySharedKeys.userId)
-  );
+  safePrint(SharedPref.getString(key: MySharedKeys.userId));
   SecureStorageService();
 
 
   runApp(
-    AppEntryPoint(
+    const AppEntryPoint(
       initialRoute: AppEndpoints.splash,
     ),
   );

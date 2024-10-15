@@ -29,6 +29,7 @@ class AppTextFormField extends StatelessWidget {
   final BorderRadius? borderRadius;
   final bool? enable;
   final FocusNode? focusNode;
+  final Color? borderColor;
   const AppTextFormField({
     super.key,
     this.contentPadding,
@@ -55,6 +56,7 @@ class AppTextFormField extends StatelessWidget {
     this.isFilled,
     this.enable,
     this.focusNode,
+    this.borderColor,
   });
 
   @override
@@ -80,16 +82,16 @@ class AppTextFormField extends StatelessWidget {
             EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
         focusedBorder: focusedBorder ??
             OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: AppColors.primary,
+              borderSide:  BorderSide(
+                color: borderColor??AppColors.primary,
                 width: 1.3,
               ),
               borderRadius: borderRadius ?? BorderRadius.circular(20.0.r),
             ),
         enabledBorder: enabledBorder ??
             OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: AppColors.primary,
+              borderSide:  BorderSide(
+                color: borderColor??AppColors.primary,
                 width: 1.3,
               ),
               borderRadius: borderRadius ?? BorderRadius.circular(20.0.r),

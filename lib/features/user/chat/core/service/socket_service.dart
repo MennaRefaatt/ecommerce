@@ -9,6 +9,7 @@ class SocketService {
     // Establish a connection
     socket = IO.io(SocketConstants.socketUrl, <String, dynamic>{
       'transports': ['websocket'],
+      'autoConnect': true,
     });
 
     // Listen for the 'chat message' event
