@@ -50,7 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
               bottomNavigationBar: AppBottomNavBar(index: 0,),
               body: Container(
                 color: AppColors.primary.withOpacity(0.2),
-                child: Column(
+                child: SingleChildScrollView(
+                  child:Column(
                   children: [
                     verticalSpacing(20.h),
                     HomeAppbar(),
@@ -79,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-            );
+            ));
           } else {
             return const SizedBox();
           }
