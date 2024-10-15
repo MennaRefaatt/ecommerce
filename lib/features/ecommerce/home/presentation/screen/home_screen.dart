@@ -1,4 +1,3 @@
-
 import 'package:ecommerce/core/components/app_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,39 +47,42 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           } else if (state is HomeSuccess) {
-            return SingleChildScrollView(
-              child: Container(
-                color: Theme.of(context).colorScheme.onPrimary,
-                child: Column(
-                  children: [
-                    verticalSpacing(20.h),
-                     HomeAppbar(),
-                    SearchBarr(searchCubit: searchCubit,),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30.r),
-                          topRight: Radius.circular(30.r),
+            return Scaffold(
+              bottomNavigationBar: const AppBottomNavBar(index: 0),
+              body: SingleChildScrollView(
+                child: Container(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  child: Column(
+                    children: [
+                      verticalSpacing(20.h),
+                        HomeAppbar(),
+                      SearchBarr(searchCubit: searchCubit,),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30.r),
+                            topRight: Radius.circular(30.r),
+                          ),
                         ),
+                        child: Column(
+                            children: [
+                          verticalSpacing(20.h),
+                           HomeCarouselSlider(
+                            banners: state.homeEntity.data.banners,
+                          ),
+                          //const HomeCategories(),
+                          HomeProductsListView(
+                            products: state.homeEntity.data.products,
+                           // favoriteCubit: favoriteCubit,
+                          ),
+                        ]),
                       ),
-                      child: Column(
-                          children: [
-                        verticalSpacing(20.h),
-                         HomeCarouselSlider(
-                          banners: state.homeEntity.data.banners,
-                        ),
-                        //const HomeCategories(),
-                        HomeProductsListView(
-                          products: state.homeEntity.data.products,
-                         // favoriteCubit: favoriteCubit,
-                        ),
-                      ]),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ));
+            );
           } else {
             return const SizedBox();
           }
