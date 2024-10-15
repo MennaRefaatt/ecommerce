@@ -7,7 +7,11 @@ final class RegisterInitial extends RegisterState {}
 
 final class RegisterLoadingState extends RegisterState {}
 
-final class RegisterSuccessState extends RegisterState {}
+final class RegisterSuccessState extends RegisterState {
+  final RegisterResponse registerResponse;
+
+  RegisterSuccessState(this.registerResponse);
+}
 
 final class RegisterErrorState extends RegisterState {
   final String error;

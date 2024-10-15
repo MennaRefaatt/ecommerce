@@ -3,5 +3,5 @@ import 'package:ecommerce/features/authentication/register/data/models/register_
 import '../entity/register_request_entity.dart';
 
 abstract class RegisterRepoBase {
-  Future<RegisterSuccessResponse> register(RegisterRequestEntity registerRequestEntity);
+  Future<RegisterResponse> register(RegisterRequestEntity registerRequestEntity);
 }

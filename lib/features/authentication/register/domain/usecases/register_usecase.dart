@@ -6,7 +6,7 @@ class RegisterUseCase {
   final RegisterRepoBase registerRepo;
   RegisterUseCase({required this.registerRepo});
 
-  Future<RegisterSuccessResponse> execute(RegisterRequestEntity registerRequestEntity) async{
+  Future<RegisterResponse> execute(RegisterRequestEntity registerRequestEntity) async{
     return registerRepo.register(registerRequestEntity);
   }
 }

@@ -1,8 +1,16 @@
-import 'package:ecommerce/features/user/chat/model/message.dart';
+import 'package:ecommerce/core/components/app_text_form_field.dart';
+import 'package:ecommerce/core/helpers/shared_pref.dart';
+import 'package:ecommerce/core/helpers/shared_pref_keys.dart';
+import 'package:ecommerce/core/theming/app_colors.dart';
+import 'package:ecommerce/core/theming/styles.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/features/user/chat/manager/chat_cubit.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../../core/components/app_bar.dart';
 import '../../core/service/socket_service.dart';
 import '../../model/message_req.dart';
+
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
 
@@ -13,14 +21,13 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final SocketService _socketService = SocketService();
   late final ChatCubit chatCubit;
-  final List<MessageModel> messages = [];
 
   @override
   void initState() {
     super.initState();
     _socketService.initSocket();
     chatCubit = ChatCubit(_socketService);
-    chatCubit.fetchMessages(); // Fetch messages on screen init
+    chatCubit.fetchMessages();
   }
 
   @override
@@ -30,48 +37,76 @@ class _ChatScreenState extends State<ChatScreen> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Chat'),
-      ),
+      backgroundColor: AppColors.primary.withOpacity(0.1),
       body: Column(
         children: [
+          DefaultAppBar(
+            text: SharedPref.getString(key: MySharedKeys.userName).toString(),
+            cartIcon: false,
+            backArrow: true,
+          ),
           Expanded(
             child: ListView.builder(
-              itemCount: messages.length,
+              itemCount: chatCubit.messages.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(messages[index].message),
+                return Container(
+                  margin: EdgeInsets.all(8.sp),
+                  padding: EdgeInsets.all(8.sp),
+                  decoration: BoxDecoration(
+                    color: SharedPref.getString(key: MySharedKeys.userId)
+                                .toString() ==
+                            chatCubit.messages[index].userId
+                        ? AppColors.primary
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.circular(8.r),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(chatCubit.messages[index].message),
+                      Text(
+                        chatCubit.messages[index].createdAt.split(" ").first,
+                        style: TextStyles.font14grayRegular,
+                      ),
+                    ],
+                  ),
                 );
               },
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.sp),
             child: Row(
               children: [
                 Expanded(
-                  child: TextField(
+                  child: AppTextFormField(
                     controller: chatCubit.messageController,
-                    decoration: const InputDecoration(
-                        hintText: 'Enter message'),
+                    hintText: 'Enter message',
+                    keyboardType: TextInputType.multiline,
+                    isFilled: true,
+                    backgroundColor: AppColors.primaryLight,
+                    maxLines: 100,
+                    contentPadding: EdgeInsets.all(10.sp),
+                    borderRadius: BorderRadius.circular(30.r),
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.send),
-                  onPressed: () {
-                    chatCubit.postMessage(
-                      message: MessageReq(
-                        message: chatCubit.messageController.text,
-                        id: "1", // Adjust ID as necessary
-                      ),
-                    );
-                    chatCubit.messageController.clear();
-                  },
-                ),
+                    icon: const Icon(CupertinoIcons.paperplane),
+                    onPressed: () {
+                      if (chatCubit.messageController.text.isNotEmpty) {
+                        chatCubit.postMessage(
+                          message: MessageReq(
+                            message: chatCubit.messageController.text,
+                            id: SharedPref.getString(key: MySharedKeys.userId)
+                                .toString(),
+                          ),
+                        );
+                        chatCubit.messageController.clear();
+                      }
+                    }),
               ],
             ),
           ),

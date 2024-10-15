@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../../core/forms/user_data_form_validators.dart';
+import '../../data/models/register_model.dart';
 import '../../domain/entity/register_request_entity.dart';
 import '../../domain/usecases/register_usecase.dart';
 part 'register_state.dart';
@@ -22,10 +23,9 @@ class RegisterCubit extends Cubit<RegisterState> {
       password: userDataFormValidators.passwordController.text,
     ));
     if(response.status == true){
-      emit(RegisterSuccessState());
+      emit(RegisterSuccessState(response));
     }else {
-      emit(RegisterErrorState( response.toString()
-      ));
+      emit(RegisterErrorState(response.message.toString()));
     }
 
   }

@@ -3,9 +3,11 @@ enum MySharedKeys {
   onBoarding,
   currentLanguage,
   firstOpen,
-  name,
   picture,
   email,
   phone,
-  gender, isDarkMode, userId, userName,
+  gender,
+  isDarkMode,
+  userId,
+  userName,
 }

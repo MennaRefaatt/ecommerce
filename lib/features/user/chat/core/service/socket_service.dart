@@ -1,4 +1,5 @@
 import 'package:ecommerce/core/helpers/safe_print.dart';
+import 'package:ecommerce/features/user/chat/core/service/socket_constants.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class SocketService {
@@ -6,7 +7,7 @@ class SocketService {
 
   void initSocket() {
     // Establish a connection
-    socket = IO.io('http://localhost:3000', <String, dynamic>{
+    socket = IO.io(SocketConstants.socketUrl, <String, dynamic>{
       'transports': ['websocket'],
     });
 

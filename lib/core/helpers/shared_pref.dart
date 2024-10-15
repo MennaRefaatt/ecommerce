@@ -16,7 +16,8 @@ class SharedPref {
   }
 
   static Future<void> clearUserData() async {
-    await putString(key: MySharedKeys.name, value: "");
+    await putString(key: MySharedKeys.userId, value: "");
+    await putString(key: MySharedKeys.userName, value: "");
     await putString(key: MySharedKeys.picture, value: "");
     await putString(key: MySharedKeys.email, value: "");
     await putString(key: MySharedKeys.phone, value: "");
@@ -57,7 +58,7 @@ class SharedPref {
   }
 
   static String? getString({required MySharedKeys key}) {
-    return _preferences?.getString(key.name) ?? "Guest";
+    return _preferences?.getString(key.name) ?? "";
   }
 
   static String getCurrentLanguage() {
