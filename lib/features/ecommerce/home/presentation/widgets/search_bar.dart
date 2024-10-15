@@ -10,7 +10,7 @@ import '../../../../../generated/l10n.dart';
 import '../../../search/presentation/manager/search_cubit.dart';
 
 class SearchBarr extends StatelessWidget {
-  SearchBarr({
+  const SearchBarr({
     super.key,
     required this.searchCubit,
   });
@@ -44,6 +44,7 @@ class SearchBarr extends StatelessWidget {
                     },
                     child: AppTextFormField(
                       enable: false,
+                      contentPadding: EdgeInsets.all(10.sp),
                       borderRadius: BorderRadius.circular(30.r),
                       backgroundColor: Colors.white,
                       isFilled: true,
