@@ -154,6 +154,6 @@
   "deliveryAddress": "Delivery Address ",
   "shipmentDetails": "Shipment Details",
   "productsYouMightLike": "Products You Might Like",
-  "noOrdersFound": "No Orders Found"
-
+  "noOrdersFound": "No Orders Found",
+  "chats": "Chats"
 }

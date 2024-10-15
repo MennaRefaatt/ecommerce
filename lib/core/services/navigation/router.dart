@@ -1,6 +1,7 @@
 import 'package:ecommerce/features/authentication/register/presentation/screen/register_screen.dart';
 import 'package:ecommerce/features/ecommerce/search/presentation/screen/search_screen.dart';
 import 'package:ecommerce/features/test.dart';
+import 'package:ecommerce/features/user/chat/presentation/screen/chat_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../../../features/authentication/login/presentation/screen/login_screen.dart';
@@ -17,6 +18,10 @@ class AppModule extends Module {
     r.child(
       AppEndpoints.login,
       child: (context) => LoginScreen(),
+    );
+    r.child(
+      AppEndpoints.chatScreen,
+      child: (context) => const ChatScreen(),
     );
     r.child(
       AppEndpoints.splash,

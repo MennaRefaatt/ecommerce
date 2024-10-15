@@ -20,6 +20,7 @@ class LoginRepoImpl implements LoginRepoBase {
     final response = await remoteDataSource.login(loginRequestEntity);
     if (response.status == true) {
        await localDataSource.cacheUserToken(response.data!.token!);
+       await localDataSource.saveDataToLocal(loginData: response.data!);
       return response;
     } else {
       return response;

@@ -34,7 +34,7 @@ class DSLoginLocalImpl implements DSLoginLocal {
   @override
   Future<LoginSuccessResponse> getCachedUser() async {
    SharedPref.getString(key: MySharedKeys.phone);
-   SharedPref.getString(key: MySharedKeys.name);
+   SharedPref.getString(key: MySharedKeys.userName);
    SharedPref.getString(key: MySharedKeys.email);
    SharedPref.getString(key: MySharedKeys.gender);
    SecureStorageService.readData(SecureKeys.token);
@@ -44,9 +44,10 @@ class DSLoginLocalImpl implements DSLoginLocal {
   @override
   Future<void> saveDataToLocal({required LoginData loginData}) async {
     SharedPref.putString(key: MySharedKeys.email, value: loginData.email);
-    SharedPref.putString(key: MySharedKeys.name, value: loginData.name);
-    SharedPref.putString(key: MySharedKeys.userId, value: loginData.id.toString());
+    SharedPref.putString(key: MySharedKeys.userId, value: loginData.userId.toString());
     SharedPref.putString(key: MySharedKeys.userName, value: loginData.name);
     SharedPref.putString(key: MySharedKeys.phone, value: loginData.phone);
+    await SecureStorageService.writeData(SecureKeys.token, loginData.token!);
+
   }
 }

@@ -18,6 +18,7 @@ class AppEndpoints {
   static const suggestedProductsScreen = '/suggestedProductsScreen';
   static const categoryDetailsScreen = '/categoryDetailsScreen';
   static const cartScreen = '/cartScreen';
+  static const chatScreen = '/chatScreen';
   static const settingsScreen = '/settingsScreen';
   static const ordersScreen = '/ordersScreen';
   static const addressScreen = '/addressScreen';

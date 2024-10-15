@@ -4,6 +4,7 @@ import 'package:ecommerce/features/authentication/login/data/data_source/ds_logi
 import 'package:ecommerce/features/authentication/login/data/repos_impl/login_repo.dart';
 import 'package:ecommerce/features/authentication/login/domain/repo_base/login_repo_base.dart';
 import 'package:ecommerce/features/authentication/login/domain/usecases/login_usecase.dart';
+import 'package:ecommerce/features/authentication/register/data/data_source/ds_register_local.dart';
 import 'package:ecommerce/features/authentication/register/data/data_source/ds_register_remote.dart';
 import 'package:ecommerce/features/authentication/register/data/repo_impl/repo_register_impl.dart';
 import 'package:ecommerce/features/authentication/register/domain/repo_base/repo_base.dart';
@@ -40,8 +41,10 @@ Future<void> init() async {
       () => RegisterUseCase(registerRepo: sl<RegisterRepoBase>()));
   sl.registerLazySingleton<DSRegisterRemote>(() => DSRegisterRemoteImpl());
   sl.registerLazySingleton<RegisterRepoBase>(
-    () => RegisterRepoImpl(remoteDataSource: sl()),
+    () => RegisterRepoImpl(remoteDataSource: sl(), localDataSource: sl()),
   );
+  sl.registerLazySingleton<DSRegisterLocal>(() => DSRegisterLocalImpl());
+
 
   // Home
   sl.registerLazySingleton<HomeRepoBase>(

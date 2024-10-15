@@ -20,8 +20,8 @@ Map<String, dynamic> _$SearchModelToJson(SearchModel instance) =>
     };
 
 SearchData _$SearchDataFromJson(Map<String, dynamic> json) => SearchData(
-      searchDataList: (json['data'] as List<dynamic>)
-          .map((e) => SearchDataList.fromJson(e as Map<String, dynamic>))
+      searchDataList: (json['data'] as List<dynamic>?)
+          ?.map((e) => SearchDataList.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
