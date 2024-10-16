@@ -10,7 +10,6 @@ import '../model/message.dart';
 import '../model/message_req.dart';
 part 'chat_state.dart';
 
-
 class ChatCubit extends Cubit<ChatState> {
   final SocketService _socketService;
   List<MessageModel> messages = [];
@@ -61,19 +60,18 @@ class ChatCubit extends Cubit<ChatState> {
         SocketConstants.chatBaseUrl + SocketConstants.chatMessageEndpoint,
         data: message.toJson(),
       );
-
+      safePrint(response);
       if (response.statusCode == 201) {
-        _socketService.socket.emit('chat message', newMessage.toJson());
-        messages.add(newMessage);
-        safePrint('messages: $messages');
+        // Emit the message using the socket
+        _socketService.sendMessage(newMessage.toJson());
+        safePrint('Message sent: $newMessage');
+
         emit(ChatMessagesLoaded(List.from(messages)));
       } else {
         emit(ChatError('Failed to send message'));
-        safePrint('messages: $messages');
       }
     } catch (e) {
       emit(ChatError('Error sending message: $e'));
-      safePrint('messages: $messages');
     }
   }
 }
