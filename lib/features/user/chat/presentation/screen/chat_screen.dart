@@ -12,6 +12,7 @@ import 'package:intl/intl.dart';
 import '../../../../../core/components/app_bar.dart';
 import '../../core/service/socket_service.dart';
 import '../../model/message_req.dart';
+
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
 
@@ -71,7 +72,6 @@ class _ChatScreenState extends State<ChatScreen> {
                 if (snapshot.hasData && snapshot.data is ChatMessagesLoaded) {
                   final chatState = snapshot.data as ChatMessagesLoaded;
                   final messages = chatState.messages;
-
                   return ListView.builder(
                     controller: _scrollController,
                     itemCount: messages.length,
@@ -82,7 +82,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                   .toString() ==
                               message.userId;
 
-                      DateTime messageTime = DateTime.parse(message.createdAt);
+                      DateTime messageTime =
+                          DateTime.parse(message.createdAt);
                       String formattedTime =
                           DateFormat.jm().format(messageTime);
 
@@ -137,11 +138,14 @@ class _ChatScreenState extends State<ChatScreen> {
                       );
                     },
                   );
-                } else {
-                  return const Center(child: CircularProgressIndicator(
+                }
+                if (snapshot.data is ChatLoading) {
+                  return const Center(
+                      child: CircularProgressIndicator(
                     color: AppColors.primary,
                   ));
                 }
+                return const Center(child: Text("No Messages"));
               },
             ),
           ),
@@ -154,7 +158,7 @@ class _ChatScreenState extends State<ChatScreen> {
               children: [
                 Flexible(
                   child: AppTextFormField(
-                    borderColor:Colors.transparent,
+                    borderColor: Colors.transparent,
                     controller: chatCubit.messageController,
                     hintText: 'Enter message',
                     keyboardType: TextInputType.multiline,
@@ -174,7 +178,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   icon: const Icon(CupertinoIcons.paperplane),
                   onPressed: () {
                     DateTime now = DateTime.now(); // Get current time
-                    String formattedTime = DateFormat('yyyy-MM-ddTHH:mm:ss').format(now); // Format the date as ISO string
+                    String formattedTime = DateFormat('yyyy-MM-ddTHH:mm:ss')
+                        .format(now); // Format the date as ISO string
                     String trimmedMessage =
                         chatCubit.messageController.text.trim();
                     if (chatCubit.messageController.text.isNotEmpty &&
@@ -184,8 +189,8 @@ class _ChatScreenState extends State<ChatScreen> {
                           message: trimmedMessage,
                           id: SharedPref.getString(key: MySharedKeys.userId)
                               .toString(),
-                          createdAt: formattedTime, // Include the current timestamp
-
+                          createdAt:
+                              formattedTime, // Include the current timestamp
                         ),
                       );
                       chatCubit.messageController.clear();

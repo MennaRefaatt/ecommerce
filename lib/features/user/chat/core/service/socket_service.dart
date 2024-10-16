@@ -6,16 +6,16 @@ class SocketService {
   late IO.Socket socket;
 
   void initSocket() {
-    // Establish a connection
     socket = IO.io(SocketConstants.socketUrl, <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': true,
+      'reconnection': true, // Enable reconnection
+      'reconnectionAttempts': 5, // Try to reconnect 5 times
     });
 
     // Listen for the 'chat message' event
     socket.on('chat message', (data) {
       safePrint('New message: $data');
-      // You can update your UI or message list here
     });
 
     socket.onConnect((_) {
