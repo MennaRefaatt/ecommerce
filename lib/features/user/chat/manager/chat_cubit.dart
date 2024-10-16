@@ -10,6 +10,7 @@ import '../model/message.dart';
 import '../model/message_req.dart';
 part 'chat_state.dart';
 
+
 class ChatCubit extends Cubit<ChatState> {
   final SocketService _socketService;
   List<MessageModel> messages = [];
