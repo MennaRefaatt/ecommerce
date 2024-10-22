@@ -3,6 +3,7 @@ import 'package:ecommerce/features/ecommerce/home/presentation/widgets/home_prod
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../favorite/presentation/manager/favourite_cubit.dart';
 import '../../manager/home_cubit.dart';
 
 class HomeProductsBlocBuilder extends StatelessWidget {
@@ -17,7 +18,7 @@ class HomeProductsBlocBuilder extends StatelessWidget {
             return const HomeProductsShimmer();
           }
           if (state is HomeSuccess) {
-            return HomeProductsListView(products: state.homeEntity.data.products);
+            return HomeProductsListView(products: state.homeEntity.data.products, favoriteCubit: context.read<FavouriteCubit>(),);
           }
           if (state is HomeFailure) {
             return Center(
