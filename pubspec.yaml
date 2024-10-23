@@ -164,6 +164,14 @@ dependencies:
   cupertino_icons: ^1.0.8
   blurrycontainer: ^2.1.0
 
+  # --------------------------------------
+  # Geolocation
+  # --------------------------------------
+  geocoding: ^3.0.0
+  google_maps_flutter: ^2.9.0
+  geolocator: ^13.0.1
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

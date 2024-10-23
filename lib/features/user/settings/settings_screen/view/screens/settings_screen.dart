@@ -94,6 +94,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             Modular.to.pushNamed(AppEndpoints.fAQsScreen),
                       ),
                       verticalSpacing(20.h),
+                      inkWell(
+                        icon: Icons.help_outline_outlined,
+                        text: S().fAQs,
+                        context: context,
+                        onTap: () =>
+                            Modular.to.pushNamed(AppEndpoints.mapsLocation),
+                      ),
+
                     ],
                   ),
                 ),

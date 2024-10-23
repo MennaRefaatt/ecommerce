@@ -1,6 +1,7 @@
 import 'package:ecommerce/features/authentication/register/presentation/screen/register_screen.dart';
 import 'package:ecommerce/features/ecommerce/favorite/presentation/screens/favorite_screen.dart';
 import 'package:ecommerce/features/ecommerce/home/presentation/screen/home_screen.dart';
+import 'package:ecommerce/features/ecommerce/maps/presentation/screen/map_screen.dart';
 import 'package:ecommerce/features/ecommerce/search/presentation/screen/search_screen.dart';
 import 'package:ecommerce/features/test.dart';
 import 'package:ecommerce/features/user/chat/presentation/screen/chat_screen.dart';
@@ -32,6 +33,10 @@ class AppModule extends Module {
     r.child(
       AppEndpoints.chatScreen,
       child: (context) => const ChatScreen(),
+    );
+    r.child(
+      AppEndpoints.mapsLocation,
+      child: (context) => const MapScreen(),
     );
     r.child(
       AppEndpoints.splash,
