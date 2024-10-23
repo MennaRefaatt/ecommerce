@@ -22,11 +22,11 @@ class AppBottomNavBar extends StatelessWidget {
           if (index == 1) {
             Modular.to.navigate(AppEndpoints.ordersScreen);
           }
-          if (index == 3) {
-            Modular.to.navigate(AppEndpoints.settingsScreen);
-          }
           if (index == 2) {
             Modular.to.navigate(AppEndpoints.favoriteScreen);
+          }
+          if (index == 3) {
+            Modular.to.navigate(AppEndpoints.settingsScreen);
           }
         },
         currentIndex: index,
@@ -44,9 +44,13 @@ class AppBottomNavBar extends StatelessWidget {
             label: "Favorite",
           ),
           BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.heart), label: "Favorite"),
+            icon: Icon(CupertinoIcons.heart),
+            label: "Favorite",
+          ),
           BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.settings), label: "Profile"),
+            icon: Icon(CupertinoIcons.settings),
+            label: "Profile",
+          ),
         ]);
   }
 }

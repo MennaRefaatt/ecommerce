@@ -1,8 +1,10 @@
+import 'package:ecommerce/core/helpers/safe_print.dart';
 import '../../domain/home_entity/home_entity.dart';
 import '../models/home_model.dart';
 
 class HomeMapper {
   static HomeEntity mapToEntity(HomeModel model) {
+    safePrint("Fetched Products: ${model.data?.products}");
     return HomeEntity(
       status: model.status ?? false,
       data: model.data != null

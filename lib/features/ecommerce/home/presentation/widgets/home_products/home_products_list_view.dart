@@ -4,18 +4,19 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../core/services/navigation/app_endpoints.dart';
-import '../../../../../../core/theming/app_colors.dart';
 import '../../../../../../generated/l10n.dart';
+import '../../../../favorite/presentation/manager/favourite_cubit.dart';
+import '../../../../suggested_products/suggested_products_args.dart';
 import '../../../domain/home_entity/home_entity.dart';
-
 
 class HomeProductsListView extends StatefulWidget {
   const HomeProductsListView({
     super.key,
     required this.products,
+    required this.favoriteCubit,
   });
   final List<ProductEntity> products;
-  //final FavouriteCubit favoriteCubit;
+  final FavouriteCubit favoriteCubit;
   @override
   State<HomeProductsListView> createState() => _HomeProductsListViewState();
 }
@@ -39,17 +40,16 @@ class _HomeProductsListViewState extends State<HomeProductsListView> {
               ),
               InkWell(
                 onTap: () => Modular.to.pushNamed(
-                  AppEndpoints.suggestedProductsScreen,
-                  // arguments:
-                  //     SuggestedProductsArgs(products: widget.products)
-                ),
+                    AppEndpoints.suggestedProductsScreen,
+                    arguments:
+                        SuggestedProductsArgs(products: widget.products)),
                 borderRadius: BorderRadius.circular(20.sp),
                 child: Text(
                   S().seeAll,
                   style: TextStyle(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w800,
-                     ),
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
             ],
@@ -69,7 +69,7 @@ class _HomeProductsListViewState extends State<HomeProductsListView> {
                     inFavorites: widget.products[index].isFav,
                     oldPrice: widget.products[index].oldPrice.toString(),
                     discount: widget.products[index].discount.toString(),
-                    //favoriteCubit: widget.favoriteCubit,
+                    favoriteCubit: widget.favoriteCubit,
                   );
                 }),
           ),
