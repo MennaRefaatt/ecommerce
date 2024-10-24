@@ -49,8 +49,8 @@ HomeProducts _$HomeProductsFromJson(Map<String, dynamic> json) => HomeProducts(
       image: json['image'] as String?,
       name: json['name'] as String?,
       isFav: json['in_favorites'] as bool?,
-      oldPrice: (json['old_price'] as num?)?.toDouble(),
-      discount: (json['discount'] as num?)?.toDouble(),
+      oldPrice: (json['old_price'] as num?)?.toInt(),
+      discount: (json['discount'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$HomeProductsToJson(HomeProducts instance) =>

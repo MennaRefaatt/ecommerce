@@ -84,8 +84,9 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                     style:
                         TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w800),
                   ),
-                  widget.discount != "" && widget.discount != "0.0"
+                  widget.discount != "" && widget.discount != "0"
                       ? Container(
+                    margin: EdgeInsets.all(8.sp),
                           padding: EdgeInsets.symmetric(
                               horizontal: 10.sp, vertical: 3.sp),
                           decoration: BoxDecoration(

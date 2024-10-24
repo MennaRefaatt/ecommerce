@@ -4,7 +4,7 @@ import '../models/home_model.dart';
 
 class HomeMapper {
   static HomeEntity mapToEntity(HomeModel model) {
-    safePrint("Fetched Products: ${model.data?.products}");
+    safePrint("Fetched Products: ${model.data?.products.length??0}");
     return HomeEntity(
       status: model.status ?? false,
       data: model.data != null
@@ -30,13 +30,13 @@ class HomeMapper {
 
   static ProductEntity mapToProductEntity(HomeProducts product) {
     return ProductEntity(
-      discount: product.discount ?? 0.0,
+      discount: product.discount ?? 0,
       id: product.id ?? 0,
       image: product.image ?? '',
       name: product.name ?? '',
-      price: product.price?.toDouble() ?? 0.0,
+      price: product.price ?? 0,
       isFav: product.isFav ?? false,
-      oldPrice: product.oldPrice ?? 0.0,
+      oldPrice: product.oldPrice ?? 0,
     );
   }
 }
