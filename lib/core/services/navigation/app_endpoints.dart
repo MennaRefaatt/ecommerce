@@ -26,5 +26,6 @@ class AppEndpoints {
   static const confirmOrderScreen = '/confirmOrderScreen';
   static const orderDetailsScreen = '/orderDetailsScreen';
   static const orderPlacedScreen = '/orderPlacedScreen';
+  static const mapsLocation = '/mapsLocation';
 
 }

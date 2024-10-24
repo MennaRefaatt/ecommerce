@@ -1,6 +1,7 @@
 import 'package:ecommerce/features/authentication/register/presentation/screen/register_screen.dart';
 import 'package:ecommerce/features/ecommerce/favorite/presentation/screens/favorite_screen.dart';
 import 'package:ecommerce/features/ecommerce/home/presentation/screen/home_screen.dart';
+import 'package:ecommerce/features/ecommerce/maps/presentation/screen/map_screen.dart';
 import 'package:ecommerce/features/ecommerce/search/presentation/screen/search_screen.dart';
 import 'package:ecommerce/features/test.dart';
 import 'package:ecommerce/features/user/chat/presentation/screen/chat_screen.dart';
@@ -13,10 +14,13 @@ import 'package:ecommerce/features/user/settings/profile_screen/view/screens/upd
 import 'package:ecommerce/features/user/settings/settings_screen/view/screens/settings_screen.dart';
 import 'package:ecommerce/features/user/settings/terms_and_conditions_screen/view/screens/terms_and_conditions_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../../../features/authentication/login/presentation/screen/login_screen.dart';
+import '../../../features/ecommerce/maps/presentation/manager/location_cubit.dart';
 import '../../../features/ecommerce/suggested_products/presentation/screen/suggested_products_screen.dart';
 import '../../../features/ecommerce/suggested_products/suggested_products_args.dart';
+import '../../di/di.dart';
 import 'app_endpoints.dart';
 
 class AppModule extends Module {
@@ -32,6 +36,12 @@ class AppModule extends Module {
     r.child(
       AppEndpoints.chatScreen,
       child: (context) => const ChatScreen(),
+    );
+    r.child(
+      AppEndpoints.mapsLocation,
+      child: (context) {
+        return BlocProvider(create: (context) => LocationCubit(sl()), child: const MapScreen());
+      },
     );
     r.child(
       AppEndpoints.splash,

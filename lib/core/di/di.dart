@@ -14,6 +14,11 @@ import '../../features/ecommerce/home/data/data_source/ds_home_remote.dart';
 import '../../features/ecommerce/home/data/repo_impl/home_repo_impl.dart';
 import '../../features/ecommerce/home/domain/repo_base/home_repo_base.dart';
 import '../../features/ecommerce/home/domain/usecases/home_usecase.dart';
+import '../../features/ecommerce/maps/data/data_source/data_source.dart';
+import '../../features/ecommerce/maps/data/repo_impl/repo_impl.dart';
+import '../../features/ecommerce/maps/domain/repo_base/repo_base.dart';
+import '../../features/ecommerce/maps/domain/use_case/location_use_case.dart';
+import '../../features/ecommerce/maps/presentation/manager/location_cubit.dart';
 import '../../features/ecommerce/search/data/data_source/ds_search_remote.dart';
 import '../../features/ecommerce/search/data/repo_impl/search_repo_impl.dart';
 import '../../features/ecommerce/search/domain/repo_base/search_repo_base.dart';
@@ -58,4 +63,12 @@ Future<void> init() async {
   sl.registerLazySingleton<SearchRepoBase>(
       () => SearchRepoImpl(dsSearchRemote: sl()));
   sl.registerLazySingleton<DSSearchRemote>(() => DSSearchRemoteImpl());
+
+  //maps
+  sl.registerLazySingleton(
+          () => GetUserLocationUseCase(sl<LocationRepository>()));
+  sl.registerLazySingleton<LocationRepository>(
+          () => LocationRepositoryImpl( sl()));
+  sl.registerLazySingleton<GeolocationDataSource>(() => GeolocationDataSourceImpl());
+
 }
