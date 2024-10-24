@@ -14,26 +14,27 @@ class DSFavouriteRemoteImpl extends DSFavouriteRemote {
   DSFavouriteRemoteImpl();
 
   @override
-  Future<FavouriteModel> getFavouriteData() {
+  Future<FavouriteModel> getFavouriteData() async {
     try {
-      final response = ApiService.getData(endPoint: EndPoints.favorites);
+      final response = await ApiService.getData(endPoint: EndPoints.favorites);
       safePrint(response);
-      final FavouriteModel favouriteModel = FavouriteModel.fromJson(response as Map<String, dynamic>);
-      return favouriteModel as Future<FavouriteModel>;
+      final FavouriteModel favouriteModel = FavouriteModel.fromJson(response);
+      return favouriteModel;
     } on ServerException catch (e) {
       throw ServerException(message: e.message);
     }
   }
 
   @override
-  Future<FavouriteModel> toggleFavourite({required int productId}) {
-   try{
-     final response = ApiService.postData(endPoint: EndPoints.favorites, data: {'product_id': productId});
-     safePrint(response);
-     final FavouriteModel favouriteModel = FavouriteModel.fromJson(response as Map<String, dynamic>);
-     return favouriteModel as Future<FavouriteModel>;
-   } on ServerException catch (e) {
-     throw ServerException(message: e.message);
-   }
+  Future<FavouriteModel> toggleFavourite({required int productId}) async {
+    try {
+      final response = await ApiService.postData(
+          endPoint: EndPoints.favorites, data: {'product_id': productId});
+      safePrint(response);
+      final FavouriteModel favouriteModel = FavouriteModel.fromJson(response);
+      return favouriteModel;
+    } on ServerException catch (e) {
+      throw ServerException(message: e.message);
+    }
   }
 }

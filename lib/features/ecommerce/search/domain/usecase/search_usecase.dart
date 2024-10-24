@@ -1,4 +1,4 @@
-import '../../../home/data/models/search_model/search_model.dart';
+import '../../data/models/search_model.dart';
 import '../entity/search_param.dart';
 import '../repo_base/search_repo_base.dart';
 

@@ -3,7 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:ecommerce/core/helpers/safe_print.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import '../../../home/data/models/search_model/search_model.dart';
+import '../../data/models/search_model.dart';
 import '../../domain/entity/search_param.dart';
 import '../../domain/usecase/search_usecase.dart';
 part 'search_state.dart';

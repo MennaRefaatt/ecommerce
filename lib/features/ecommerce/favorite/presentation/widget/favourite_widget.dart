@@ -37,12 +37,12 @@ class _FavouriteWidgetState extends State<FavouriteWidget> {
 
                 return ProductItemWidget(
                   //TODO:   widget.data.data.removeAt(index);
-                  price: widget.data.data![index].product.price,
+                  price: widget.data.data![index].product.price.toString(),
                   name: widget.data.data![index].product.name,
                   image: widget.data.data![index].product.image,
                   id: widget.data.data![index].product.id,
                   inFavorites: widget.inFavorites,
-                  oldPrice: widget.data.data![index].product.oldPrice,
+                  oldPrice: widget.data.data![index].product.oldPrice.toString(),
                   discount: widget.data.data![index].product.discount.toString(),
                   favoriteCubit: widget.favouriteCubit,
                 );

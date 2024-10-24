@@ -1,7 +1,7 @@
 import 'package:ecommerce/core/components/app_bottom_nav_bar.dart';
+import 'package:ecommerce/features/ecommerce/favorite/presentation/manager/favourite_cubit.dart';
 import 'package:ecommerce/features/ecommerce/home/presentation/widgets/home_carousel_slider/slider_bloc_builder.dart';
 import 'package:ecommerce/features/ecommerce/home/presentation/widgets/home_products/home_products_bloc_builder.dart';
-import 'package:ecommerce/features/ecommerce/home/presentation/widgets/home_products/home_products_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,7 +22,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final cubit = HomeCubit(sl());
   // final categoryCubit = CategoriesCubit();
-  final favoriteCubit = ();
+  final favoriteCubit = FavouriteCubit(sl());
   final searchCubit = SearchCubit(sl());
   @override
   Widget build(BuildContext context) {
@@ -31,11 +31,10 @@ class _HomeScreenState extends State<HomeScreen> {
         BlocProvider(
           create: (context) => cubit..getHomeData(),
         ),
-
         // BlocProvider(
         //   create: (context) => categoryCubit..getCategoriesData(),
         // ),
-        // BlocProvider(create: (context) => favoriteCubit),
+        BlocProvider(create: (context) => favoriteCubit),
         BlocProvider(create: (context) => searchCubit),
       ],
       child: Scaffold(

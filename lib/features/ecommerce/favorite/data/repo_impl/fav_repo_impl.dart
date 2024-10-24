@@ -1,18 +1,17 @@
 import 'package:ecommerce/core/helpers/safe_print.dart';
 import 'package:ecommerce/features/ecommerce/favorite/data/model/favourite_model.dart';
-
 import '../../domain/repo_base/fav_repo_base.dart';
+import '../data_source/ds_favourite_remote.dart';
 
-class FavRepoImpl implements DSFavouriteRemote {
+class FavRepoImpl implements FavRepoBase {
 final DSFavouriteRemote dsFavouriteRemote;
   FavRepoImpl({required this.dsFavouriteRemote});
   @override
-  Future<FavouriteModel> getFavouriteData() async{
+  Future<FavouriteModel> getFavouriteData() async {
     final response = await dsFavouriteRemote.getFavouriteData();
     safePrint(response);
     if (response.status == true) {
-      FavouriteModel favouriteModel = FavouriteModel.fromJson(response as Map<String, dynamic>);
-      return favouriteModel as Future<FavouriteModel>;
+      return response;
     }else{
       return response;
     }
@@ -23,8 +22,7 @@ final DSFavouriteRemote dsFavouriteRemote;
     final response = await dsFavouriteRemote.toggleFavourite(productId: productId);
     safePrint(response);
     if (response.status == true) {
-      FavouriteModel favouriteModel = FavouriteModel.fromJson(response as Map<String, dynamic>);
-      return favouriteModel as Future<FavouriteModel>;
+      return response;
     }else{
       return response;
     }
