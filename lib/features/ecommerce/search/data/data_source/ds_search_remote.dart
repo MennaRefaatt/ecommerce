@@ -1,9 +1,9 @@
-import 'package:ecommerce/features/ecommerce/home/data/models/search_model/search_model.dart';
 import 'package:ecommerce/features/ecommerce/search/domain/entity/search_param.dart';
 import '../../../../../core/helpers/safe_print.dart';
 import '../../../../../core/services/network/api_constants.dart';
 import '../../../../../core/services/network/api_exceptions.dart';
 import '../../../../../core/services/network/api_service.dart';
+import '../models/search_model.dart';
 
 abstract class DSSearchRemote {
   Future<SearchModel> searchData(SearchParam searchParam);

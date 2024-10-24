@@ -52,8 +52,8 @@ class FavouriteDataList {
 class FavouriteProduct {
   final int id;
   final String name;
-  final String price;
-  final String oldPrice;
+  final int price;
+  final int oldPrice;
   final int discount;
   final String image;
 
