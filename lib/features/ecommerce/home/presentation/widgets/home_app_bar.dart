@@ -13,7 +13,7 @@ import '../../../../../core/theming/theming_manager.dart';
 import '../../../../../generated/l10n.dart';
 
 class HomeAppbar extends StatelessWidget {
-  HomeAppbar({super.key});
+  const HomeAppbar({super.key});
   //final ThemeManager _themeManager = ThemeManager();
   @override
   Widget build(BuildContext context) {

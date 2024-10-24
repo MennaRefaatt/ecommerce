@@ -11,6 +11,9 @@ import 'package:ecommerce/features/authentication/register/domain/repo_base/repo
 import 'package:ecommerce/features/authentication/register/domain/usecases/register_usecase.dart';
 import 'package:ecommerce/features/ecommerce/favorite/data/data_source/ds_favourite_remote.dart';
 import 'package:get_it/get_it.dart';
+import '../../features/ecommerce/cart/data/data_source/ds_cart_remote.dart';
+import '../../features/ecommerce/cart/data/repo_impl/cart_repo_impl.dart';
+import '../../features/ecommerce/cart/domain/repo_base/cart_repo_base.dart';
 import '../../features/ecommerce/favorite/data/repo_impl/fav_repo_impl.dart';
 import '../../features/ecommerce/favorite/domain/repo_base/fav_repo_base.dart';
 import '../../features/ecommerce/home/data/data_source/ds_home_remote.dart';
@@ -79,5 +82,11 @@ Future<void> init() async {
           () => FavRepoImpl( dsFavouriteRemote: sl()));
   sl.registerLazySingleton<DSFavouriteRemote>(() => DSFavouriteRemoteImpl());
   sl.registerLazySingleton(() => FavRepoImpl(dsFavouriteRemote:  sl<DSFavouriteRemote>()));
+
+  //cart
+  sl.registerLazySingleton<CartRepoBase>(
+          () => CartRepoImpl( sl()));
+  sl.registerLazySingleton<DSCartRemote>(() => DSCartRemoteImpl());
+  sl.registerLazySingleton(() => CartRepoImpl(  sl<DSCartRemote>()));
 
 }

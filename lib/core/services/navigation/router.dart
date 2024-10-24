@@ -1,4 +1,5 @@
 import 'package:ecommerce/features/authentication/register/presentation/screen/register_screen.dart';
+import 'package:ecommerce/features/ecommerce/cart/presentation/screens/cart_screen.dart';
 import 'package:ecommerce/features/ecommerce/favorite/presentation/manager/favourite_cubit.dart';
 import 'package:ecommerce/features/ecommerce/favorite/presentation/screens/favorite_screen.dart';
 import 'package:ecommerce/features/ecommerce/home/presentation/screen/home_screen.dart';
@@ -66,6 +67,10 @@ class AppModule extends Module {
     r.child(
       AppEndpoints.settingsScreen,
       child: (context) => const SettingsScreen(),
+    );
+    r.child(
+      AppEndpoints.cartScreen,
+      child: (context) =>  CartScreen(),
     );
     r.child(
       AppEndpoints.homeScreen,

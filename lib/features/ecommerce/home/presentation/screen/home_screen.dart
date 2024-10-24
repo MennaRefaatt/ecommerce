@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 verticalSpacing(20.h),
-                HomeAppbar(),
+                const HomeAppbar(),
                 SearchBarr(
                   searchCubit: searchCubit,
                 ),
