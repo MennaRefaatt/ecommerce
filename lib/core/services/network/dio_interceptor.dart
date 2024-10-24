@@ -32,7 +32,7 @@ class DioInterceptor extends Interceptor {
       safePrint("Token: $token");
 
       if (token != null && token.isNotEmpty) {
-        options.headers['Authorization'] = "$token";
+        options.headers['Authorization'] = token;
       }
     } catch (e) {
       safePrint("Failed to read token: $e");

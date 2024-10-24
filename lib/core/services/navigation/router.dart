@@ -20,6 +20,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../../../features/authentication/login/presentation/screen/login_screen.dart';
 import '../../../features/ecommerce/maps/presentation/manager/location_cubit.dart';
+import '../../../features/ecommerce/product_details/presentation/screens/product_details_screen.dart';
+import '../../../features/ecommerce/product_details/product_details_args.dart';
 import '../../../features/ecommerce/suggested_products/presentation/screen/suggested_products_screen.dart';
 import '../../../features/ecommerce/suggested_products/suggested_products_args.dart';
 import '../../di/di.dart';
@@ -64,9 +66,17 @@ class AppModule extends Module {
         );
       },
     );
+
     r.child(
       AppEndpoints.settingsScreen,
       child: (context) => const SettingsScreen(),
+    );
+    r.child(
+      AppEndpoints.productDetailsScreen,
+      child: (context) {
+        final args = Modular.args.data as ProductDetailsArgs;
+        return  ProductDetailsScreen(args: args,);
+      },
     );
     r.child(
       AppEndpoints.cartScreen,

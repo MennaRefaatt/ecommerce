@@ -10,6 +10,7 @@ import 'package:ecommerce/features/authentication/register/data/repo_impl/repo_r
 import 'package:ecommerce/features/authentication/register/domain/repo_base/repo_base.dart';
 import 'package:ecommerce/features/authentication/register/domain/usecases/register_usecase.dart';
 import 'package:ecommerce/features/ecommerce/favorite/data/data_source/ds_favourite_remote.dart';
+import 'package:ecommerce/features/ecommerce/product_details/data/repo_impl/pdetails_repo_impl.dart';
 import 'package:get_it/get_it.dart';
 import '../../features/ecommerce/cart/data/data_source/ds_cart_remote.dart';
 import '../../features/ecommerce/cart/data/repo_impl/cart_repo_impl.dart';
@@ -24,6 +25,7 @@ import '../../features/ecommerce/maps/data/data_source/data_source.dart';
 import '../../features/ecommerce/maps/data/repo_impl/repo_impl.dart';
 import '../../features/ecommerce/maps/domain/repo_base/repo_base.dart';
 import '../../features/ecommerce/maps/domain/use_case/location_use_case.dart';
+import '../../features/ecommerce/product_details/data/data_source/ds_product_details_remote.dart';
 import '../../features/ecommerce/search/data/data_source/ds_search_remote.dart';
 import '../../features/ecommerce/search/data/repo_impl/search_repo_impl.dart';
 import '../../features/ecommerce/search/domain/repo_base/search_repo_base.dart';
@@ -88,5 +90,10 @@ Future<void> init() async {
           () => CartRepoImpl( sl()));
   sl.registerLazySingleton<DSCartRemote>(() => DSCartRemoteImpl());
   sl.registerLazySingleton(() => CartRepoImpl(  sl<DSCartRemote>()));
+
+  //product details
+  sl.registerLazySingleton<DSProductDetailsRemote>(
+          () => DSProductDetailsRemoteImpl());
+  sl.registerLazySingleton(() => PDetailsRepoImpl( dsProductDetailsRemote: sl<DSProductDetailsRemote>()));
 
 }

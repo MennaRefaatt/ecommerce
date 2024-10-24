@@ -1,10 +1,12 @@
 import 'package:ecommerce/core/components/app_network_image.dart';
+import 'package:ecommerce/core/helpers/safe_print.dart';
 import 'package:ecommerce/core/services/navigation/app_endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../features/ecommerce/favorite/presentation/manager/favourite_cubit.dart';
+import '../../features/ecommerce/product_details/product_details_args.dart';
 import '../helpers/spacing.dart';
 import '../theming/app_colors.dart';
 
@@ -50,10 +52,13 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
       },
       child: InkWell(
         borderRadius: BorderRadius.circular(20.r),
-        onTap: () => Modular.to.pushNamed(
+        onTap: () {
+          Modular.to.pushNamed(
           AppEndpoints.productDetailsScreen,
-          // arguments: ProductDetailsArgs(id: widget.id)
-        ),
+           arguments: ProductDetailsArgs(id: widget.id)
+        );
+          safePrint(widget.id);
+        },
         child: Container(
           width: 170.w,
           margin: EdgeInsets.all(10.sp),
