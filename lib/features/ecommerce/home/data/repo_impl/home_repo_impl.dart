@@ -15,6 +15,7 @@ class HomeRepoImpl implements HomeRepoBase {
     safePrint(response);
     if (response.status == true) {
       HomeEntity homeEntity = HomeMapper.mapToEntity(response);
+      safePrint(homeEntity.data.products);
       return homeEntity;
     } else {
       return HomeEntity(status: false, data: HomeDataEntity(products: [], banners: []));

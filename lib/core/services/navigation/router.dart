@@ -41,7 +41,8 @@ class AppModule extends Module {
     r.child(
       AppEndpoints.mapsLocation,
       child: (context) {
-        return BlocProvider(create: (context) => LocationCubit(sl()), child: const MapScreen());
+        return BlocProvider(
+            create: (context) => LocationCubit(sl()), child: const MapScreen());
       },
     );
     r.child(
@@ -55,8 +56,11 @@ class AppModule extends Module {
     r.child(
       AppEndpoints.suggestedProductsScreen,
       child: (context) {
-        final args = SuggestedProductsArgs(products: []);
-        return SuggestedProductsScreen(args:args);
+        final args = Modular.args.data as SuggestedProductsArgs;
+        return BlocProvider(
+          create: (context) => FavouriteCubit(sl())..getFavouriteData(),
+          child: SuggestedProductsScreen(args: args),
+        );
       },
     );
     r.child(
@@ -65,7 +69,7 @@ class AppModule extends Module {
     );
     r.child(
       AppEndpoints.homeScreen,
-      child: (context) =>  const HomeScreen(),
+      child: (context) => const HomeScreen(),
     );
 
     r.child(
@@ -100,7 +104,9 @@ class AppModule extends Module {
     r.child(
       AppEndpoints.favoriteScreen,
       child: (context) {
-        return BlocProvider(create: (context) =>FavouriteCubit(sl())..getFavouriteData(), child: const FavoriteScreen());
+        return BlocProvider(create: (context) =>
+        FavouriteCubit(sl())
+          ..getFavouriteData(), child: const FavoriteScreen());
       },
     );
 
@@ -116,10 +122,9 @@ class AppModule extends Module {
           );
         },
         transitionDuration:
-            const Duration(milliseconds: 500), // Customize duration
+        const Duration(milliseconds: 500), // Customize duration
       ),
     );
-
   }
 
   static void init() {}

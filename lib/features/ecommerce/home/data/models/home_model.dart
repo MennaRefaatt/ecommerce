@@ -51,8 +51,8 @@ class HomeProducts {
   @JsonKey(name: 'in_favorites')
   bool? isFav;
   @JsonKey(name: 'old_price')
-  double? oldPrice;
-  double? discount;
+  int? oldPrice;
+  int? discount;
 
   HomeProducts({
     required this.id,

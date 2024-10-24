@@ -1,4 +1,5 @@
 import 'package:ecommerce/core/components/product_item_widget.dart';
+import 'package:ecommerce/core/helpers/safe_print.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,10 +40,14 @@ class _HomeProductsListViewState extends State<HomeProductsListView> {
                 ),
               ),
               InkWell(
-                onTap: () => Modular.to.pushNamed(
+                onTap: () {
+                  Modular.to.pushNamed(
                     AppEndpoints.suggestedProductsScreen,
                     arguments:
-                        SuggestedProductsArgs(products: widget.products)),
+                        SuggestedProductsArgs(products: widget.products));
+                  safePrint(widget.products.length.toString());
+                  safePrint(SuggestedProductsArgs(products: widget.products).toString());
+                },
                 borderRadius: BorderRadius.circular(20.sp),
                 child: Text(
                   S().seeAll,

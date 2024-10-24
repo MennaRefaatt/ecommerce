@@ -22,10 +22,10 @@ class BannerEntity {
 class ProductEntity {
   final String image;
   final String name;
-  final double price;
+  final int price;
   final bool isFav;
-  final double oldPrice;
-  final double discount;
+  final int oldPrice;
+  final int discount;
   final int id;
   ProductEntity({
     required this.discount,
