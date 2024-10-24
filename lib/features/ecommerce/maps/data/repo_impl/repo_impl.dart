@@ -1,24 +1,21 @@
-import 'package:geocoding/geocoding.dart';
+import 'package:ecommerce/core/helpers/safe_print.dart';
 import 'package:geolocator/geolocator.dart';
-import '../../domain/entity/location_entity.dart';
 import '../../domain/repo_base/repo_base.dart';
+import '../data_source/data_source.dart';
 
 class LocationRepositoryImpl implements LocationRepository {
+  final GeolocationDataSource dataSource;
+
+  LocationRepositoryImpl(this.dataSource);
+
   @override
-  Future<LocationEntity> getCurrentLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-
-    List<Placemark> placeMarks = await placemarkFromCoordinates(
-        position.latitude, position.longitude);
-
-    Placemark place = placeMarks.first;
-    String address = '${place.street}, ${place.locality}, ${place.country}';
-
-    return LocationEntity(
-      latitude: position.latitude,
-      longitude: position.longitude,
-      address: address,
-    );
+  Future<Position> getCurrentLocation() {
+    final position = dataSource.getCurrentLocation();
+    try {
+      safePrint(position.toString());
+     return position;
+    } catch (e) {
+      return Future.error(e);
+    }
   }
 }

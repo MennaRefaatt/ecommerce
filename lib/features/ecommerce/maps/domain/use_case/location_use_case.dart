@@ -1,4 +1,4 @@
-import '../entity/location_entity.dart';
+import 'package:geolocator/geolocator.dart';
 import '../repo_base/repo_base.dart';
 
 class GetUserLocationUseCase {
@@ -6,7 +6,7 @@ class GetUserLocationUseCase {
 
   GetUserLocationUseCase(this.repository);
 
-  Future<LocationEntity> execute() async {
+  Future<Position> getCurrentLocation() async {
     return await repository.getCurrentLocation();
   }
 }

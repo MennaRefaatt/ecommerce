@@ -14,6 +14,7 @@ import '../../features/ecommerce/home/data/data_source/ds_home_remote.dart';
 import '../../features/ecommerce/home/data/repo_impl/home_repo_impl.dart';
 import '../../features/ecommerce/home/domain/repo_base/home_repo_base.dart';
 import '../../features/ecommerce/home/domain/usecases/home_usecase.dart';
+import '../../features/ecommerce/maps/data/data_source/data_source.dart';
 import '../../features/ecommerce/maps/data/repo_impl/repo_impl.dart';
 import '../../features/ecommerce/maps/domain/repo_base/repo_base.dart';
 import '../../features/ecommerce/maps/domain/use_case/location_use_case.dart';
@@ -64,9 +65,10 @@ Future<void> init() async {
   sl.registerLazySingleton<DSSearchRemote>(() => DSSearchRemoteImpl());
 
   //maps
-  sl.registerLazySingleton< LocationRepository>(() => LocationRepositoryImpl());
-  sl.registerFactory(() => LocationCubit( sl()));
   sl.registerLazySingleton(
-          () => GetUserLocationUseCase( sl<LocationRepositoryImpl>()));
+          () => GetUserLocationUseCase(sl<LocationRepository>()));
+  sl.registerLazySingleton<LocationRepository>(
+          () => LocationRepositoryImpl( sl()));
+  sl.registerLazySingleton<GeolocationDataSource>(() => GeolocationDataSourceImpl());
 
 }

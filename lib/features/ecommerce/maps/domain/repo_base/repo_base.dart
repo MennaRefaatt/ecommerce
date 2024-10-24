@@ -1,5 +1,5 @@
-import '../entity/location_entity.dart';
-
+import 'package:geolocator/geolocator.dart';
 abstract class LocationRepository {
-  Future<LocationEntity> getCurrentLocation();
+  Future<Position> getCurrentLocation();
+
 }
