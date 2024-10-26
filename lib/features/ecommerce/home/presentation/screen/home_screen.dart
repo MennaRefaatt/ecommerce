@@ -7,9 +7,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/di/di.dart';
 import '../../../../../core/helpers/spacing.dart';
+import '../../../categories/presentation/manager/categories_cubit.dart';
 import '../../../search/presentation/manager/search_cubit.dart';
 import '../manager/home_cubit.dart';
 import '../widgets/home_app_bar.dart';
+import '../widgets/home_categories.dart';
 import '../widgets/search_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,7 +23,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final cubit = HomeCubit(sl());
-  // final categoryCubit = CategoriesCubit();
+   final categoryCubit = CategoriesCubit(sl());
   final favoriteCubit = FavouriteCubit(sl());
   final searchCubit = SearchCubit(sl());
   @override
@@ -31,9 +33,9 @@ class _HomeScreenState extends State<HomeScreen> {
         BlocProvider(
           create: (context) => cubit..getHomeData(),
         ),
-        // BlocProvider(
-        //   create: (context) => categoryCubit..getCategoriesData(),
-        // ),
+        BlocProvider(
+          create: (context) => categoryCubit..getCategoriesData(),
+        ),
         BlocProvider(create: (context) => favoriteCubit),
         BlocProvider(create: (context) => searchCubit),
       ],
@@ -60,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(children: [
                     verticalSpacing(20.h),
                     const SliderBlocBuilder(),
-                    //const HomeCategories(),
+                    const HomeCategories(),
                     const HomeProductsBlocBuilder(),
                   ]),
                 ),

@@ -1,5 +1,8 @@
 import 'package:ecommerce/features/authentication/register/presentation/screen/register_screen.dart';
 import 'package:ecommerce/features/ecommerce/cart/presentation/screens/cart_screen.dart';
+import 'package:ecommerce/features/ecommerce/categories/presentation/screens/categories_screen.dart';
+import 'package:ecommerce/features/ecommerce/category_details/category_details_args.dart';
+import 'package:ecommerce/features/ecommerce/category_details/presentation/screens/category_details_screen.dart';
 import 'package:ecommerce/features/ecommerce/favorite/presentation/manager/favourite_cubit.dart';
 import 'package:ecommerce/features/ecommerce/favorite/presentation/screens/favorite_screen.dart';
 import 'package:ecommerce/features/ecommerce/home/presentation/screen/home_screen.dart';
@@ -72,10 +75,21 @@ class AppModule extends Module {
       child: (context) => const SettingsScreen(),
     );
     r.child(
+      AppEndpoints.categoriesScreen,
+      child: (context) => const CategoriesScreen(),
+    );
+    r.child(
       AppEndpoints.productDetailsScreen,
       child: (context) {
         final args = Modular.args.data as ProductDetailsArgs;
         return  ProductDetailsScreen(args: args,);
+      },
+    );
+    r.child(
+      AppEndpoints.categoryDetailsScreen,
+      child: (context) {
+        final args = Modular.args.data as CategoryDetailsArgs;
+        return  CategoryDetailsScreen(args: args,);
       },
     );
     r.child(

@@ -9,12 +9,18 @@ import 'package:ecommerce/features/authentication/register/data/data_source/ds_r
 import 'package:ecommerce/features/authentication/register/data/repo_impl/repo_register_impl.dart';
 import 'package:ecommerce/features/authentication/register/domain/repo_base/repo_base.dart';
 import 'package:ecommerce/features/authentication/register/domain/usecases/register_usecase.dart';
+import 'package:ecommerce/features/ecommerce/categories/data/data_source/ds_categories_remote.dart';
+import 'package:ecommerce/features/ecommerce/category_details/data/data_source/ds_cDetails_remote.dart';
+import 'package:ecommerce/features/ecommerce/category_details/data/repo_impl/cdetails_repo_impl.dart';
+import 'package:ecommerce/features/ecommerce/category_details/domain/repo_base/repo_base.dart';
 import 'package:ecommerce/features/ecommerce/favorite/data/data_source/ds_favourite_remote.dart';
 import 'package:ecommerce/features/ecommerce/product_details/data/repo_impl/pdetails_repo_impl.dart';
 import 'package:get_it/get_it.dart';
 import '../../features/ecommerce/cart/data/data_source/ds_cart_remote.dart';
 import '../../features/ecommerce/cart/data/repo_impl/cart_repo_impl.dart';
 import '../../features/ecommerce/cart/domain/repo_base/cart_repo_base.dart';
+import '../../features/ecommerce/categories/data/repo_impl/repo_impl.dart';
+import '../../features/ecommerce/categories/domain/repo_base/repo_base.dart';
 import '../../features/ecommerce/favorite/data/repo_impl/fav_repo_impl.dart';
 import '../../features/ecommerce/favorite/domain/repo_base/fav_repo_base.dart';
 import '../../features/ecommerce/home/data/data_source/ds_home_remote.dart';
@@ -95,5 +101,18 @@ Future<void> init() async {
   sl.registerLazySingleton<DSProductDetailsRemote>(
           () => DSProductDetailsRemoteImpl());
   sl.registerLazySingleton(() => PDetailsRepoImpl( dsProductDetailsRemote: sl<DSProductDetailsRemote>()));
+
+  //categories
+  sl.registerLazySingleton<CategoriesRepoBase>(
+          () => CategoriesRepoImpl( sl()));
+  sl.registerLazySingleton<DsCategoriesRemote>(() => DsCategoriesRemoteImpl());
+  sl.registerLazySingleton(() => CategoriesRepoImpl( sl<DsCategoriesRemote>()));
+
+  //categories details
+  sl.registerLazySingleton<CDetailsRepoBase>(
+          () => CDetailsReoImpl( dsCDetailsRemote: sl()));
+  sl.registerLazySingleton<DsCDetailsRemote>(
+          () => DsCDetailsRemoteImpl());
+  sl.registerLazySingleton(() => CDetailsReoImpl( dsCDetailsRemote: sl<DsCDetailsRemote>()));
 
 }
