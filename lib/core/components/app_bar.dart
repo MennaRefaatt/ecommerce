@@ -47,7 +47,7 @@ class DefaultAppBar extends StatelessWidget {
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   hoverColor: Colors.transparent,
-                  child: const AppSvg(path: "shopping-cart"))),
+                  child: const AppSvg(path: "shopping-cart",height: 20,))),
         ],
       ),
     );
