@@ -9,6 +9,9 @@ import 'package:ecommerce/features/ecommerce/favorite/presentation/manager/favou
 import 'package:ecommerce/features/ecommerce/favorite/presentation/screens/favorite_screen.dart';
 import 'package:ecommerce/features/ecommerce/home/presentation/screen/home_screen.dart';
 import 'package:ecommerce/features/ecommerce/maps/presentation/screen/map_screen.dart';
+import 'package:ecommerce/features/ecommerce/order/order_details/presentation/screens/order_details_screen.dart';
+import 'package:ecommerce/features/ecommerce/order/order_placed/presentation/screen/order_placed_screen.dart';
+import 'package:ecommerce/features/ecommerce/order/orders/presentation/screen/orders_screen.dart';
 import 'package:ecommerce/features/ecommerce/search/presentation/screen/search_screen.dart';
 import 'package:ecommerce/features/splash/splash.dart';
 import 'package:ecommerce/features/user/chat/presentation/screen/chat_screen.dart';
@@ -26,6 +29,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import '../../../features/authentication/login/presentation/screen/login_screen.dart';
 import '../../../features/ecommerce/address/presentation/screens/address_screen.dart';
 import '../../../features/ecommerce/maps/presentation/manager/location_cubit.dart';
+import '../../../features/ecommerce/order/order_details/order_details_args.dart';
 import '../../../features/ecommerce/product_details/presentation/screens/product_details_screen.dart';
 import '../../../features/ecommerce/product_details/product_details_args.dart';
 import '../../../features/ecommerce/suggested_products/presentation/screen/suggested_products_screen.dart';
@@ -51,7 +55,8 @@ class AppModule extends Module {
       AppEndpoints.mapsLocation,
       child: (context) {
         return BlocProvider(
-            create: (context) => LocationCubit(sl(), sl()), child: const MapScreen());
+            create: (context) => LocationCubit(sl(), sl()),
+            child: const MapScreen());
       },
     );
     r.child(
@@ -83,7 +88,25 @@ class AppModule extends Module {
     );
     r.child(
       AppEndpoints.addressScreen,
-      child: (context) =>  AddressScreen(),
+      child: (context) => AddressScreen(),
+    );
+    r.child(
+      AppEndpoints.orderPlacedScreen,
+      child: (context) {
+        final id = Modular.args.data;
+        return OrderPlacedScreen(id: id);
+      },
+    );
+    r.child(
+      AppEndpoints.ordersScreen,
+      child: (context) => const OrdersScreen(),
+    );
+    r.child(
+      AppEndpoints.orderDetailsScreen,
+      child: (context) {
+        final orderDetailsArgs = Modular.args.data as OrderDetailsArgs;
+        return OrderDetailsScreen(orderDetailsArgs: orderDetailsArgs);
+      },
     );
 
     r.child(

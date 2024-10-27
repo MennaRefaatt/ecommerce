@@ -17,6 +17,7 @@ import 'package:ecommerce/features/ecommerce/confirm_order/data/repo_impl/repo_i
 import 'package:ecommerce/features/ecommerce/confirm_order/domain/repo_base/repo_base.dart';
 import 'package:ecommerce/features/ecommerce/favorite/data/data_source/ds_favourite_remote.dart';
 import 'package:ecommerce/features/ecommerce/maps/domain/use_case/set_location_use_case.dart';
+import 'package:ecommerce/features/ecommerce/order/orders/data/data_source/ds_orders_remote.dart';
 import 'package:ecommerce/features/ecommerce/product_details/data/repo_impl/pdetails_repo_impl.dart';
 import 'package:get_it/get_it.dart';
 import '../../features/ecommerce/address/data/data_source/ds_address_remote.dart';
@@ -37,6 +38,9 @@ import '../../features/ecommerce/maps/data/data_source/data_source.dart';
 import '../../features/ecommerce/maps/data/repo_impl/repo_impl.dart';
 import '../../features/ecommerce/maps/domain/repo_base/repo_base.dart';
 import '../../features/ecommerce/maps/domain/use_case/get_location_use_case.dart';
+import '../../features/ecommerce/order/order_details/data/data_source/ds_odetails_remote.dart';
+import '../../features/ecommerce/order/order_details/data/repo_impl/repo_impl.dart';
+import '../../features/ecommerce/order/orders/data/repo_impl/repo_impl.dart';
 import '../../features/ecommerce/product_details/data/data_source/ds_product_details_remote.dart';
 import '../../features/ecommerce/search/data/data_source/ds_search_remote.dart';
 import '../../features/ecommerce/search/data/repo_impl/search_repo_impl.dart';
@@ -133,4 +137,14 @@ Future<void> init() async {
   sl.registerLazySingleton<DsConfirmRemote>(
           () => DsConfirmRemoteImpl());
   sl.registerLazySingleton(() => ConfirmRepoImpl( sl<DsConfirmRemote>()));
+
+  //order details
+  sl.registerLazySingleton<DSODetailsRemote>(
+          () => DsODetailsRemoteImpl());
+  sl.registerLazySingleton(() => ODetailsRepoImpl( dsODetailsRemote: sl<DSODetailsRemote>()));
+
+  //orders
+  sl.registerLazySingleton<DSOrdersRemote>(() => DSOrdersRemoteImpl());
+  sl.registerLazySingleton(() => OrdersRepoImpl( dsOrdersRemote: sl<DSOrdersRemote>()));
+
 }

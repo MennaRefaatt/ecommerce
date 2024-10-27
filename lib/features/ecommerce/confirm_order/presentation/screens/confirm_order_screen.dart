@@ -1,4 +1,4 @@
-
+import 'package:ecommerce/core/helpers/safe_print.dart';
 import 'package:ecommerce/core/helpers/shared_pref.dart';
 import 'package:ecommerce/core/services/navigation/app_endpoints.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +20,7 @@ import '../manager/confirm_order_cubit.dart';
 import '../widgets/default_address.dart';
 import '../widgets/item_details.dart';
 import '../widgets/payment_method.dart';
+
 class ConfirmOrderScreen extends StatefulWidget {
   const ConfirmOrderScreen({
     super.key,
@@ -42,7 +43,8 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
 
   void _updatePaymentMethod(String method) {
     setState(() {
-      selectedPaymentMethod = method == PaymentEnum.cashOnDelivery.toString() ? 1 : 2;
+      selectedPaymentMethod =
+          method == PaymentEnum.cashOnDelivery.toString() ? 1 : 2;
     });
   }
 
@@ -89,20 +91,28 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
               ),
               AppButton(
                 onPressed: () {
-                  // TODO: COMPLETE NAVIGATION
-                 Modular.to.navigate(AppEndpoints.orderPlacedScreen,arguments:ConfirmOrderArgs(id: 1));///toDo add id
-                  cubit.addConfirmOrderData(
+                  cubit
+                      .addConfirmOrderData(
                     addressId:
                         SharedPref.getInt(key: MySharedKeys.defaultAddressId)!,
                     paymentMethod: selectedPaymentMethod,
-                  );
+                  )
+                      .then((confirmOrderModel) {
+                    final orderId = confirmOrderModel.data?.id;
+                    safePrint("Order ID: $orderId");
+                    if (orderId != null) {
+                      Modular.to.navigate(AppEndpoints.orderPlacedScreen,
+                          arguments: ConfirmOrderArgs(id: orderId));
+                    } else {
+                      safePrint("Error: Order ID is null");
+                    }
+                  });
                 },
                 text: S().confirmOrder,
                 backgroundColor: AppColors.primary,
                 textStyle: TextStyle(
-                  color: Colors.white ,
+                  color: Colors.white,
                   fontSize: 20.sp,
-
                 ),
               ),
             ],
