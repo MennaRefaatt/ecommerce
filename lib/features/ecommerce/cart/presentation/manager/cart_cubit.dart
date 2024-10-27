@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:ecommerce/core/helpers/safe_print.dart';
 import 'package:ecommerce/features/ecommerce/cart/data/repo_impl/cart_repo_impl.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -9,14 +10,11 @@ part 'cart_state.dart';
 class CartCubit extends Cubit<CartState> {
   CartCubit(this.cartRepoImpl) : super(CartInitial());
 final CartRepoImpl cartRepoImpl;
-  void getCartData() {
+  Future<void> getCartData() async {
     emit(CartLoading());
- final result=  cartRepoImpl.getCart();
-    result.then((value) {
-      emit(CartSuccess(cartModel: value!));
-    }).onError((error, stackTrace) {
-      emit(CartError(error: error.toString()));
-    });
+ final result=  await cartRepoImpl.getCart();
+    safePrint(result);
+    emit(CartSuccess(cartModel: result));
   }
 
  Future addProductToCart({required int productId}) async{

@@ -40,7 +40,7 @@ class HomeAppbar extends StatelessWidget {
                 fontWeight: FontWeight.bold),
           )),
           InkWell(
-            onTap: () => Modular.to.navigate(AppEndpoints.cartScreen),
+            onTap: () => Modular.to.pushNamed(AppEndpoints.cartScreen),
             borderRadius: BorderRadius.circular(30.sp),
             child: CircleAvatar(
               backgroundColor: Theme.of(context).colorScheme.onPrimary,

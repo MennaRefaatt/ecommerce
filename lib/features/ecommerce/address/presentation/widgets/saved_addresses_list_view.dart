@@ -46,6 +46,7 @@ class _SavedAddressesListViewState extends State<SavedAddressesListView> {
       child: ListView.builder(
           shrinkWrap: true,
           itemCount: widget.addressData.data.length,
+          physics: NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {

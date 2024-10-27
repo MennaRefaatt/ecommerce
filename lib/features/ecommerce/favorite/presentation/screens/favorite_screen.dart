@@ -36,12 +36,13 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         color: AppColors.primary,
                       ),
                     );
-                  } else if (state is FavouriteError) {
+                  }
+                   if (state is FavouriteError) {
                     return Center(
                       child: Text(state.error.toString()),
                     );
                   } else if (state is FavouriteSuccess) {
-                    if (state.favouriteModel.data!.data!.isEmpty) {
+                    if (state.favouriteModel.data!.data.isEmpty) {
                       return const Center(
                         child: Text(
                           'No favourite products found',

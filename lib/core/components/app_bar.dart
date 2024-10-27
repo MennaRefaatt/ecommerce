@@ -27,7 +27,7 @@ class DefaultAppBar extends StatelessWidget {
             visible: backArrow == true,
             child: IconButton(
               onPressed: () {
-                Navigator.pop(context);
+                Modular.to.pop()  ;
               },
               icon: const Icon(Icons.arrow_back_ios_new_outlined),
             ),

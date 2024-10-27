@@ -5,16 +5,16 @@ import 'package:ecommerce/core/utils/app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../core/helpers/secure_storage/secure_keys.dart';
+import '../../core/helpers/secure_storage/secure_keys.dart';
 
-class Test extends StatefulWidget {
-  const Test({super.key});
+class Splash extends StatefulWidget {
+  const Splash({super.key});
 
   @override
-  State<Test> createState() => _TestState();
+  State<Splash> createState() => _TestState();
 }
 
-class _TestState extends State<Test> {
+class _TestState extends State<Splash> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 3), () async {

@@ -13,6 +13,7 @@ import '../manager/cart_cubit.dart';
 import '../widgets/cart_widget.dart';
 import '../widgets/order_info.dart';
 
+
 class CartScreen extends StatelessWidget {
   CartScreen({super.key});
   final cubit = CartCubit(sl());
@@ -41,17 +42,15 @@ class CartScreen extends StatelessWidget {
                         child: Text(state.error.toString()),
                       );
                     } else if (state is CartSuccess) {
-                      final cartList = state.cartModel.data!.items;
-                      if (cartList!.isEmpty) {
-                        // TOD0 Translate
-                        return const Center(child: Text('No products found'));
-                      }
+                      if(state.cartModel.data!.items.isEmpty){
+                        return const Center(child: Text("no products in cart"),);
+                      }else{
                       return Column(
                         children: [
                           Row(
                             children: [
                               Text(
-                                state.cartModel.data!.items!.length.toString(),
+                                state.cartModel.data!.items.length.toString(),
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -63,19 +62,19 @@ class CartScreen extends StatelessWidget {
                             ],
                           ),
                           verticalSpacing(10.h),
-                          // CartWidget(
-                          //   cartCubit: cubit,
-                          //   cartModel: state.cartModel,
-                          // ),
+                          CartWidget(
+                            cartCubit: cubit,
+                            cartModel: state.cartModel,
+                          ),
                         ],
-                      );
+                      );}
                     }
                     return Container();
                   },
                 ),
               ),
             ),
-             //OrderInfo(cartCubit: cubit,),
+             OrderInfo(cartCubit: cubit,),
           ],
         ),
       ),

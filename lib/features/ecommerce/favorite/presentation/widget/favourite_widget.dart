@@ -28,22 +28,21 @@ class _FavouriteWidgetState extends State<FavouriteWidget> {
                 mainAxisSpacing: 10.sp,
                 crossAxisSpacing: 0.sp,
                 childAspectRatio: 0.61.sp,
-
               ),
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: widget.data.data?.length,
+              itemCount: widget.data.data.length,
               itemBuilder: (context, index) {
 
                 return ProductItemWidget(
                   //TODO:   widget.data.data.removeAt(index);
-                  price: widget.data.data![index].product.price.toString(),
-                  name: widget.data.data![index].product.name,
-                  image: widget.data.data![index].product.image,
-                  id: widget.data.data![index].product.id,
+                  price: widget.data.data[index].product!.price,
+                  name: widget.data.data[index].product!.name,
+                  image: widget.data.data[index].product!.image,
+                  id: widget.data.data[index].product!.id,
                   inFavorites: widget.inFavorites,
-                  oldPrice: widget.data.data![index].product.oldPrice.toString(),
-                  discount: widget.data.data![index].product.discount.toString(),
+                  oldPrice: widget.data.data[index].product!.oldPrice,
+                  discount: widget.data.data[index].product!.discount.toString(),
                   favoriteCubit: widget.favouriteCubit,
                 );
               })
