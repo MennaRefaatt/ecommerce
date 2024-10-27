@@ -3,6 +3,7 @@ import 'package:ecommerce/core/helpers/safe_print.dart';
 import 'package:ecommerce/features/ecommerce/address/data/repo_impl/address_repo_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import '../../../maps/presentation/manager/location_cubit.dart';
 import '../../data/model/address_model.dart';
 import '../../domain/entities/address_param.dart';
 
@@ -33,7 +34,7 @@ class AddressCubit extends Cubit<AddressState> {
     }
   }
 
-  void addAddress() async {
+  void addAddress(double latitude, double longitude) async {
     emit(AddressLoading());
     try {
       final response = await addressRepoImpl.addAddress(AddressParam(
@@ -42,8 +43,8 @@ class AddressCubit extends Cubit<AddressState> {
         region: regionController.text,
         details: detailsController.text,
         notes: notesController.text,
-        latitude: 0.0,
-        longitude: 0.0,
+        latitude: latitude,
+        longitude: longitude,
       ));
       if (response.status == true) {
         safePrint(response);
@@ -65,10 +66,14 @@ class AddressCubit extends Cubit<AddressState> {
           await addressRepoImpl.deleteAddress(addressId: addressId);
       if (response.status == true) {
         emit(AddressSuccess(addressModel: response));
+        getAddress();
+        safePrint(response.toString());
       } else {
         emit(AddressError(error: response.message.toString()));
+        safePrint(response.message.toString());
       }
     } catch (e) {
+      safePrint(e.toString());
       emit(AddressError(error: e.toString()));
     }
   }
@@ -86,4 +91,18 @@ class AddressCubit extends Cubit<AddressState> {
       emit(AddressError(error: e.toString()));
     }
   }
+  void addAddressWithSelectedLocation(LocationCubit locationCubit) {
+    locationCubit.stream.listen((locationState) {
+      if (locationState is LocationLoaded) {
+       addAddress(locationState.position.latitude, locationState.position.longitude);
+      } else if (locationState is LocationMarkerSet) {
+       addAddress(locationState.location.latitude, locationState.location.longitude);
+      } else if (locationState is LocationError) {
+        safePrint(locationState.message);
+      }
+    });
+    locationCubit.fetchUserLocation();
+  }
+
+
 }

@@ -26,8 +26,10 @@ class AddressRepoImpl implements AddressRepoBase {
     try {
       final response =
           await dsAddressRemote.deleteAddress(addressId: addressId);
+      safePrint(response);
       return response;
     } catch (e) {
+      safePrint(e.toString());
       rethrow;
     }
   }

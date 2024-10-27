@@ -1,10 +1,11 @@
-
 import 'package:ecommerce/core/helpers/shared_pref.dart';
 import 'package:ecommerce/core/services/navigation/app_endpoints.dart';
+import 'package:ecommerce/features/ecommerce/maps/presentation/manager/location_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../../core/components/app_bar.dart';
 import '../../../../../core/di/di.dart';
 import '../../../../../core/helpers/safe_print.dart';
@@ -19,11 +20,21 @@ import 'add_address_screen/address_args.dart';
 
 class AddressScreen extends StatelessWidget {
   AddressScreen({super.key});
+
   final cubit = AddressCubit(sl());
+  final mapsCubit= LocationCubit(sl(),sl());
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => cubit..getAddress(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => cubit..getAddress(),
+        ),
+        BlocProvider(
+          create: (context) => mapsCubit,
+        ),
+      ],
       child: Scaffold(
         body: SingleChildScrollView(
           child: Column(
@@ -33,9 +44,51 @@ class AddressScreen extends StatelessWidget {
                 cartIcon: false,
                 backArrow: true,
               ),
+              InkWell(
+                onTap: ()=>Modular.to.pushNamed(AppEndpoints.mapsLocation),
+                child: Container(
+                  margin: EdgeInsets.all(15.sp),
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        height: 200.h,
+                        child: GoogleMap(
+                          initialCameraPosition: const CameraPosition(
+                            target: LatLng(
+                                37, 37),
+                            zoom: 14,
+                          ),
+                          markers: {
+                            const Marker(
+                              markerId: MarkerId('currentLocation'),
+                              position: LatLng(37,
+                                  37),
+                            ),
+                          },
+                        ),
+                      ),
+                      Container(
+                        height: 70.h,
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(8.0),
+                        color: AppColors.primaryLight,
+                        child:  Text(
+                          "Pick your location",
+                          textAlign: TextAlign.end,
+                          style:
+                          TextStyle(fontSize: 16.sp,),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               Container(
                 margin: EdgeInsets.all(15.sp),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       S().savedAddresses,
@@ -81,16 +134,18 @@ class AddressScreen extends StatelessWidget {
                     verticalSpacing(20.h),
                     Center(
                       child: AppButton(
-                          onPressed: () {
-                            Modular.to.pushNamed(AppEndpoints.confirmOrderScreen,);
-                            safePrint(SharedPref.getInt(key: MySharedKeys.defaultAddressId));
-                          },
-                          backgroundColor: AppColors.primary,
-                          text: S().saveAndContinue,
-                          textStyle: const TextStyle(
-                            color: Colors.white,
-                          ),
-                    ),
+                        onPressed: () {
+                          Modular.to.pushNamed(AppEndpoints
+                              .confirmOrderScreen,);
+                          safePrint(SharedPref.getInt(
+                              key: MySharedKeys.defaultAddressId));
+                        },
+                        backgroundColor: AppColors.primary,
+                        text: S().saveAndContinue,
+                        textStyle: const TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ],
                 ),

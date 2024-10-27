@@ -27,11 +27,6 @@ class _OrderInfoState extends State<OrderInfo> {
   Widget build(BuildContext context) {
     return BlocListener<CartCubit, CartState>(
       listener: (context, state) {
-        if (state is CartLoading) {
-          const CircularProgressIndicator(
-            color: AppColors.primary,
-          );
-        }
         if (state is CartError) {
           const Text("Error");
         }
@@ -43,13 +38,7 @@ class _OrderInfoState extends State<OrderInfo> {
       },
       child: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
-          if (state is CartLoading) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: AppColors.primary,
-              ),
-            );
-          } else if (state is CartError) {
+         if (state is CartError) {
             return Center(
               child: Text(state.error.toString()),
             );

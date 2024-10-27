@@ -1,5 +1,6 @@
 import 'package:ecommerce/core/helpers/safe_print.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../domain/repo_base/repo_base.dart';
 import '../data_source/data_source.dart';
 
@@ -9,11 +10,22 @@ class LocationRepositoryImpl implements LocationRepository {
   LocationRepositoryImpl(this.dataSource);
 
   @override
-  Future<Position> getCurrentLocation() {
-    final position = dataSource.getCurrentLocation();
+  Future<Position> getCurrentLocation() async{
+    final position = await dataSource.getCurrentLocation();
     try {
       safePrint(position.toString());
      return position;
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  @override
+  Future<void> setMarkerPosition(LatLng location) async{
+   final position =  await dataSource.setMarkerPosition(location);
+    try {
+      //safePrint(position.toString());
+      return position;
     } catch (e) {
       return Future.error(e);
     }
