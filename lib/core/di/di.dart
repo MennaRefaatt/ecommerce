@@ -14,6 +14,7 @@ import 'package:ecommerce/features/ecommerce/category_details/data/data_source/d
 import 'package:ecommerce/features/ecommerce/category_details/data/repo_impl/cdetails_repo_impl.dart';
 import 'package:ecommerce/features/ecommerce/category_details/domain/repo_base/repo_base.dart';
 import 'package:ecommerce/features/ecommerce/favorite/data/data_source/ds_favourite_remote.dart';
+import 'package:ecommerce/features/ecommerce/maps/domain/use_case/set_location_use_case.dart';
 import 'package:ecommerce/features/ecommerce/product_details/data/repo_impl/pdetails_repo_impl.dart';
 import 'package:get_it/get_it.dart';
 import '../../features/ecommerce/address/data/data_source/ds_address_remote.dart';
@@ -32,7 +33,7 @@ import '../../features/ecommerce/home/domain/usecases/home_usecase.dart';
 import '../../features/ecommerce/maps/data/data_source/data_source.dart';
 import '../../features/ecommerce/maps/data/repo_impl/repo_impl.dart';
 import '../../features/ecommerce/maps/domain/repo_base/repo_base.dart';
-import '../../features/ecommerce/maps/domain/use_case/location_use_case.dart';
+import '../../features/ecommerce/maps/domain/use_case/get_location_use_case.dart';
 import '../../features/ecommerce/product_details/data/data_source/ds_product_details_remote.dart';
 import '../../features/ecommerce/search/data/data_source/ds_search_remote.dart';
 import '../../features/ecommerce/search/data/repo_impl/search_repo_impl.dart';
@@ -82,6 +83,8 @@ Future<void> init() async {
   //maps
   sl.registerLazySingleton(
           () => GetUserLocationUseCase(sl<LocationRepository>()));
+  sl.registerLazySingleton(
+          () => SetLocationUseCase(sl<LocationRepository>()));
   sl.registerLazySingleton<LocationRepository>(
           () => LocationRepositoryImpl( sl()));
   sl.registerLazySingleton<GeolocationDataSource>(() => GeolocationDataSourceImpl());

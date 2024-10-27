@@ -2,10 +2,8 @@
 import 'package:ecommerce/core/components/app_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../../core/helpers/spacing.dart';
-import '../../../../../../../core/services/navigation/app_endpoints.dart';
 import '../../../../../../../core/theming/app_colors.dart';
 import '../../../../../../../generated/l10n.dart';
 import '../../../manager/address_cubit.dart';
@@ -25,7 +23,6 @@ class AddressDataEntry extends StatelessWidget {
               backgroundColor: AppColors.green,
             ),
           );
-          Modular.to.navigate(AppEndpoints.addressScreen);
         }
         if (state is AddressError) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -81,12 +78,18 @@ class AddressDataEntry extends StatelessWidget {
               textInputAction: TextInputAction.next,
               controller: cubit.regionController,
               backgroundColor: AppColors.primaryLight,
-              keyboardType: TextInputType.name,
+              keyboardType: TextInputType.number,
               hintText: "region",
               title: S().region,
               validator: (value) {
                 if (value!.isEmpty) {
                   return S().required;
+                }
+                if (double.tryParse(value) == null) {
+                  return 'Please enter a valid number';
+                }
+                if(value.startsWith('0')) {
+                  return 'Please enter a valid number';
                 }
                 return null;
               },

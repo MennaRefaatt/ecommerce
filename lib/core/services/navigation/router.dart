@@ -50,7 +50,7 @@ class AppModule extends Module {
       AppEndpoints.mapsLocation,
       child: (context) {
         return BlocProvider(
-            create: (context) => LocationCubit(sl()), child: const MapScreen());
+            create: (context) => LocationCubit(sl(), sl()), child: const MapScreen());
       },
     );
     r.child(
