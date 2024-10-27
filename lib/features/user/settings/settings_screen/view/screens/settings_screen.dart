@@ -99,7 +99,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         text: S().fAQs,
                         context: context,
                         onTap: () =>
-                            Modular.to.pushNamed(AppEndpoints.mapsLocation),
+                            Modular.to.pushNamed(AppEndpoints.addressScreen),
                       ),
 
                     ],

@@ -16,6 +16,8 @@ import 'package:ecommerce/features/ecommerce/category_details/domain/repo_base/r
 import 'package:ecommerce/features/ecommerce/favorite/data/data_source/ds_favourite_remote.dart';
 import 'package:ecommerce/features/ecommerce/product_details/data/repo_impl/pdetails_repo_impl.dart';
 import 'package:get_it/get_it.dart';
+import '../../features/ecommerce/address/data/data_source/ds_address_remote.dart';
+import '../../features/ecommerce/address/data/repo_impl/address_repo_impl.dart';
 import '../../features/ecommerce/cart/data/data_source/ds_cart_remote.dart';
 import '../../features/ecommerce/cart/data/repo_impl/cart_repo_impl.dart';
 import '../../features/ecommerce/cart/domain/repo_base/cart_repo_base.dart';
@@ -115,4 +117,7 @@ Future<void> init() async {
           () => DsCDetailsRemoteImpl());
   sl.registerLazySingleton(() => CDetailsReoImpl( dsCDetailsRemote: sl<DsCDetailsRemote>()));
 
+  //address
+  sl.registerLazySingleton<DsAddressRemote>(() => DsAddressRemoteImpl());
+  sl.registerLazySingleton(() => AddressRepoImpl( dsAddressRemote: sl<DsAddressRemote>()));
 }
