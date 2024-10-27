@@ -1,4 +1,5 @@
 import 'package:ecommerce/features/authentication/register/presentation/screen/register_screen.dart';
+import 'package:ecommerce/features/ecommerce/address/presentation/screens/add_address_screen/screen/add_address_screen.dart';
 import 'package:ecommerce/features/ecommerce/cart/presentation/screens/cart_screen.dart';
 import 'package:ecommerce/features/ecommerce/categories/presentation/screens/categories_screen.dart';
 import 'package:ecommerce/features/ecommerce/category_details/category_details_args.dart';
@@ -22,6 +23,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../../../features/authentication/login/presentation/screen/login_screen.dart';
+import '../../../features/ecommerce/address/presentation/screens/address_screen.dart';
 import '../../../features/ecommerce/maps/presentation/manager/location_cubit.dart';
 import '../../../features/ecommerce/product_details/presentation/screens/product_details_screen.dart';
 import '../../../features/ecommerce/product_details/product_details_args.dart';
@@ -78,23 +80,39 @@ class AppModule extends Module {
       AppEndpoints.categoriesScreen,
       child: (context) => const CategoriesScreen(),
     );
+    // r.child(
+    //   AppEndpoints.confirmOrderScreen,
+    //   child: (context) => const CategoriesScreen(),
+    // );
+    r.child(
+      AppEndpoints.addressScreen,
+      child: (context) => AddressScreen(),
+    );
+    r.child(
+      AppEndpoints.addAddressScreen,
+      child: (context) => AddAddressScreen(),
+    );
     r.child(
       AppEndpoints.productDetailsScreen,
       child: (context) {
         final args = Modular.args.data as ProductDetailsArgs;
-        return  ProductDetailsScreen(args: args,);
+        return ProductDetailsScreen(
+          args: args,
+        );
       },
     );
     r.child(
       AppEndpoints.categoryDetailsScreen,
       child: (context) {
         final args = Modular.args.data as CategoryDetailsArgs;
-        return  CategoryDetailsScreen(args: args,);
+        return CategoryDetailsScreen(
+          args: args,
+        );
       },
     );
     r.child(
       AppEndpoints.cartScreen,
-      child: (context) =>  CartScreen(),
+      child: (context) => CartScreen(),
     );
     r.child(
       AppEndpoints.homeScreen,
@@ -133,9 +151,9 @@ class AppModule extends Module {
     r.child(
       AppEndpoints.favoriteScreen,
       child: (context) {
-        return BlocProvider(create: (context) =>
-        FavouriteCubit(sl())
-          ..getFavouriteData(), child: const FavoriteScreen());
+        return BlocProvider(
+            create: (context) => FavouriteCubit(sl())..getFavouriteData(),
+            child: const FavoriteScreen());
       },
     );
 
@@ -151,7 +169,7 @@ class AppModule extends Module {
           );
         },
         transitionDuration:
-        const Duration(milliseconds: 500), // Customize duration
+            const Duration(milliseconds: 500), // Customize duration
       ),
     );
   }

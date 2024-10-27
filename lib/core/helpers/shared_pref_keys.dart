@@ -9,5 +9,5 @@ enum MySharedKeys {
   gender,
   isDarkMode,
   userId,
-  userName,
+  userName, city, defaultAddressId, addressDetails,
 }
