@@ -49,6 +49,11 @@ class AddressCubit extends Cubit<AddressState> {
       if (response.status == true) {
         safePrint(response);
         emit(AddressSuccess(addressModel: response));
+        notesController.clear();
+        detailsController.clear();
+        cityController.clear();
+        regionController.clear();
+        nameController.clear();
       } else {
         safePrint(response.message.toString());
         emit(AddressError(error: response.message.toString()));

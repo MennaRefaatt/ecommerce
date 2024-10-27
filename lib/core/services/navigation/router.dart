@@ -4,6 +4,7 @@ import 'package:ecommerce/features/ecommerce/cart/presentation/screens/cart_scre
 import 'package:ecommerce/features/ecommerce/categories/presentation/screens/categories_screen.dart';
 import 'package:ecommerce/features/ecommerce/category_details/category_details_args.dart';
 import 'package:ecommerce/features/ecommerce/category_details/presentation/screens/category_details_screen.dart';
+import 'package:ecommerce/features/ecommerce/confirm_order/presentation/screens/confirm_order_screen.dart';
 import 'package:ecommerce/features/ecommerce/favorite/presentation/manager/favourite_cubit.dart';
 import 'package:ecommerce/features/ecommerce/favorite/presentation/screens/favorite_screen.dart';
 import 'package:ecommerce/features/ecommerce/home/presentation/screen/home_screen.dart';
@@ -80,13 +81,14 @@ class AppModule extends Module {
       AppEndpoints.categoriesScreen,
       child: (context) => const CategoriesScreen(),
     );
-    // r.child(
-    //   AppEndpoints.confirmOrderScreen,
-    //   child: (context) => const CategoriesScreen(),
-    // );
     r.child(
       AppEndpoints.addressScreen,
-      child: (context) => AddressScreen(),
+      child: (context) =>  AddressScreen(),
+    );
+
+    r.child(
+      AppEndpoints.confirmOrderScreen,
+      child: (context) => const ConfirmOrderScreen(),
     );
     r.child(
       AppEndpoints.addAddressScreen,

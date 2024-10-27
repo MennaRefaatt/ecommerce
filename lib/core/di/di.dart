@@ -13,6 +13,8 @@ import 'package:ecommerce/features/ecommerce/categories/data/data_source/ds_cate
 import 'package:ecommerce/features/ecommerce/category_details/data/data_source/ds_cDetails_remote.dart';
 import 'package:ecommerce/features/ecommerce/category_details/data/repo_impl/cdetails_repo_impl.dart';
 import 'package:ecommerce/features/ecommerce/category_details/domain/repo_base/repo_base.dart';
+import 'package:ecommerce/features/ecommerce/confirm_order/data/repo_impl/repo_impl.dart';
+import 'package:ecommerce/features/ecommerce/confirm_order/domain/repo_base/repo_base.dart';
 import 'package:ecommerce/features/ecommerce/favorite/data/data_source/ds_favourite_remote.dart';
 import 'package:ecommerce/features/ecommerce/maps/domain/use_case/set_location_use_case.dart';
 import 'package:ecommerce/features/ecommerce/product_details/data/repo_impl/pdetails_repo_impl.dart';
@@ -24,6 +26,7 @@ import '../../features/ecommerce/cart/data/repo_impl/cart_repo_impl.dart';
 import '../../features/ecommerce/cart/domain/repo_base/cart_repo_base.dart';
 import '../../features/ecommerce/categories/data/repo_impl/repo_impl.dart';
 import '../../features/ecommerce/categories/domain/repo_base/repo_base.dart';
+import '../../features/ecommerce/confirm_order/data/data_source/ds_confirm_remote.dart';
 import '../../features/ecommerce/favorite/data/repo_impl/fav_repo_impl.dart';
 import '../../features/ecommerce/favorite/domain/repo_base/fav_repo_base.dart';
 import '../../features/ecommerce/home/data/data_source/ds_home_remote.dart';
@@ -123,4 +126,11 @@ Future<void> init() async {
   //address
   sl.registerLazySingleton<DsAddressRemote>(() => DsAddressRemoteImpl());
   sl.registerLazySingleton(() => AddressRepoImpl( dsAddressRemote: sl<DsAddressRemote>()));
+
+  //confirm order
+  sl.registerLazySingleton<ConfirmRepoBase>(
+          () => ConfirmRepoImpl( sl()));
+  sl.registerLazySingleton<DsConfirmRemote>(
+          () => DsConfirmRemoteImpl());
+  sl.registerLazySingleton(() => ConfirmRepoImpl( sl<DsConfirmRemote>()));
 }
