@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 class AppButton extends StatelessWidget {
-  const AppButton({
+   AppButton({
     super.key,
     required this.text,
     required this.backgroundColor,
     required this.onPressed,
     required this.textStyle,
-  });
+     this.height,
+     this.width,
 
+  });
+ int? height;
+ int? width;
   final String text;
   final Color backgroundColor;
   final VoidCallback onPressed;
@@ -19,8 +23,8 @@ class AppButton extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(8.sp),
       child: SizedBox(
-        width: double.infinity,
-        height: 60.h,
+        width: width?.w??200.w,
+        height: height?.h??50.h,
         child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
@@ -32,6 +36,7 @@ class AppButton extends StatelessWidget {
           child: Text(
             text.tr(),
             style: textStyle,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ),

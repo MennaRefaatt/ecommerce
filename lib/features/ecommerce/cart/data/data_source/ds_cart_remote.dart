@@ -1,3 +1,4 @@
+import 'package:ecommerce/core/helpers/safe_print.dart';
 import 'package:ecommerce/core/services/network/api_service.dart';
 import 'package:ecommerce/features/ecommerce/cart/data/model/cart_model.dart';
 import 'package:ecommerce/features/ecommerce/cart/domain/entity/cart_param.dart';
@@ -27,12 +28,14 @@ class DSCartRemoteImpl implements DSCartRemote {
   }
 
   @override
-  Future<CartModel?> getCart() async {
+  Future<CartModel> getCart() async {
     final response = await ApiService.getData(endPoint: EndPoints.cart);
     try {
+      safePrint(response);
       CartModel cartModel = CartModel.fromJson(response);
       return cartModel;
     } catch (e) {
+      safePrint("Error remote $e");
       return Future.error(e);
     }
   }
@@ -78,7 +81,7 @@ class DSCartRemoteImpl implements DSCartRemote {
     // Add any additional logic for total calculation if needed
     newTotal = newSubTotal; // Adjust if there are other fees or discounts
 
-    cartModel.data!.subTotal = newSubTotal;
-    cartModel.data!.total = newTotal;
+    // cartModel.data.subTotal = newSubTotal;
+    // cartModel.data.total = newTotal;
   }
 }

@@ -9,7 +9,7 @@ import 'package:ecommerce/features/ecommerce/favorite/presentation/screens/favor
 import 'package:ecommerce/features/ecommerce/home/presentation/screen/home_screen.dart';
 import 'package:ecommerce/features/ecommerce/maps/presentation/screen/map_screen.dart';
 import 'package:ecommerce/features/ecommerce/search/presentation/screen/search_screen.dart';
-import 'package:ecommerce/features/test.dart';
+import 'package:ecommerce/features/splash/splash.dart';
 import 'package:ecommerce/features/user/chat/presentation/screen/chat_screen.dart';
 import 'package:ecommerce/features/user/settings/complaints_screen/presentation/view/screens/complaints_screen.dart';
 import 'package:ecommerce/features/user/settings/contact_us_screen/view/screens/contact_us_screen.dart';
@@ -55,7 +55,7 @@ class AppModule extends Module {
     );
     r.child(
       AppEndpoints.splash,
-      child: (context) => const Test(),
+      child: (context) => const Splash(),
     );
     r.child(
       AppEndpoints.register,

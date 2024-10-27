@@ -122,19 +122,23 @@ class _OrderInfoState extends State<OrderInfo> {
                   ),
                   verticalSpacing(10.h),
                   Visibility(
-                    visible: state.cartModel.data!.items!.isNotEmpty,
-                    child: AppButton(
-                      onPressed: () {
-                        widget.cartCubit.updateProductQuantity(
-                            cartId: state.cartModel.data!.items![0].id!,
-                            quantity: state.cartModel.data!.items![0].quantity!);
-                        Modular.to.pushNamed(AppEndpoints.addressScreen);
-                      },
-                      backgroundColor: AppColors.primary,
-                      text: S().checkout,
-                      textStyle:TextStyle(
-                        fontSize: 15.sp,
-                      ) ,
+                    visible: state.cartModel.data!.items.isNotEmpty,
+                    child: Center(
+                      child: AppButton(
+                        width: 150,
+                        onPressed: () {
+                          widget.cartCubit.updateProductQuantity(
+                              cartId: state.cartModel.data!.items[0].id,
+                              quantity: state.cartModel.data!.items[0].quantity);
+                          Modular.to.pushNamed(AppEndpoints.addressScreen);
+                        },
+                        backgroundColor: AppColors.primary,
+                        text: S().checkout,
+                        textStyle:TextStyle(
+                          fontSize: 15.sp,
+                          color: Colors.white
+                        ) ,
+                      ),
                     ),
                   )
                 ],
