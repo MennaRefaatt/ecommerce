@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ecommerce/core/helpers/safe_print.dart';
 import 'package:ecommerce/core/helpers/shared_pref_keys.dart';
 import 'package:ecommerce/core/helpers/spacing.dart';
 import 'package:ecommerce/core/theming/app_colors.dart';
@@ -36,9 +35,7 @@ class _SavedAddressesListViewState extends State<SavedAddressesListView> {
 
   @override
   Widget build(BuildContext context) {
-    // Reverse the list and take the last two (most recent)
-    final recentAddresses = widget.addressData.data.reversed.toList().take(2).toList();
-
+    final recentAddresses = widget.addressData.data.toList().take(2).toList();
     return BlocListener<AddressCubit, AddressState>(
       listener: (context, state) {},
       child: ListView.builder(
@@ -47,20 +44,10 @@ class _SavedAddressesListViewState extends State<SavedAddressesListView> {
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             final address = recentAddresses[index];
-
             return GestureDetector(
               onTap: () {
                 setState(() {
                   selectedIndex = index;
-                  SharedPref.putInt(
-                      key: MySharedKeys.defaultAddressId,
-                      value: address.id);
-                  safePrint(selectedIndex.toString());
-                  safePrint(SharedPref.getInt(key: MySharedKeys.defaultAddressId));
-                  SharedPref.putString(
-                      key: MySharedKeys.city, value: address.city);
-                  SharedPref.putString(
-                      key: MySharedKeys.addressDetails, value: address.details);
                 });
               },
               child: Container(
@@ -102,12 +89,12 @@ class _SavedAddressesListViewState extends State<SavedAddressesListView> {
                             widget.cubit.deleteAddress(
                               addressId: address.id.toString(),
                             );
-                            // awesomeDialog(
-                            //   S().areYouSureYouWantToDeleteThisAddress,
-                            //   context,
-                            //   DialogType.warning,
-                            //   widget.cubit.deleteAddress(
-                            //       addressId: address.id.toString()));
+                            awesomeDialog(
+                              S().areYouSureYouWantToDeleteThisAddress,
+                              context,
+                              DialogType.warning,
+                              widget.cubit.deleteAddress(
+                                  addressId: address.id.toString()));
                           },
                           icon: const Icon(
                             Icons.delete,
@@ -152,7 +139,7 @@ class _SavedAddressesListViewState extends State<SavedAddressesListView> {
                       children: [
                         Text(
                           'Set as Default',
-                          style: TextStyle(fontSize: 16.sp),
+                          style: TextStyle(fontSize: 16.sp,),
                         ),
                         CupertinoSwitch(
                           value: SharedPref.getInt(
@@ -164,6 +151,12 @@ class _SavedAddressesListViewState extends State<SavedAddressesListView> {
                               SharedPref.putInt(
                                   key: MySharedKeys.defaultAddressId,
                                   value: address.id);
+                              SharedPref.putString(
+                                  key: MySharedKeys.city, value: address.city);
+                              SharedPref.putString(
+                                  key: MySharedKeys.addressDetails,
+                                  value: address.details);
+
                             });
                           },
                           activeColor: AppColors.primary,

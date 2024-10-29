@@ -1,3 +1,4 @@
+import 'package:ecommerce/core/helpers/safe_print.dart';
 import 'package:ecommerce/core/services/network/api_service.dart';
 
 import '../../../../../../core/services/network/api_constants.dart';
@@ -14,7 +15,9 @@ class DsODetailsRemoteImpl implements DSODetailsRemote {
   Future<OrderDetailsModel> getOrderDetails({required String id}) async {
     try {
       final response = await ApiService.getData(endPoint: EndPoints.getOrderDetails + id);
-      return response;
+      OrderDetailsModel orderDetailsModel = OrderDetailsModel.fromJson(response);
+      safePrint(orderDetailsModel);
+      return orderDetailsModel;
     } catch (e) {
       return Future.error(e);
     }
@@ -24,7 +27,8 @@ class DsODetailsRemoteImpl implements DSODetailsRemote {
   Future<CancelOrderModel> cancelOrder({required int orderId}) async {
     try {
       final response = await ApiService.getData(endPoint: EndPoints.cancelOrder(orderId));
-      return response;
+      CancelOrderModel cancelOrderModel = CancelOrderModel.fromJson(response);
+      return cancelOrderModel;
     } catch (e) {
       return Future.error(e);
     }

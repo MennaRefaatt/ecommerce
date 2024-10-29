@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 abstract class GeolocationDataSource {
   Future<Position> getCurrentLocation();
+  Stream<Position> getRealTimeLocationUpdates();
   Future<void> setMarkerPosition(LatLng location);
 }
 
@@ -28,5 +29,10 @@ class GeolocationDataSourceImpl implements GeolocationDataSource {
       return;
     }
     return;
+  }
+  @override
+  Stream<Position> getRealTimeLocationUpdates() {
+    final positionStream = Geolocator.getPositionStream();
+    return positionStream;
   }
 }

@@ -16,3 +16,4 @@ final class AddressError extends AddressState {
   final String error;
   AddressError({required this.error});
 }
+

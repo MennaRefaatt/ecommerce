@@ -46,7 +46,7 @@ class _OrderAddressDetailsState extends State<OrderAddressDetails> {
                     color: AppColors.greyBorder)),
             verticalSpacing(5.h),
             Text(
-              widget.orderDetailsModel.data!.address!.name,
+              widget.orderDetailsModel.data!.address!.city,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16.sp,
@@ -60,7 +60,7 @@ class _OrderAddressDetailsState extends State<OrderAddressDetails> {
                     color: AppColors.greyBorder)),
             verticalSpacing(5.h),
             Text(
-              widget.orderDetailsModel.data!.address!.name,
+              widget.orderDetailsModel.data!.address!.details,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16.sp,

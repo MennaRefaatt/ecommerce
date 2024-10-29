@@ -24,26 +24,29 @@ class CancelOrderButton extends StatelessWidget {
               backgroundColor: AppColors.green,
             ),
           );
+          Navigator.pop(context);
         }
         if (state is CancelOrderError) {
           return Center(
             child: Text(state.error),
           );
         }
-        return Visibility(
-          visible: orderDetailsModel.data!.status == "New" ||
-                  orderDetailsModel.data!.status == "pending"
-              ? true
-              : false,
-          child: AppButton(
-            onPressed: () {
-              context.read<OrderDetailsCubit>().cancelOrder(orderId: args.id);
-            },
-            backgroundColor: Colors.red[900]!,
-            text: S().cancelOrder,
-            textStyle: const TextStyle(color: Colors.white),
-          ),
-        );
+        return orderDetailsModel.data!.status == "New" ||
+                orderDetailsModel.data!.status == "delivered" ||
+                orderDetailsModel.data!.status == "جديد"
+            ? Center(
+                child: AppButton(
+                  onPressed: () {
+                    context
+                        .read<OrderDetailsCubit>()
+                        .cancelOrder(orderId: args.id);
+                  },
+                  backgroundColor: Colors.red[900]!,
+                  text: S().cancelOrder,
+                  textStyle: const TextStyle(color: Colors.white),
+                ),
+              )
+            : Container();
       },
     );
   }

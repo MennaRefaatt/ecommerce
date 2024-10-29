@@ -16,6 +16,7 @@ import 'package:ecommerce/features/ecommerce/category_details/domain/repo_base/r
 import 'package:ecommerce/features/ecommerce/confirm_order/data/repo_impl/repo_impl.dart';
 import 'package:ecommerce/features/ecommerce/confirm_order/domain/repo_base/repo_base.dart';
 import 'package:ecommerce/features/ecommerce/favorite/data/data_source/ds_favourite_remote.dart';
+import 'package:ecommerce/features/ecommerce/maps/domain/use_case/get_realtime_location_use_case.dart';
 import 'package:ecommerce/features/ecommerce/maps/domain/use_case/set_location_use_case.dart';
 import 'package:ecommerce/features/ecommerce/order/order_details/domain/repo_base/repo_base.dart';
 import 'package:ecommerce/features/ecommerce/order/orders/data/data_source/ds_orders_remote.dart';
@@ -111,6 +112,8 @@ Future<void> init() async {
   sl.registerLazySingleton<DSSearchRemote>(() => DSSearchRemoteImpl());
 
   //maps
+  sl.registerLazySingleton(
+          () => GetRealtimeLocationUseCase(sl<LocationRepository>()));
   sl.registerLazySingleton(
       () => GetUserLocationUseCase(sl<LocationRepository>()));
   sl.registerLazySingleton(() => SetLocationUseCase(sl<LocationRepository>()));

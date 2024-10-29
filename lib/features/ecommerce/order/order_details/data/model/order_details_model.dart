@@ -31,7 +31,7 @@ class OrderDetailsData {
   String? _total;
   String? _date;
   int? _cost;
-  double? _vat;
+  int? _vat;
   String? _paymentMethod;
   String? _status;
   OrderAddressDetailsModel? _address;
@@ -42,7 +42,7 @@ class OrderDetailsData {
     _total = json['total'].toString();
     _date = json['date'];
     _cost = json['cost'];
-    _vat = json['vat'];
+    _vat = json['vat'].toDouble().toInt();
     _paymentMethod = json['payment_method'];
     _status = json['status'];
     _address = json['address'] != null
@@ -61,7 +61,7 @@ class OrderDetailsData {
     required String total,
     required String date,
     required int cost,
-    required double vat,
+    required int vat,
     required String paymentMethod,
     required String status,
     required OrderAddressDetailsModel address,
@@ -86,7 +86,7 @@ class OrderDetailsData {
 
   int get cost => _cost ?? 0;
 
-  double get vat => _vat ?? 0.0;
+  int get vat => _vat ?? 0;
 
   String get paymentMethod => _paymentMethod ?? "";
 
@@ -104,6 +104,8 @@ class OrderAddressDetailsModel {
   String? _details;
   String? _notes;
   int? _id;
+  double? _lat;
+  double? _long;
 
   OrderAddressDetailsModel.fromJson(Map<String, dynamic> json) {
     _name = json['name'];
@@ -112,6 +114,8 @@ class OrderAddressDetailsModel {
     _details = json['details'];
     _notes = json['notes'];
     _id = json['id'];
+    _lat = json['lat'];
+    _long = json['long'];
   }
 
   OrderAddressDetailsModel({
@@ -121,6 +125,8 @@ class OrderAddressDetailsModel {
     required String details,
     required String notes,
     required int id,
+    required double lat,
+    required double long,
   }) {
     _name = name;
     _city = city;
@@ -128,6 +134,8 @@ class OrderAddressDetailsModel {
     _details = details;
     _notes = notes;
     _id = id;
+    _lat = lat;
+    _long = long;
   }
 
   String get name => _name ?? "";
@@ -141,6 +149,10 @@ class OrderAddressDetailsModel {
   String get notes => _notes ?? "";
 
   int get id => _id ?? 0;
+
+  double get lat => _lat ?? 0.0;
+
+  double get long => _long ?? 0.0;
 }
 
 class OrderProductsDetailsModel {

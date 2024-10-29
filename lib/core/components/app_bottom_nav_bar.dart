@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../generated/l10n.dart';
+
 class AppBottomNavBar extends StatelessWidget {
   const AppBottomNavBar({super.key, required this.index});
   final int index;
@@ -34,22 +36,22 @@ class AppBottomNavBar extends StatelessWidget {
         selectedItemColor: AppColors.primary,
         unselectedItemColor: AppColors.grey,
         showSelectedLabels: true,
-        items: const [
+        items:  [
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.house_alt),
-            label: "Home",
+            label: S().home,
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.bag),
-            label: "Favorite",
+            label: S().orders,
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.heart),
-            label: "Favorite",
+            label: S().favorite,
           ),
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.settings),
-            label: "Profile",
+            label: S().settings,
           ),
         ]);
   }

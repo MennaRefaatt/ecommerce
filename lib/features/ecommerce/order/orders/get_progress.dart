@@ -11,7 +11,7 @@ class GetProgress {
       case "New"||"جديد":
         return 0.5;
       default:
-        return 0.0; // Default value if status doesn't match any case
+        return 0.0;
     }
   }
 

@@ -55,7 +55,7 @@ class AppModule extends Module {
       AppEndpoints.mapsLocation,
       child: (context) {
         return BlocProvider(
-            create: (context) => LocationCubit(sl(), sl()),
+            create: (context) => LocationCubit(sl(), sl(), sl()),
             child: const MapScreen());
       },
     );
@@ -93,8 +93,8 @@ class AppModule extends Module {
     r.child(
       AppEndpoints.orderPlacedScreen,
       child: (context) {
-        final id = Modular.args.data;
-        return OrderPlacedScreen(id: id);
+       // final id = Modular.args.data;
+        return OrderPlacedScreen(id: 4648);
       },
     );
     r.child(

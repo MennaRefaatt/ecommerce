@@ -41,7 +41,8 @@ class _OrderTrackingDetailsState extends State<OrderTrackingDetails> {
               ],
             ),
             widget.orderDetailsModel.data!.status == "Delivered" ||
-                    widget.orderDetailsModel.data!.status == "New"
+                    widget.orderDetailsModel.data!.status == "New" ||
+                    widget.orderDetailsModel.data!.status == "جديد"
                 ? Container(
                     padding: EdgeInsets.all(15.sp),
                     decoration: BoxDecoration(

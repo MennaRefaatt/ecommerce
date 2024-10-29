@@ -1,4 +1,3 @@
-import 'package:ecommerce/core/helpers/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -6,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../../core/components/app_bar.dart';
 import '../../../../../../../core/di/di.dart';
 import '../../../../../../../core/helpers/safe_print.dart';
-import '../../../../../../../core/helpers/shared_pref_keys.dart';
 import '../../../../../../../core/theming/app_colors.dart';
 import '../../../../../../../core/utils/app_button.dart';
 import '../../../../../../../generated/l10n.dart';
@@ -19,7 +17,7 @@ class AddAddressScreen extends StatelessWidget {
     super.key,
   });
   final cubit = AddressCubit(sl());
-  final mapsCubit = LocationCubit(sl(), sl());
+  final mapsCubit = LocationCubit(sl(), sl(), sl());
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -54,33 +52,25 @@ class AddAddressScreen extends StatelessWidget {
                             backgroundColor: Colors.white70,
                           ));
                         } else {
-                          return AppButton(
-                            backgroundColor: AppColors.primary,
-                            onPressed: () {
-                              if (cubit.addressData.isEmpty) {
-                                if (cubit.formKey.currentState!.validate()) {
-                                  cubit.addAddressWithSelectedLocation(mapsCubit);
-                                  safePrint(SharedPref.getInt(
-                                      key: MySharedKeys.defaultAddressId));
-                                  SharedPref.putString(
-                                      key: MySharedKeys.city,
-                                      value: cubit.addressData.last.city);
-                                  SharedPref.putString(
-                                      key: MySharedKeys.addressDetails,
-                                      value: cubit.addressData.last.details);
-                                  SharedPref.putInt(
-                                      key: MySharedKeys.defaultAddressId,
-                                      value: cubit.addressData.first.id);
-                                  Modular.to.pop();
+                          return Center(
+                            child: AppButton(
+                              backgroundColor: AppColors.primary,
+                              onPressed: () {
+                                if (cubit.addressData.isEmpty) {
+                                  if (cubit.formKey.currentState!.validate()) {
+                                    cubit.addAddressWithSelectedLocation(mapsCubit);
+                                    Modular.to.pop();
+                                  }
+                                  safePrint("======> ${cubit.addressData.last.lat+cubit.addressData.last.long}");
+                                } else {
+                                  safePrint("No address found to save");
                                 }
-                              } else {
-                                safePrint("No address found to save");
-                              }
-                            },
-                            text: S().save,
-                            textStyle: TextStyle(
-                              fontSize: 20.sp,
-                              color: AppColors.primaryLight,
+                              },
+                              text: S().save,
+                              textStyle: TextStyle(
+                                fontSize: 20.sp,
+                                color: AppColors.primaryLight,
+                              ),
                             ),
                           );
                         }
