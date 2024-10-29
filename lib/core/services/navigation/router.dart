@@ -15,14 +15,10 @@ import 'package:ecommerce/features/ecommerce/order/orders/presentation/screen/or
 import 'package:ecommerce/features/ecommerce/search/presentation/screen/search_screen.dart';
 import 'package:ecommerce/features/splash/splash.dart';
 import 'package:ecommerce/features/user/chat/presentation/screen/chat_screen.dart';
-import 'package:ecommerce/features/user/settings/complaints_screen/presentation/view/screens/complaints_screen.dart';
-import 'package:ecommerce/features/user/settings/contact_us_screen/view/screens/contact_us_screen.dart';
-import 'package:ecommerce/features/user/settings/fAQs_screen/view/screens/f_a_q_s_screen.dart';
-import 'package:ecommerce/features/user/settings/profile_screen/view/screens/change_password/view/screens/change_password_screen.dart';
-import 'package:ecommerce/features/user/settings/profile_screen/view/screens/profile_screen.dart';
-import 'package:ecommerce/features/user/settings/profile_screen/view/screens/update_account/view/screens/update_account_screen.dart';
-import 'package:ecommerce/features/user/settings/settings_screen/view/screens/settings_screen.dart';
-import 'package:ecommerce/features/user/settings/terms_and_conditions_screen/view/screens/terms_and_conditions_screen.dart';
+import 'package:ecommerce/features/user/settings/complaints_screen/presentation/screen/complaints_screen.dart';
+import 'package:ecommerce/features/user/settings/contact_us_screen/presentation/screen/contact_us_screen.dart';
+import 'package:ecommerce/features/user/settings/fAQs_screen/presentation/screen/f_a_q_s_screen.dart';
+import 'package:ecommerce/features/user/settings/terms_and_conditions_screen/presentation/screen/terms_and_conditions_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -34,6 +30,10 @@ import '../../../features/ecommerce/product_details/presentation/screens/product
 import '../../../features/ecommerce/product_details/product_details_args.dart';
 import '../../../features/ecommerce/suggested_products/presentation/screen/suggested_products_screen.dart';
 import '../../../features/ecommerce/suggested_products/suggested_products_args.dart';
+import '../../../features/user/settings/profile_screen/presentation/screens/change_password/view/screens/change_password_screen.dart';
+import '../../../features/user/settings/profile_screen/presentation/screens/profile_screen.dart';
+import '../../../features/user/settings/profile_screen/presentation/screens/update_account/view/screens/update_account_screen.dart';
+import '../../../features/user/settings/settings_screen/presentation/screens/settings_screen.dart';
 import '../../di/di.dart';
 import 'app_endpoints.dart';
 
