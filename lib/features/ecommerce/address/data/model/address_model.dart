@@ -142,6 +142,8 @@ class AddressDataListModel {
   String? _region;
   String? _details;
   String? _notes;
+  double? _lat;
+  double? _long;
   int? _id;
 
   AddressDataListModel(
@@ -150,6 +152,8 @@ class AddressDataListModel {
         required String region,
         required String details,
         required String notes,
+        required double lat,
+        required double long,
         required int id}) {
     _name = name;
     _city = city;
@@ -157,6 +161,8 @@ class AddressDataListModel {
     _details = details;
     _notes = notes;
     _id = id;
+    _lat = lat;
+    _long = long;
   }
 
   AddressDataListModel.fromJson(Map<String, dynamic>  json) {
@@ -166,6 +172,8 @@ class AddressDataListModel {
     _details = json["details"];
     _notes = json["notes"];
     _id = json["id"];
+    _lat = json["lat"];
+    _long = json["long"];
   }
 
 
@@ -177,6 +185,8 @@ class AddressDataListModel {
     data["details"] = _details;
     data["notes"] = _notes;
     data["id"] = _id;
+    data["lat"] = _lat;
+    data["long"] = _long;
     return data;
   }
 
@@ -190,6 +200,8 @@ class AddressDataListModel {
   String get details => _details??'';
   String get notes => _notes??'';
   int get id => _id??0;
+  double get lat => _lat??0.0;
+  double get long => _long??0.0;
 
   set city(String value) {
     _city = value;
@@ -209,5 +221,13 @@ class AddressDataListModel {
 
   set id(int value) {
     _id = value;
+  }
+
+  set lat(double value) {
+    _lat = value;
+  }
+
+  set long(double value) {
+    _long = value;
   }
 }

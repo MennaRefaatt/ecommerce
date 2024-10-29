@@ -1,3 +1,5 @@
+import 'package:ecommerce/core/helpers/safe_print.dart';
+
 import '../../domain/entity/confirm_param.dart';
 import '../../domain/repo_base/repo_base.dart';
 import '../data_source/ds_confirm_remote.dart';
@@ -10,6 +12,7 @@ class ConfirmRepoImpl implements ConfirmRepoBase {
   Future<ConfirmOrderModel> confirmOrder(ConfirmParam confirmParam) async {
     final response = await dsConfirmRemote.confirmOrder(confirmParam);
     try {
+      safePrint(response);
       return response;
     } catch (e) {
       rethrow;

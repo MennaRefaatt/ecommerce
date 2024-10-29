@@ -8,7 +8,6 @@ class LocationLoading extends LocationState {}
 
 class LocationLoaded extends LocationState {
   final Position position;
-
   LocationLoaded(this.position);
 }
 

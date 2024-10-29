@@ -24,10 +24,13 @@ class LocationRepositoryImpl implements LocationRepository {
   Future<void> setMarkerPosition(LatLng location) async{
    final position =  await dataSource.setMarkerPosition(location);
     try {
-      //safePrint(position.toString());
       return position;
     } catch (e) {
       return Future.error(e);
     }
+  }
+  @override
+  Stream<Position> getRealTimeLocationUpdates() {
+    return dataSource.getRealTimeLocationUpdates();
   }
 }

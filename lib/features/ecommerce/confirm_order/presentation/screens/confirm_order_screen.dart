@@ -14,7 +14,6 @@ import '../../../../../core/utils/app_button.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../address/presentation/manager/address_cubit.dart';
 import '../../../cart/presentation/manager/cart_cubit.dart';
-import '../../confirm_order_args.dart';
 import '../../payment_enum.dart';
 import '../manager/confirm_order_cubit.dart';
 import '../widgets/default_address.dart';
@@ -25,6 +24,7 @@ class ConfirmOrderScreen extends StatefulWidget {
   const ConfirmOrderScreen({
     super.key,
   });
+
   @override
   State<ConfirmOrderScreen> createState() => _ConfirmOrderScreenState();
 }
@@ -38,13 +38,13 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
   @override
   void initState() {
     super.initState();
-    selectedPaymentMethod = 1; // Default to "Cash on Delivery"
+    selectedPaymentMethod = 1;
   }
 
   void _updatePaymentMethod(String method) {
     setState(() {
       selectedPaymentMethod =
-          method == PaymentEnum.cashOnDelivery.toString() ? 1 : 2;
+      method == PaymentEnum.cashOnDelivery.toString() ? 1 : 2;
     });
   }
 
@@ -89,31 +89,35 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
                 initialPaymentMethod: selectedPaymentMethod.toString(),
                 onChange: _updatePaymentMethod,
               ),
-              AppButton(
-                onPressed: () {
-                  cubit
-                      .addConfirmOrderData(
-                    addressId:
+              BlocBuilder<ConfirmOrderCubit, ConfirmOrderState>(
+                builder: (context, state) {
+                  if (state is ConfirmOrderLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return AppButton(
+                    onPressed: () {
+                      cubit
+                          .addConfirmOrderData(
+                        addressId:
                         SharedPref.getInt(key: MySharedKeys.defaultAddressId)!,
-                    paymentMethod: selectedPaymentMethod,
-                  )
-                      .then((confirmOrderModel) {
-                    final orderId = confirmOrderModel.data?.id;
-                    safePrint("Order ID: $orderId");
-                    if (orderId != null) {
+                        paymentMethod: selectedPaymentMethod,
+                      );
+                      safePrint(SharedPref.getInt(key: MySharedKeys.defaultAddressId));
                       Modular.to.navigate(AppEndpoints.orderPlacedScreen,
-                          arguments: ConfirmOrderArgs(id: orderId));
-                    } else {
-                      safePrint("Error: Order ID is null");
-                    }
-                  });
+                        //arguments: ConfirmOrderArgs(id: 1)
+                      );
+                      ///ToDO: navigate to order placed screen
+                    },
+                    text: S().confirmOrder,
+                    backgroundColor: AppColors.primary,
+                    textStyle: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.sp,
+                    ),
+                  );
                 },
-                text: S().confirmOrder,
-                backgroundColor: AppColors.primary,
-                textStyle: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.sp,
-                ),
               ),
             ],
           ),

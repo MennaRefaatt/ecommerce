@@ -15,11 +15,9 @@ class DsConfirmRemoteImpl implements DsConfirmRemote {
   @override
   Future<ConfirmOrderModel> confirmOrder(ConfirmParam confirmParam) async {
     final response =
-        await ApiService.postData(endPoint: EndPoints.addOrders, data: {
-      "address_id": confirmParam.addressId,
-      "payment_method": confirmParam.paymentMethod,
-      "use_points": 0
-    });
+        await ApiService.postData(endPoint: EndPoints.addOrders, data:
+     confirmParam.toJson()
+    );
     try {
       ConfirmOrderModel confirmOrderModel =
           ConfirmOrderModel.fromJson(response);

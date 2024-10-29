@@ -7,18 +7,20 @@ part 'order_details_state.dart';
 
 class OrderDetailsCubit extends Cubit<OrderDetailsState> {
   OrderDetailsCubit(this.oDetailsRepoBase) : super(OrderDetailsInitial());
-final ODetailsRepoBase oDetailsRepoBase;
-  void getOrderDetails({required String id})async {
+  final ODetailsRepoBase oDetailsRepoBase;
+  void getOrderDetails({required String id}) async {
     emit(OrderDetailsLoading());
-   final response = await oDetailsRepoBase.getOrderDetails(id: id);
-   if(response.status == true){
-     emit(OrderDetailsSuccess(orderDetailsModel: response));
-   }else{
-     emit(OrderDetailsError(error: response.message.toString()));
-   }
+    final response = await oDetailsRepoBase.getOrderDetails(id: id);
+    if (response.status == true) {
+      emit(OrderDetailsSuccess(
+        orderDetailsModel: response,
+      ));
+    } else {
+      emit(OrderDetailsError(error: response.message.toString()));
+    }
   }
 
-  cancelOrder({required int orderId}) async{
+  cancelOrder({required int orderId}) async {
     emit(CancelOrderLoading());
     final response = await oDetailsRepoBase.cancelOrder(orderId: orderId);
     if (response.status == true) {

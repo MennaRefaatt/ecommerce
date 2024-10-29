@@ -21,7 +21,7 @@ class ConfirmOrderCubit extends Cubit<ConfirmOrderState> {
         addressId: addressId,
         paymentMethod: paymentMethod,
       ));
-      if (response.status == true) {
+      if (response.status == true && response.data != null) {
         emit(ConfirmOrderSuccess(confirmOrderModel: response));
       } else {
         emit(ConfirmOrderError(error: response.message));

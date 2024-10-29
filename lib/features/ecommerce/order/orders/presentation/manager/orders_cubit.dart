@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:ecommerce/features/ecommerce/order/orders/domain/repo_base/repo_base.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:meta/meta.dart';
 
 import '../../data/model/orders_model.dart';
@@ -21,13 +22,12 @@ class OrdersCubit extends Cubit<OrdersState> {
           if (order.status == "New" || order.status == "جديد") {
             currentOrders.add(order);
           } else if (order.status == "Cancelled" ||
-              order.status == "delivered" || order.status == "ملغي") {
+              order.status == "delivered" ||
+              order.status == "ملغي") {
             oldOrders.add(order);
           }
         }
-        emit(OrdersSuccess(
-            currentOrders: currentOrders, oldOrders: oldOrders));
-
+        emit(OrdersSuccess(currentOrders: currentOrders, oldOrders: oldOrders));
       } else {
         emit(OrdersError(error: response.toString()));
       }

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,15 +9,14 @@ import '../../../../../../generated/l10n.dart';
 import '../../../../home/presentation/manager/home_cubit.dart';
 
 class ProductsYouMightLike extends StatefulWidget {
-    const ProductsYouMightLike({super.key, required this.favoriteCubit});
-  final FavouriteCubit favoriteCubit ;
+  const ProductsYouMightLike({super.key, required this.favoriteCubit});
+  final FavouriteCubit favoriteCubit;
 
   @override
   State<ProductsYouMightLike> createState() => _ProductsYouMightLikeState();
 }
 
 class _ProductsYouMightLikeState extends State<ProductsYouMightLike> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,29 +35,38 @@ class _ProductsYouMightLikeState extends State<ProductsYouMightLike> {
                   ),
                 );
               }
-              if(state is HomeSuccess){
+              if (state is HomeSuccess) {
                 if (state.homeEntity.data.products.isEmpty) {
                   return const Center(
                     child: Text('No products found'),
                   );
                 }
-              return ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: 5,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return ProductItemWidget(
-                      price: state.homeEntity.data.products[index].price.toString(),
-                      name:state.homeEntity.data.products[index].name,
-                      image: state.homeEntity.data.products[index].image,
-                      id: state.homeEntity.data.products[index].id,
-                      inFavorites: state.homeEntity.data.products[index].isFav,
-                      oldPrice:state.homeEntity.data.products[index].oldPrice.toString(),
-                      discount: state.homeEntity.data.products[index].discount.toString(),
-                      favoriteCubit: widget.favoriteCubit,
-                    );
-                  });
+                return SizedBox(
+                  height: 300.h,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: 5,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return ProductItemWidget(
+                          price: state.homeEntity.data.products[index].price
+                              .toString(),
+                          name: state.homeEntity.data.products[index].name,
+                          image: state.homeEntity.data.products[index].image,
+                          id: state.homeEntity.data.products[index].id,
+                          inFavorites:
+                              state.homeEntity.data.products[index].isFav,
+                          oldPrice: state
+                              .homeEntity.data.products[index].oldPrice
+                              .toString(),
+                          discount: state
+                              .homeEntity.data.products[index].discount
+                              .toString(),
+                          favoriteCubit: widget.favoriteCubit,
+                        );
+                      }),
+                );
               }
               return const Center(
                 child: Text('No products found'),

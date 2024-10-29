@@ -10,7 +10,6 @@ final class OrdersLoading extends OrdersState {}
 final class OrdersSuccess extends OrdersState {
   final List<OrderDataList> currentOrders;
   final List<OrderDataList> oldOrders;
-
   OrdersSuccess({required this.currentOrders, required this.oldOrders});
 }
 

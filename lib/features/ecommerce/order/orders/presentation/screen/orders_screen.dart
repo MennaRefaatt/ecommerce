@@ -1,4 +1,5 @@
 
+import 'package:ecommerce/core/components/app_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,46 +26,49 @@ class _OrdersScreenState extends State<OrdersScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ordersCubit..getOrders(),
-      child: Column(
-        children: [
-          DefaultAppBar(text: S().orders, cartIcon: false, backArrow: false),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 5.sp, vertical: 10.sp),
-            decoration: BoxDecoration(
-              color: AppColors.greyBorder.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(30.r),
+      child: Scaffold(
+        bottomNavigationBar: const AppBottomNavBar(index: 1),
+        body: Column(
+          children: [
+            DefaultAppBar(text: S().orders, cartIcon: false, backArrow: false),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 5.sp, vertical: 10.sp),
+              decoration: BoxDecoration(
+                color: AppColors.greyBorder.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(30.r),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AnimatedButton(
+                    isSelected: isCurrentSelected,
+                    text: "Current",
+                    onTap: () {
+                      setState(() {
+                        isCurrentSelected = true;
+                      });
+                    },
+                  ),
+                  horizontalSpacing(10.w),
+                  AnimatedButton(
+                    isSelected: !isCurrentSelected,
+                    text: S().old,
+                    onTap: () {
+                      setState(() {
+                        isCurrentSelected = false;
+                      });
+                    },
+                  ),
+                ],
+              ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AnimatedButton(
-                  isSelected: isCurrentSelected,
-                  text: "Current",
-                  onTap: () {
-                    setState(() {
-                      isCurrentSelected = true;
-                    });
-                  },
-                ),
-                horizontalSpacing(10.w),
-                AnimatedButton(
-                  isSelected: !isCurrentSelected,
-                  text: S().old,
-                  onTap: () {
-                    setState(() {
-                      isCurrentSelected = false;
-                    });
-                  },
-                ),
-              ],
+            verticalSpacing(10.h),
+            Expanded(
+              child: OrdersList(isCurrentSelected: isCurrentSelected),
             ),
-          ),
-          verticalSpacing(10.h),
-          Expanded(
-            child: OrdersList(isCurrentSelected: isCurrentSelected),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
