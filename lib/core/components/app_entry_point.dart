@@ -1,4 +1,6 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:ecommerce/core/cubits/language/language_cubit.dart';
+import 'package:ecommerce/core/helpers/shared_pref.dart';
 import 'package:ecommerce/core/theming/theming_manager_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,42 +33,54 @@ class _AppEntryPointState extends State<AppEntryPoint> {
   @override
   Widget build(BuildContext context) {
     return DevicePreview(
-      builder: (context) => ScreenUtilInit(
-        designSize: const Size(390, 844),
-        minTextAdapt: true,
-        enableScaleText: () => false,
-        enableScaleWH: () => false,
-        builder: (BuildContext context, Widget? child) {
-          return BlocProvider(
-            create: (context) => ThemeCubit(),
-            child: BlocBuilder<ThemeCubit, ThemeData>(builder: (context, theme) {
-              return ModularApp(
-                module: AppModule(),
-                child: LocalizedApp(
-                  child: ToastificationWrapper(
-                    config: const ToastificationConfig(
-                      alignment: Alignment.topCenter,
-                    ),
-                    child: MaterialApp.router(
-                      title: 'ecommerce',
-                      debugShowCheckedModeBanner: false,
-                      routeInformationParser: Modular.routeInformationParser,
-                      routerDelegate: Modular.routerDelegate,
-                      theme: theme,
-                      themeMode: ThemeMode.system,
-                      builder: (context, child) {
-                        AppModule.init();
-                        child ??= const SizedBox.shrink();
-                        return EasyLoading.init()(context, child);
-                      },
-                    ),
+      builder: (context) =>
+          ScreenUtilInit(
+            designSize: const Size(390, 844),
+            minTextAdapt: true,
+            enableScaleText: () => false,
+            enableScaleWH: () => false,
+            builder: (BuildContext context, Widget? child) {
+              return MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => ThemeCubit(),
                   ),
-                ),
+                  BlocProvider(
+                    create: (context) =>LanguageCubit(),
+                  ),
+                ],
+                child: BlocBuilder<ThemeCubit, ThemeData>(
+                    builder: (context, theme) {
+                      return ModularApp(
+                        module: AppModule(),
+                        child: LocalizedApp(
+                          child: ToastificationWrapper(
+                            config: const ToastificationConfig(
+                              alignment: Alignment.topCenter,
+                            ),
+                            child: MaterialApp.router(
+                              title: 'ecommerce',
+                              key: ValueKey(SharedPref.getCurrentLanguage()),
+                              locale: Locale(SharedPref.getCurrentLanguage()),
+                              debugShowCheckedModeBanner: false,
+                              routeInformationParser: Modular
+                                  .routeInformationParser,
+                              routerDelegate: Modular.routerDelegate,
+                              theme: theme,
+                              themeMode: ThemeMode.system,
+                              builder: (context, child) {
+                                AppModule.init();
+                                child ??= const SizedBox.shrink();
+                                return EasyLoading.init()(context, child);
+                              },
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
               );
-            }),
-          );
-        },
-      ),
+            },
+          ),
     );
   }
 }
