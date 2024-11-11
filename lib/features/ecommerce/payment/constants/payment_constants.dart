@@ -1,0 +1,5 @@
+class PaymentConstants{
+  static String apiKey = "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRBd05USTVOQ3dpYm1GdFpTSTZJbWx1YVhScFlXd2lmUS54VzhFV3o2NURXNmhBNHFpcHBnUXFBd2pHU2xIVzJlRkhMRVdsLTlHNi1WNGxXc0hxaWJLTHpIaTg0alVLY2dlbm1MYXZwWVZsczNLTnAtZDZrN1hyQQ==";
+  static int integrationId=4872701;
+  static int iFrameId=880224;
+}

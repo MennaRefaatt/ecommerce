@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/theming/app_colors.dart';
 import '../../../../../generated/l10n.dart';
+import '../../../cart/presentation/manager/cart_cubit.dart';
+import '../../../payment/payment_view.dart';
 import '../../payment_enum.dart';
 
 class PaymentMethod extends StatefulWidget {
@@ -23,47 +26,63 @@ class _PaymentMethodState extends State<PaymentMethod> {
     super.initState();
     selectedPaymentMethod = widget.initialPaymentMethod ??
         PaymentEnum.cashOnDelivery
-            .toString(); // Initialize with initial value or empty string
+            .toString();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(15.sp),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(S().paymentMethod,
-              style: TextStyle(
-                  color: AppColors.black,
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold)),
-          verticalSpacing(10.h),
-          selectPaymentMethod(
-            onChange: (String? value) {
-              setState(() {
-                selectedPaymentMethod = value!;
-              });
-            },
-            selectedPaymentMethod: selectedPaymentMethod,
-            title: S().cashOnDelivery,
-            value: 1.toString(),
-            icon: Icons.delivery_dining,
-          ),
-          selectPaymentMethod(
+    return BlocBuilder<CartCubit, CartState>(builder: (context, state) {
+      int totalCost = 0;
+      if (state is CartSuccess) {
+        totalCost = state.cartModel.data!.total;
+      }
+      return Container(
+        margin: EdgeInsets.all(15.sp),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(S().paymentMethod,
+                style: TextStyle(
+                    color: AppColors.black,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold)),
+            verticalSpacing(10.h),
+            selectPaymentMethod(
               onChange: (String? value) {
                 setState(() {
                   selectedPaymentMethod = value!;
                 });
               },
               selectedPaymentMethod: selectedPaymentMethod,
-              title: S().onlinePayment,
-              value: 2.toString(),
-              icon: Icons.credit_card,
-              subtitle: "XXXX XXXX XXXX 1111"),
-        ],
-      ),
-    );
+              title: S().cashOnDelivery,
+              value: PaymentEnum.cashOnDelivery.toString(),
+              icon: Icons.delivery_dining,
+            ),
+            selectPaymentMethod(
+                onChange: (String? value) {
+                  setState(() {
+                    selectedPaymentMethod = value!;
+                    if (selectedPaymentMethod ==
+                        PaymentEnum.onlinePayment.toString()) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              PaymentView(totalCost: totalCost),
+                        ),
+                      );
+                    }
+                  });
+                },
+                selectedPaymentMethod: selectedPaymentMethod,
+                title: S().onlinePayment,
+                value: PaymentEnum.onlinePayment.toString(),
+                icon: CupertinoIcons.creditcard,
+                subtitle: "XXXX XXXX XXXX 1111"),
+          ],
+        ),
+      );
+    });
   }
 }
 
@@ -75,9 +94,7 @@ selectPaymentMethod(
     String? subtitle,
     required String value}) {
   return InkWell(
-    onTap: () {
-      onChange(value);
-    },
+    onTap: () => onChange(value),
     borderRadius: BorderRadius.circular(10.r),
     child: Container(
       margin: EdgeInsets.all(15.sp),
