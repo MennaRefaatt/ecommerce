@@ -41,7 +41,10 @@ class DefaultAddress extends StatelessWidget {
                     Text(
                       SharedPref.getString(key: MySharedKeys.city)!,
                       style: TextStyle(
-                          color: AppColors.black,
+                          color: SharedPref.getBoolean(
+                                  key: MySharedKeys.isDarkMode)
+                              ? Colors.white
+                              : AppColors.black,
                           fontSize: 18.sp,
                           fontWeight: FontWeight.bold),
                     ),
@@ -49,7 +52,10 @@ class DefaultAddress extends StatelessWidget {
                     Text(
                       SharedPref.getString(key: MySharedKeys.addressDetails)!,
                       style: TextStyle(
-                        color: AppColors.black,
+                        color:
+                            SharedPref.getBoolean(key: MySharedKeys.isDarkMode)
+                                ? Colors.white
+                                : AppColors.black,
                         fontSize: 16.sp,
                       ),
                     ),

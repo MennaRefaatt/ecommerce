@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:paymob_payment/paymob_payment.dart';
 
 import '../../../core/helpers/shared_pref_keys.dart';
+import '../../../core/theming/app_colors.dart';
 
 class PaymentView extends StatefulWidget {
   final int totalCost;
@@ -52,13 +53,15 @@ class _PaymentViewState extends State<PaymentView> {
             width: double.infinity,
             padding: EdgeInsets.all(20.sp),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: SharedPref.getBoolean(key: MySharedKeys.isDarkMode)
+                  ? Colors.black87
+                  : Colors.white,
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 5,
                   blurRadius: 7,
-                  offset: const Offset(0, 3),
+                  offset: const Offset(10,1),
                 ),
               ],
               borderRadius: BorderRadius.only(
@@ -73,7 +76,11 @@ class _PaymentViewState extends State<PaymentView> {
                     ? Container()
                     : IconButton(
                         icon: Icon(CupertinoIcons.back,
-                            color: Colors.black, size: 30.sp),
+                            color: SharedPref.getBoolean(
+                                    key: MySharedKeys.isDarkMode)
+                                ? Colors.white
+                                : AppColors.black,
+                            size: 30.sp),
                         onPressed: () {
                           Navigator.pop(context);
                         },

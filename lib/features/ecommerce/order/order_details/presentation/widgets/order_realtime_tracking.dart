@@ -6,7 +6,7 @@ import '../../../../../../core/di/di.dart';
 import '../../../../maps/presentation/manager/location_cubit.dart';
 
 class OrderRealtimeTracking extends StatefulWidget {
-  const OrderRealtimeTracking({super.key, required this.addressLat, required this.addressLong});
+  const OrderRealtimeTracking({super.key, required this.addressLat, required this.addressLong,});
 final double addressLat;
 final double addressLong;
   @override
@@ -66,7 +66,7 @@ class _OrderRealtimeTrackingState extends State<OrderRealtimeTracking> {
                 markers: {if (driverMarker != null) driverMarker!, if (clientMarker != null) clientMarker!},
                 polylines: _polylines,
                 initialCameraPosition: CameraPosition(
-                  target: LatLng(state.position.latitude, state.position.longitude),
+                  target: LatLng(widget.addressLat, widget.addressLong),
                   zoom: 15,
                 ),
               ),

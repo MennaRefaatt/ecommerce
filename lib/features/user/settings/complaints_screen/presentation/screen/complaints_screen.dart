@@ -22,23 +22,23 @@ class ComplaintsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => cubit,
       child: Scaffold(
-        body: Column(
-          children: [
-            DefaultAppBar(
-                text: S().complaints, cartIcon: false, backArrow: true),
-            Container(
-              margin: EdgeInsets.all(15.sp),
-              child: BlocBuilder<ComplaintsCubit, ComplaintsState>(
-                builder: (context, state) {
-                  if (state is ComplaintsLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.primary,
-                      ),
-                    );
-                  } else {
-                    return SingleChildScrollView(
-                      child: Form(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              DefaultAppBar(
+                  text: S().complaints, cartIcon: false, backArrow: true),
+              Container(
+                margin: EdgeInsets.all(15.sp),
+                child: BlocBuilder<ComplaintsCubit, ComplaintsState>(
+                  builder: (context, state) {
+                    if (state is ComplaintsLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.primary,
+                        ),
+                      );
+                    } else {
+                      return Form(
                         key: cubit.userDataFormValidators.formKey,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +46,6 @@ class ComplaintsScreen extends StatelessWidget {
                             AppTextFormField(
                               withTitle: true,
                               textInputAction: TextInputAction.next,
-                              //backgroundColor: AppColors.primaryLight,
                               keyboardType: TextInputType.name,
                               hintText: S().name,
                               title: S().name,
@@ -57,10 +56,10 @@ class ComplaintsScreen extends StatelessWidget {
                             verticalSpacing(15.h),
                             AppTextFormField(
                               hintText: "01XXXXXXXXX",
+                              withHint: true,
                               keyboardType: TextInputType.phone,
                               maxLength: 11,
                               withTitle: true,
-                              //backgroundColor: AppColors.primaryLight,
                               textInputAction: TextInputAction.next,
                               backgroundColor: AppColors.greyInput,
                               validator: (value) => cubit.userDataFormValidators.validatePhone(value),
@@ -71,7 +70,6 @@ class ComplaintsScreen extends StatelessWidget {
                             AppTextFormField(
                                 textInputAction: TextInputAction.next,
                                 withTitle: true,
-                                //backgroundColor: AppColors.primaryLight,
                                 keyboardType: TextInputType.emailAddress,
                                 hintText: "shop@gmail.com",
                                 title: S().email,
@@ -83,13 +81,11 @@ class ComplaintsScreen extends StatelessWidget {
                                 maxLines: 5,
                                 minLines: 3,
                                 keyboardType: TextInputType.multiline,
-                                //backgroundColor: AppColors.primaryLight,
                                 textInputAction: TextInputAction.done,
                                 hintText: S().writeYourComplaintHere,
                                 withTitle: true,
                                 title: S().writeYourComplaintHere,
                                 controller: cubit.messageController,
-                                isFilled: true,
                                 backgroundColor: AppColors.greyInput,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -118,13 +114,13 @@ class ComplaintsScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                      ),
-                    );
-                  }
-                },
+                      );
+                    }
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

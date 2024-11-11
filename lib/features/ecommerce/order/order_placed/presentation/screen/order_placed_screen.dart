@@ -55,7 +55,6 @@ class _OrderPlacedScreenState extends State<OrderPlacedScreen> {
         ),
       ],
       child: Scaffold(
-        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
             children: [

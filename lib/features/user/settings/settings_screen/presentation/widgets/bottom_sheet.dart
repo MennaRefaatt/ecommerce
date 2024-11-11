@@ -18,7 +18,9 @@ class BottomSheetContainer extends StatelessWidget {
      return Container(
       padding: EdgeInsets.all(15.sp),
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.3),
+        color: SharedPref.getBoolean(key: MySharedKeys.isDarkMode)
+            ? AppColors.primaryLight.withOpacity(0.7)
+            : AppColors.primary.withOpacity(0.1),
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(21.r),
             topRight: Radius.circular(21.r)),

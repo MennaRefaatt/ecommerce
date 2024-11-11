@@ -1,5 +1,5 @@
-
 import 'package:ecommerce/core/components/app_network_image.dart';
+import 'package:ecommerce/core/helpers/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,9 +8,12 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../../../core/components/app_bar.dart';
 import '../../../../../../core/di/di.dart';
 import '../../../../../../core/helpers/safe_print.dart';
+import '../../../../../../core/helpers/shared_pref.dart';
+import '../../../../../../core/helpers/shared_pref_keys.dart';
 import '../../../../../../core/theming/app_colors.dart';
 import '../../../../../../generated/l10n.dart';
 import '../manager/contact_us_cubit.dart';
+
 class ContactUsScreen extends StatelessWidget {
   ContactUsScreen({super.key});
 
@@ -21,7 +24,8 @@ class ContactUsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => cubit..getContactUs(),
       child: Scaffold(
-        backgroundColor: AppColors.primary.withOpacity(0.2),
+        backgroundColor:SharedPref.getBoolean(
+          key: MySharedKeys.isDarkMode)?AppColors.black:AppColors.primary.withOpacity(0.2),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -38,14 +42,14 @@ class ContactUsScreen extends StatelessWidget {
                   } else if (state is ContactUsSuccess) {
                     return Container(
                       margin: EdgeInsets.all(15.sp),
-                      child: GridView.builder(
+                      child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: state.contactUsModel.data!.data.length,
                         itemBuilder: (context, index) {
                           return InkWell(
-                            borderRadius: BorderRadius.circular(20.sp),
+                            borderRadius: BorderRadius.circular(20.r),
                             onTap: () {
                               safePrint(
                                   "value ${state.contactUsModel.data!.data[index].value}");
@@ -53,19 +57,31 @@ class ContactUsScreen extends StatelessWidget {
                                   .contactUsModel.data!.data[index].value));
                               //launch(state.contactUsModel.data!.data[index].value);
                             },
-                            child: AppNetworkImage(
-                                imageUrl: state
-                                    .contactUsModel.data!.data[index].image,
-                                width: 1.w,
-                                height: 50.h,
-                                borderRadius: BorderRadius.circular(10.sp)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  AppNetworkImage(
+                                    imageUrl: state
+                                        .contactUsModel.data!.data[index].image,
+                                    width: 40.w,
+                                    borderRadius: BorderRadius.circular(10.r),
+                                  ),
+                                  horizontalSpacing(10.w),
+                                  Text(
+                                    state
+                                        .contactUsModel.data!.data[index].value,
+                                    style: TextStyle(
+                                      color: SharedPref.getBoolean(
+                                          key: MySharedKeys.isDarkMode)?Colors.white:AppColors.primary,
+                                        fontSize: 18.sp,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              ),
+                            ),
                           );
                         },
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 40.sp,
-                          crossAxisSpacing: 40.sp,
-                        ),
                       ),
                     );
                   } else {

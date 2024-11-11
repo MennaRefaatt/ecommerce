@@ -78,6 +78,7 @@ class AddressScreen extends StatelessWidget {
                           textAlign: TextAlign.end,
                           style: TextStyle(
                             fontSize: 16.sp,
+                            color: AppColors.black,
                           ),
                         ),
                       ),
@@ -123,59 +124,48 @@ class AddressScreen extends StatelessWidget {
                       },
                     ),
                     verticalSpacing(20.h),
-                    Center(
-                      child: AppButton(
-                        onPressed: () =>
-                            Modular.to.pushNamed(AppEndpoints.addAddressScreen),
-                        backgroundColor: AppColors.primary,
-                        text: S().addNewAddress,
-                        textStyle: const TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    verticalSpacing(20.h),
-                    BlocBuilder<AddressCubit, AddressState>(
-                      builder: (context, state) {
-                        if (state is AddressLoading) {
-                          return const Center(
-                            child: CircularProgressIndicator(
-                              color: AppColors.primary,
-                            ),
-                          );
-                        }
-                        return Center(
-                          child: AppButton(
-                            onPressed: () {
-                              final defaultAddressId = SharedPref.getInt(
-                                  key: MySharedKeys.defaultAddressId);
-                              if (defaultAddressId == null ||
-                                  defaultAddressId == 0) {
-                                AwesomeDialog(
-                                  context: context,
-                                  dialogType: DialogType.warning,
-                                  title: 'Warning',
-                                  desc:
-                                      'Please select a default address to proceed.',
-                                  btnOkOnPress: () {},
-                                ).show();
-                              } else {
-                                Modular.to
-                                    .pushNamed(AppEndpoints.confirmOrderScreen);
-                                safePrint(defaultAddressId);
-                                safePrint(SharedPref.getString(
-                                    key: MySharedKeys.addressDetails));
-                              }
-                            },
-                            backgroundColor: AppColors.primary,
-                            text: S().saveAndContinue,
-                            textStyle: const TextStyle(
-                              color: Colors.white,
-                            ),
+                    Row(
+                      children: [
+                        AppButton(
+                          onPressed: () =>
+                              Modular.to.pushNamed(AppEndpoints.addAddressScreen),
+                          backgroundColor: AppColors.primary,
+                          text: S().addNewAddress,
+                          textStyle: const TextStyle(
+                            color: Colors.white,
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                        AppButton(
+                          width: 130,
+                          onPressed: () {
+                            final defaultAddressId = SharedPref.getInt(
+                                key: MySharedKeys.defaultAddressId);
+                            if (defaultAddressId == null ||
+                                defaultAddressId == 0) {
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.warning,
+                                title: 'Warning',
+                                desc:
+                                'Please select a default address to proceed.',
+                                btnOkOnPress: () {},
+                              ).show();
+                            } else {
+                              Modular.to
+                                  .pushNamed(AppEndpoints.confirmOrderScreen);
+                              safePrint(defaultAddressId);
+                              safePrint(SharedPref.getString(
+                                  key: MySharedKeys.addressDetails));
+                            }
+                          },
+                          backgroundColor: AppColors.green,
+                          text: S().checkout,
+                          textStyle: const TextStyle(
+                            color: Colors.white,
+                          ),
+                        )
+                      ],
+                    )
                   ],
                 ),
               ),

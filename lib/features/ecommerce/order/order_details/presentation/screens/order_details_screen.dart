@@ -2,12 +2,11 @@ import 'package:ecommerce/features/ecommerce/order/order_details/presentation/wi
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../../../core/components/app_bar.dart';
 import '../../../../../../core/di/di.dart';
 import '../../../../../../core/helpers/spacing.dart';
-import '../../../../../../core/theming/app_colors.dart';
-import '../../../../../../generated/l10n.dart';
 import '../../../../maps/presentation/manager/location_cubit.dart';
+import '../../../../../../core/components/app_bar.dart';
+import '../../../../../../generated/l10n.dart';
 import '../../order_details_args.dart';
 import '../manager/order_details_cubit.dart';
 import '../widgets/cancel_order_button.dart';
@@ -50,22 +49,14 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
               BlocBuilder<OrderDetailsCubit, OrderDetailsState>(
                 builder: (context, state) {
                   if (state is OrderDetailsLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.primary,
-                      ),
-                    );
+                    return const Center(child: CircularProgressIndicator());
                   }
                   if (state is OrderDetailsError) {
-                    return Center(
-                      child: Text(state.error),
-                    );
+                    return Center(child: Text(state.error));
                   }
                   if (state is OrderDetailsSuccess) {
                     if (state.orderDetailsModel.data!.products.isEmpty) {
-                      return const Center(
-                        child: Text('no Details found'),
-                      );
+                      return const Center(child: Text('No Details Found'));
                     }
                     return Container(
                       margin: EdgeInsets.all(15.sp),
@@ -80,11 +71,33 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                   state.orderDetailsModel.data!.status ==
                                       "New" ||
                                   state.orderDetailsModel.data!.status == "جديد"
-                              ? OrderRealtimeTracking(
-                                  addressLat: state
-                                      .orderDetailsModel.data!.address!.lat,
-                                  addressLong: state
-                                      .orderDetailsModel.data!.address!.long,
+                              ? GestureDetector(
+                                  onTap: () => ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    behavior: SnackBarBehavior.floating,
+                                    backgroundColor: Colors.red,
+                                    content: Text('Double tap to track'),
+                                  )),
+                                  onDoubleTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            OrderRealtimeTracking(
+                                          addressLat: state.orderDetailsModel
+                                              .data!.address!.lat,
+                                          addressLong: state.orderDetailsModel
+                                              .data!.address!.long,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: OrderRealtimeTracking(
+                                    addressLat: state
+                                        .orderDetailsModel.data!.address!.lat,
+                                    addressLong: state
+                                        .orderDetailsModel.data!.address!.long,
+                                  ),
                                 )
                               : const SizedBox(),
                           verticalSpacing(10.h),

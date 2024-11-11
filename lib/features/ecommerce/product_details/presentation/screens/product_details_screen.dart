@@ -88,7 +88,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     (e) => AppNetworkImage(
                                         imageUrl: e,
                                         width: double.infinity,
-                                        borderRadius: BorderRadius.circular(0.sp)),
+                                        borderRadius: BorderRadius.circular(0.r)),
                                   )
                                   .toList(),
                             ),

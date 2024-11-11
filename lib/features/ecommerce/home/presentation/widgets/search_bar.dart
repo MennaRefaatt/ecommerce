@@ -44,15 +44,14 @@ class SearchBarr extends StatelessWidget {
                     },
                     child: AppTextFormField(
                       enable: false,
-                      contentPadding: EdgeInsets.all(10.sp),
                       borderRadius: BorderRadius.circular(30.r),
                       backgroundColor: Colors.white,
                       isFilled: true,
                       hintText: S().search,
-                      title: S().search,
+                      withHint: true,
                       controller: searchCubit.searchController,
                       suffixIcon: Container(
-                        margin: EdgeInsets.all(10.sp),
+                        margin: EdgeInsets.only(right:8.sp),
                         decoration: BoxDecoration(
                           color: AppColors.primary,
                           borderRadius: BorderRadius.circular(30.r),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../../core/helpers/shared_pref.dart';
+import '../../../../../../core/helpers/shared_pref_keys.dart';
 import '../../../../../../core/theming/app_colors.dart';
 
 class AnimatedButton extends StatefulWidget {
@@ -36,7 +38,13 @@ class _AnimatedButtonState extends State<AnimatedButton> {
             widget.text,
             style: TextStyle(
               fontSize: 18.sp,
-              color: widget.isSelected ? Colors.white : Colors.black,
+              color: widget.isSelected
+                  ? SharedPref.getBoolean(key: MySharedKeys.isDarkMode)
+                      ? Colors.white
+                      : Colors.white
+                  : SharedPref.getBoolean(key: MySharedKeys.isDarkMode)
+                      ? Colors.white
+                      : Colors.black,
               fontWeight: FontWeight.bold,
             ),
           ),

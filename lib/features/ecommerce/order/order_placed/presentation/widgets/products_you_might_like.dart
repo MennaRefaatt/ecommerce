@@ -47,7 +47,6 @@ class _ProductsYouMightLikeState extends State<ProductsYouMightLike> {
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemCount: 5,
-                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         return ProductItemWidget(
                           price: state.homeEntity.data.products[index].price

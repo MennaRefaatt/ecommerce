@@ -55,7 +55,7 @@ class _ProductDetailsDescriptionState extends State<ProductDetailsDescription> {
                           fontSize: 18.sp, fontWeight: FontWeight.w800),
                     ),
                     horizontalSpacing(5.sp),
-                    widget.productDetailsData.discount != ""
+                    widget.productDetailsData.discount != "0"
                         ? Container(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 10.sp, vertical: 3.sp),

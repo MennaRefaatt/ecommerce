@@ -1,5 +1,6 @@
 import 'package:ecommerce/core/components/app_network_image.dart';
-import 'package:ecommerce/core/helpers/safe_print.dart';
+import 'package:ecommerce/core/helpers/shared_pref.dart';
+import 'package:ecommerce/core/helpers/shared_pref_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -46,13 +47,13 @@ class HomeCategories extends StatelessWidget {
                     InkWell(
                       onTap: () =>
                           Modular.to.pushNamed(AppEndpoints.categoriesScreen),
-                      borderRadius: BorderRadius.circular(20.sp),
+                      borderRadius: BorderRadius.circular(20.r),
                       child: Text(
                         S().seeAll,
                         style: TextStyle(
                             fontSize: 18.sp,
                             fontWeight: FontWeight.w800,
-                            color: AppColors.primary),
+                      ),
                       ),
                     ),
                   ],
@@ -70,7 +71,7 @@ class HomeCategories extends StatelessWidget {
                               arguments: CategoryDetailsArgs(
                                   id: state
                                       .categoriesModel.data!.data[index].id)),
-                          borderRadius: BorderRadius.circular(20.sp),
+                          borderRadius: BorderRadius.circular(20.r),
                           splashColor: Colors.transparent,
                           child: Container(
                             margin: EdgeInsets.all(5.sp),

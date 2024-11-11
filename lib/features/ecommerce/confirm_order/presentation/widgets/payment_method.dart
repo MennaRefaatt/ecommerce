@@ -1,8 +1,10 @@
+import 'package:ecommerce/core/helpers/shared_pref_keys.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/helpers/shared_pref.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/theming/app_colors.dart';
 import '../../../../../generated/l10n.dart';
@@ -24,9 +26,8 @@ class _PaymentMethodState extends State<PaymentMethod> {
   @override
   void initState() {
     super.initState();
-    selectedPaymentMethod = widget.initialPaymentMethod ??
-        PaymentEnum.cashOnDelivery
-            .toString();
+    selectedPaymentMethod =
+        widget.initialPaymentMethod ?? PaymentEnum.cashOnDelivery.toString();
   }
 
   @override
@@ -43,7 +44,9 @@ class _PaymentMethodState extends State<PaymentMethod> {
           children: [
             Text(S().paymentMethod,
                 style: TextStyle(
-                    color: AppColors.black,
+                    color: SharedPref.getBoolean(key: MySharedKeys.isDarkMode)
+                        ? Colors.white
+                        : AppColors.black,
                     fontSize: 18.sp,
                     fontWeight: FontWeight.bold)),
             verticalSpacing(10.h),
@@ -107,14 +110,19 @@ selectPaymentMethod(
       child: ListTile(
         leading: Icon(icon, color: AppColors.primary), // Icon for visa
         title: Text(title,
-            style: const TextStyle(
-                color: AppColors.black, fontWeight: FontWeight.bold)),
+            style: TextStyle(
+                color: SharedPref.getBoolean(key: MySharedKeys.isDarkMode)
+                    ? Colors.white
+                    : AppColors.black,
+                fontWeight: FontWeight.bold)),
         subtitle: subtitle == null
             ? null
             : Text(
                 subtitle,
-                style: const TextStyle(
-                  color: AppColors.black,
+                style: TextStyle(
+                  color: SharedPref.getBoolean(key: MySharedKeys.isDarkMode)
+                      ? Colors.white
+                      : AppColors.black,
                 ),
               ),
         trailing: SizedBox(

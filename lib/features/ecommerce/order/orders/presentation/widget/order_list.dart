@@ -50,7 +50,7 @@ class _OrdersListState extends State<OrdersList> {
             itemCount: orders.length,
             itemBuilder: (context, index) {
               return InkWell(
-                borderRadius: BorderRadius.circular(20.sp),
+                borderRadius: BorderRadius.circular(20.r),
                 onTap: () {
                  Modular.to.pushNamed(AppEndpoints.orderDetailsScreen,
                       arguments: OrderDetailsArgs(id: orders[index].id));
@@ -61,7 +61,7 @@ class _OrdersListState extends State<OrdersList> {
                   padding: EdgeInsets.all(15.sp),
                   decoration: BoxDecoration(
                     color: AppColors.primary.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(20.sp),
+                    borderRadius: BorderRadius.circular(20.r),
                     boxShadow: [
                       BoxShadow(
                         color: AppColors.greyBorder.withOpacity(0.1),
