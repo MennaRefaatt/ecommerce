@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/helpers/safe_print.dart';
+import '../../../../../core/helpers/shared_pref.dart';
+import '../../../../../core/helpers/shared_pref_keys.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/services/navigation/app_endpoints.dart';
 import '../../../../../core/theming/app_colors.dart';
@@ -41,9 +43,12 @@ class HomeAppbar extends StatelessWidget {
           )),
           InkWell(
             onTap: () => Modular.to.pushNamed(AppEndpoints.cartScreen),
-            borderRadius: BorderRadius.circular(30.sp),
+            borderRadius: BorderRadius.circular(30.r),
             child: CircleAvatar(
-              backgroundColor: Theme.of(context).colorScheme.onPrimary,
+              backgroundColor:
+                  SharedPref.getBoolean(key: MySharedKeys.isDarkMode)
+                      ? AppColors.primaryLight.withOpacity(0.2)
+                      : AppColors.primary.withOpacity(0.1),
               child: AppSvg(
                 path: "shopping-cart",
                 width: 20.w,
@@ -54,10 +59,13 @@ class HomeAppbar extends StatelessWidget {
           ),
           horizontalSpacing(10.sp),
           InkWell(
-              borderRadius: BorderRadius.circular(30.sp),
+              borderRadius: BorderRadius.circular(30.r),
               onTap: () => Modular.to.pushNamed(AppEndpoints.chatScreen),
               child: CircleAvatar(
-                  backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                  backgroundColor:
+                      SharedPref.getBoolean(key: MySharedKeys.isDarkMode)
+                          ? AppColors.primaryLight.withOpacity(0.2)
+                          : AppColors.primary.withOpacity(0.1),
                   child: const Icon(
                     CupertinoIcons.chat_bubble_2,
                     color: AppColors.primary,

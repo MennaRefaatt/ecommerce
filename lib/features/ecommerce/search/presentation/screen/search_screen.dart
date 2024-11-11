@@ -6,9 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/components/app_network_image.dart';
 import '../../../../../core/components/app_text_form_field.dart';
 import '../../../../../core/di/di.dart';
+import '../../../../../core/helpers/shared_pref.dart';
+import '../../../../../core/helpers/shared_pref_keys.dart';
 import '../../../../../core/services/navigation/app_endpoints.dart';
 import '../../../../../core/theming/app_colors.dart';
 import '../../../../../generated/l10n.dart';
+import '../../../product_details/product_details_args.dart';
 import '../manager/search_cubit.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -59,7 +62,7 @@ class SearchScreen extends StatelessWidget {
                             title: S().search,
                             controller: searchCubit.searchController,
                             suffixIcon: Container(
-                              margin: EdgeInsets.all(10.sp),
+                              margin: EdgeInsets.only(right: 8.sp),
                               decoration: BoxDecoration(
                                 color: AppColors.primary,
                                 borderRadius: BorderRadius.circular(30.r),
@@ -93,23 +96,36 @@ class SearchScreen extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   return InkWell(
                                     onTap: () => Modular.to.pushNamed(
-                                      AppEndpoints.productDetailsScreen,
-                                      // arguments: ProductDetailsArgs(
-                                      //   id: searchDataList[index].id,
-                                      // )
-                                    ),
+                                        AppEndpoints.productDetailsScreen,
+                                        arguments: ProductDetailsArgs(
+                                          id: searchCubit
+                                              .searchDataList[index].id!,
+                                        )),
                                     borderRadius: BorderRadius.circular(20.r),
-                                    child: ListTile(
-                                      leading: AppNetworkImage(
-                                          imageUrl: searchCubit
-                                              .searchDataList[index].image
-                                              .toString()),
-                                      title: Text(searchCubit
-                                          .searchDataList[index].name
-                                          .toString()),
-                                      subtitle: Text(searchCubit
-                                          .searchDataList[index].price
-                                          .toString()),
+                                    child: Container(
+                                      margin: EdgeInsets.all(10.sp),
+                                      decoration: BoxDecoration(
+                                        color: SharedPref.getBoolean(
+                                                key: MySharedKeys.isDarkMode)
+                                            ? AppColors.primaryLight
+                                                .withOpacity(0.2)
+                                            : AppColors.primary
+                                                .withOpacity(0.1),
+                                        borderRadius:
+                                            BorderRadius.circular(20.r),
+                                      ),
+                                      child: ListTile(
+                                        leading: AppNetworkImage(
+                                            imageUrl: searchCubit
+                                                .searchDataList[index].image
+                                                .toString()),
+                                        title: Text(searchCubit
+                                            .searchDataList[index].name
+                                            .toString()),
+                                        subtitle: Text(searchCubit
+                                            .searchDataList[index].price
+                                            .toString()),
+                                      ),
                                     ),
                                   );
                                 })

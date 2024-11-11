@@ -27,11 +27,6 @@ class _CartWidgetState extends State<CartWidget> {
   Widget build(BuildContext context) {
     return BlocListener<CartCubit, CartState>(
       listener: (context, state) {
-        // if (state is CartLoading) {
-        //   const CircularProgressIndicator(
-        //     color: AppColors.primary,
-        //   );
-        // }
         if (state is CartError) {
           const Text("Error");
         }

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../../../core/helpers/shared_pref.dart';
+import '../../../../../../core/helpers/shared_pref_keys.dart';
 import '../../../../../../core/helpers/spacing.dart';
 import '../../../../../../core/theming/app_colors.dart';
 import '../../../../../../generated/l10n.dart';
@@ -50,7 +52,9 @@ class _OrderAddressDetailsState extends State<OrderAddressDetails> {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16.sp,
-                  color: AppColors.black),
+                  color: SharedPref.getBoolean(key: MySharedKeys.isDarkMode)
+                      ? AppColors.primaryLight
+                      : AppColors.black),
             ),
             verticalSpacing(10.h),
             Text(S().deliveryAddress,
@@ -64,7 +68,9 @@ class _OrderAddressDetailsState extends State<OrderAddressDetails> {
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16.sp,
-                  color: AppColors.black),
+                  color: SharedPref.getBoolean(key: MySharedKeys.isDarkMode)
+                      ? AppColors.primaryLight
+                      : AppColors.black),
             ),
           ],
         ));

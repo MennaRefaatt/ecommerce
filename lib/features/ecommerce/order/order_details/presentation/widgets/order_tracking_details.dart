@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../../core/helpers/shared_pref.dart';
+import '../../../../../../core/helpers/shared_pref_keys.dart';
 import '../../../../../../core/helpers/spacing.dart';
 import '../../../../../../core/theming/app_colors.dart';
 import '../../../orders/presentation/widget/animated_linear_progress_indicator.dart';
@@ -46,7 +48,9 @@ class _OrderTrackingDetailsState extends State<OrderTrackingDetails> {
                 ? Container(
                     padding: EdgeInsets.all(15.sp),
                     decoration: BoxDecoration(
-                      color: AppColors.green.withOpacity(0.1),
+                      color: SharedPref.getBoolean(key: MySharedKeys.isDarkMode)
+                          ? AppColors.green.withOpacity(0.3)
+                          : AppColors.green.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Text(widget.orderDetailsModel.data!.status,
@@ -58,7 +62,9 @@ class _OrderTrackingDetailsState extends State<OrderTrackingDetails> {
                 : Container(
                     padding: EdgeInsets.all(15.sp),
                     decoration: BoxDecoration(
-                      color: AppColors.red.withOpacity(0.1),
+                      color: SharedPref.getBoolean(key: MySharedKeys.isDarkMode)
+                          ? AppColors.red.withOpacity(0.3)
+                          : AppColors.red.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Text(widget.orderDetailsModel.data!.status,

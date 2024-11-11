@@ -48,7 +48,7 @@ class _HomeProductsListViewState extends State<HomeProductsListView> {
                   safePrint(widget.products.length.toString());
                   safePrint(SuggestedProductsArgs(products: widget.products).toString());
                 },
-                borderRadius: BorderRadius.circular(20.sp),
+                borderRadius: BorderRadius.circular(20.r),
                 child: Text(
                   S().seeAll,
                   style: TextStyle(

@@ -9,6 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/components/app_bar.dart';
 import '../../../../../core/di/di.dart';
+import '../../../../../core/helpers/shared_pref.dart';
+import '../../../../../core/helpers/shared_pref_keys.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/theming/app_colors.dart';
 import '../../../../../generated/l10n.dart';
@@ -44,6 +46,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   } else if (state is CategoriesSuccess) {
                     return GridView.builder(
                         shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
                         itemCount: state.categoriesModel.data!.data.length,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
@@ -61,7 +64,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                               safePrint(state
                                   .categoriesModel.data!.data[index].id);
                             },
-                            borderRadius: BorderRadius.circular(20.sp),
+                            borderRadius: BorderRadius.circular(20.r),
                             highlightColor: AppColors.primaryLight,
                             splashColor: Colors.transparent,
                             child: Container(
@@ -73,7 +76,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                         .categoriesModel.data!.data[index].image,
                                     width: double.infinity,
                                     height: 120.h,
-                                    borderRadius: BorderRadius.circular(20.sp),
+                                    borderRadius: BorderRadius.circular(20.r),
                                   ),
                                   verticalSpacing(10.h),
                                   Text(
@@ -84,7 +87,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                     style: TextStyle(
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.bold,
-                                        color: AppColors.black),
+                                        color: SharedPref.getBoolean(key: MySharedKeys.isDarkMode)?Colors.white:AppColors.black),
                                   ),
                                 ],
                               ),

@@ -7,6 +7,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../features/ecommerce/favorite/presentation/manager/favourite_cubit.dart';
 import '../../features/ecommerce/product_details/product_details_args.dart';
+import '../helpers/shared_pref.dart';
+import '../helpers/shared_pref_keys.dart';
 import '../helpers/spacing.dart';
 import '../theming/app_colors.dart';
 
@@ -62,7 +64,9 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
           margin: EdgeInsets.all(10.sp),
           padding: EdgeInsets.all(15.sp),
           decoration: BoxDecoration(
-            color: AppColors.primary.withOpacity(0.1),
+            color: SharedPref.getBoolean(key: MySharedKeys.isDarkMode)
+                ? AppColors.primaryLight.withOpacity(0.3)
+                : AppColors.primary.withOpacity(0.1),
             borderRadius: BorderRadius.circular(20.r),
           ),
           child: Stack(
@@ -87,8 +91,8 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                       ),
                       Text(
                         "4.9",
-                        style:
-                            TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w800),
+                        style: TextStyle(
+                            fontSize: 18.sp, fontWeight: FontWeight.w800),
                       ),
                       widget.discount != "" && widget.discount != "0"
                           ? Container(
@@ -101,7 +105,8 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                               ),
                               child: Text(
                                 "${widget.discount}%",
-                                style: const TextStyle(color: AppColors.greyBorder),
+                                style: const TextStyle(
+                                    color: AppColors.greyBorder),
                               ),
                             )
                           : Container()
@@ -114,7 +119,9 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         fontWeight: FontWeight.w800,
-                        color: AppColors.black,
+                        color: SharedPref.getBoolean(key: MySharedKeys.isDarkMode)
+                            ? Colors.white
+                            : AppColors.black,
                         fontSize: 18.sp),
                   ),
                   Row(
@@ -148,13 +155,20 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                   color: AppColors.primaryLight,
                   borderRadius: BorderRadius.circular(20.r),
                 ),
-                child:IconButton(onPressed: () {
-                  widget.favoriteCubit.toggleFavourite(productId: widget.id);
-                  setState(() {
-                    widget.inFavorites = !widget.inFavorites;
-                  });
-                },
-                    icon: Icon(Icons.favorite,color: widget.inFavorites?AppColors.primary:AppColors.greyBorder,)) ,
+                child: IconButton(
+                    onPressed: () {
+                      widget.favoriteCubit
+                          .toggleFavourite(productId: widget.id);
+                      setState(() {
+                        widget.inFavorites = !widget.inFavorites;
+                      });
+                    },
+                    icon: Icon(
+                      Icons.favorite,
+                      color: widget.inFavorites
+                          ? AppColors.primary
+                          : AppColors.greyBorder,
+                    )),
               ),
             ],
           ),

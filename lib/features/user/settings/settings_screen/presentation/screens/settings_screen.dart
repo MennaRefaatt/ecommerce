@@ -48,7 +48,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   padding: EdgeInsets.all(20.sp),
                   decoration: BoxDecoration(
                     color: AppColors.primary.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(10.sp),
+                    borderRadius: BorderRadius.circular(10.r),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,7 +103,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   padding: EdgeInsets.all(20.sp),
                   decoration: BoxDecoration(
                     color: AppColors.primary.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(10.sp),
+                    borderRadius: BorderRadius.circular(10.r),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

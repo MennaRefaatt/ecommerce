@@ -1,10 +1,11 @@
-
 import 'package:ecommerce/core/services/navigation/app_endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/helpers/shared_pref.dart';
+import '../../../../../core/helpers/shared_pref_keys.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/theming/app_colors.dart';
 import '../../../../../core/utils/app_button.dart';
@@ -38,7 +39,7 @@ class _OrderInfoState extends State<OrderInfo> {
       },
       child: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
-         if (state is CartError) {
+          if (state is CartError) {
             return Center(
               child: Text(state.error.toString()),
             );
@@ -65,8 +66,13 @@ class _OrderInfoState extends State<OrderInfo> {
                 children: [
                   Text(
                     S().orderInfo,
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.sp,
+                      color: SharedPref.getBoolean(key: MySharedKeys.isDarkMode)
+                          ? AppColors.black
+                          : AppColors.primary,
+                    ),
                   ),
                   verticalSpacing(10.h),
                   Row(
@@ -81,7 +87,9 @@ class _OrderInfoState extends State<OrderInfo> {
                       ),
                       Text(
                         "\$${state.cartModel.data!.subTotal.toString()}",
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style:  const TextStyle(fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
                       )
                     ],
                   ),
@@ -105,7 +113,8 @@ class _OrderInfoState extends State<OrderInfo> {
                       ),
                       Text(
                         "\$${state.cartModel.data!.total.toString()}",
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontWeight: FontWeight.bold,color:
+                        Colors.black87),
                       )
                     ],
                   ),
@@ -118,15 +127,14 @@ class _OrderInfoState extends State<OrderInfo> {
                         onPressed: () {
                           widget.cartCubit.updateProductQuantity(
                               cartId: state.cartModel.data!.items[0].id,
-                              quantity: state.cartModel.data!.items[0].quantity);
+                              quantity:
+                                  state.cartModel.data!.items[0].quantity);
                           Modular.to.pushNamed(AppEndpoints.addressScreen);
                         },
                         backgroundColor: AppColors.primary,
                         text: S().checkout,
-                        textStyle:TextStyle(
-                          fontSize: 15.sp,
-                          color: Colors.white
-                        ) ,
+                        textStyle:
+                            TextStyle(fontSize: 15.sp, color: Colors.white),
                       ),
                     ),
                   )

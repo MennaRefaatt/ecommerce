@@ -42,11 +42,9 @@ class AddressDataEntry extends StatelessWidget {
               withTitle: true,
               textInputAction: TextInputAction.next,
               controller: cubit.nameController,
-              backgroundColor: AppColors.primaryLight,
               keyboardType: TextInputType.name,
               hintText: "Your name",
               title: S().name,
-              isFilled: true,
               validator: (value) {
                 if (value!.isEmpty) {
                   return S().pleaseEnterYourName;
@@ -56,11 +54,9 @@ class AddressDataEntry extends StatelessWidget {
             ),
             verticalSpacing(15.h),
             AppTextFormField(
-              isFilled: true,
               withTitle: true,
               textInputAction: TextInputAction.next,
               controller: cubit.cityController,
-              backgroundColor: AppColors.primaryLight,
               keyboardType: TextInputType.name,
               hintText: "city",
               title: S().city,
@@ -74,10 +70,8 @@ class AddressDataEntry extends StatelessWidget {
             verticalSpacing(15.h),
             AppTextFormField(
               withTitle: true,
-              isFilled: true,
               textInputAction: TextInputAction.next,
               controller: cubit.regionController,
-              backgroundColor: AppColors.primaryLight,
               keyboardType: TextInputType.number,
               hintText: "region",
               title: S().region,
@@ -97,10 +91,8 @@ class AddressDataEntry extends StatelessWidget {
             verticalSpacing(15.h),
             AppTextFormField(
               withTitle: true,
-              isFilled: true,
               textInputAction: TextInputAction.next,
               controller: cubit.detailsController,
-              backgroundColor: AppColors.primaryLight,
               keyboardType: TextInputType.name,
               hintText: "details",
               title: S().details,
@@ -113,11 +105,9 @@ class AddressDataEntry extends StatelessWidget {
             ),
             verticalSpacing(15.h),
             AppTextFormField(
-              isFilled: true,
               withTitle: true,
               textInputAction: TextInputAction.next,
               controller: cubit.notesController,
-              backgroundColor: AppColors.primaryLight,
               keyboardType: TextInputType.name,
               hintText: "notes",
               title: S().notes,

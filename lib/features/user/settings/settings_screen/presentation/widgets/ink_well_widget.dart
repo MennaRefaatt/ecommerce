@@ -12,7 +12,7 @@ Widget inkWell(
   return InkWell(
     onTap: onTap,
     splashColor: Colors.transparent,
-    borderRadius: BorderRadius.circular(20.sp),
+    borderRadius: BorderRadius.circular(20.r),
     highlightColor: Colors.transparent,
     child: Container(
       padding: EdgeInsets.all(10.sp),
