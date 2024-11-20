@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -64,7 +63,7 @@ class _CartWidgetState extends State<CartWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                          widget.cartModel.data!.items[index].product!.name,
+                            widget.cartModel.data!.items[index].product!.name,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -98,14 +97,21 @@ class _CartWidgetState extends State<CartWidget> {
                             ),
                             child: IconButton(
                               onPressed: () {
-                                if (widget.cartModel.data!.items[index]
-                                        .quantity >
+                                if (widget
+                                        .cartModel.data!.items[index].quantity >
                                     1) {
                                   widget.cartCubit.updateProductQuantity(
-                                    cartId:
-                                      widget.cartModel.data!.items[index].id,
-                                    quantity:
-                                  widget.cartModel.data!.items[index].quantity - 1);
+                                      cartId: widget
+                                          .cartModel.data!.items[index].id,
+                                      quantity: widget.cartModel.data!
+                                              .items[index].quantity -
+                                          1);
+                                  widget.cartModel.data!.items[index]
+                                      .quantity--;
+                                  setState(() {
+
+                                  });
+
                                 }
                               },
                               icon: const Icon(Icons.remove),
@@ -130,10 +136,16 @@ class _CartWidgetState extends State<CartWidget> {
                           child: IconButton(
                             onPressed: () {
                               widget.cartCubit.updateProductQuantity(
-                                cartId:
-                                    widget.cartModel.data!.items[index].id,
-                                quantity: widget.cartModel.data!.items[index].quantity + 1
-                              );
+                                  cartId:
+                                      widget.cartModel.data!.items[index].id,
+                                  quantity: widget.cartModel.data!.items[index]
+                                          .quantity +
+                                      1);
+                              widget.cartModel.data!.items[index]
+                                  .quantity++;
+                              setState(() {
+
+                              });
                             },
                             icon: const Icon(
                               Icons.add,

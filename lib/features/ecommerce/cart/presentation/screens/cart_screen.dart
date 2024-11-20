@@ -41,7 +41,8 @@ class CartScreen extends StatelessWidget {
                       return Center(
                         child: Text(state.error.toString()),
                       );
-                    } else if (state is CartSuccess) {
+                    }
+                    else if (state is CartSuccess) {
                       if(state.cartModel.data!.items.isEmpty){
                         return const Center(child: Text("no products in cart"),);
                       }else{
