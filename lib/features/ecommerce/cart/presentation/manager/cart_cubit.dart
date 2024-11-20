@@ -41,14 +41,13 @@ final CartRepoImpl cartRepoImpl;
 
   }
 
+
   updateProductQuantity({required int cartId, required int quantity}) {
 
-    emit(CartLoading());
     final result=  cartRepoImpl.updateCart(CartParam(cartId: cartId, productId: 0, quantity: quantity));
     result.then((value) {
-      emit(UpdateSuccess(cartModel: value));
+      safePrint("${value.data!.quantity}qqq");
     }).onError((error, stackTrace) {
-      emit(UpdateError(error: error.toString()));
     });
   }
 

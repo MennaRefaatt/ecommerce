@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ecommerce/features/ecommerce/favorite/presentation/manager/favourite_cubit.dart';
-
 import '../../../../../../core/components/product_item_widget.dart';
 import '../../../../../../core/theming/app_colors.dart';
 import '../../../../../../generated/l10n.dart';
