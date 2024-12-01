@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/components/app_bar.dart';
 import '../../../../../core/components/product_item_widget.dart';
+import '../../../../../core/theming/app_colors.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../favorite/presentation/manager/favourite_cubit.dart';
+import '../../../home/domain/home_entity/home_entity.dart';
 import '../../suggested_products_args.dart';
 
 class SuggestedProductsScreen extends StatefulWidget {
@@ -22,6 +24,64 @@ class SuggestedProductsScreen extends StatefulWidget {
 }
 
 class _SuggestedProductsScreenState extends State<SuggestedProductsScreen> {
+  final ScrollController _scrollController = ScrollController();
+  final int _productsPerPage = 8;
+  final double _scrollThreshold = 100.0;
+  List<ProductEntity> _displayedProducts = [];
+  int _currentPage = 1;
+  bool _isLoading = false;
+  bool _hasMore = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeProducts();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _initializeProducts() {
+    setState(() {
+      _displayedProducts = widget.args.products.take(_productsPerPage).toList();
+    });
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >=
+            _scrollController.position.maxScrollExtent - _scrollThreshold &&
+        !_isLoading &&
+        _hasMore) {
+      _loadMoreProducts();
+    }
+  }
+
+  Future<void> _loadMoreProducts() async {
+    if (!_hasMore) return;
+    setState(() {
+      _isLoading = true;
+    });
+    await Future.delayed(const Duration(seconds: 1));
+    setState(() {
+      final int start = _currentPage * _productsPerPage;
+      final int end = start + _productsPerPage;
+      if (start >= widget.args.products.length) {
+        _hasMore = false;
+      } else {
+        _currentPage++;
+        _displayedProducts.addAll(
+          widget.args.products
+              .sublist(start, end.clamp(0, widget.args.products.length)),
+        );
+      }
+      _isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final favouriteCubit = context.read<FavouriteCubit>();
@@ -38,32 +98,37 @@ class _SuggestedProductsScreenState extends State<SuggestedProductsScreen> {
           if (widget.args.products.isEmpty)
             const Center(
                 child: Text(
-                    "No products available.")), // Display a message if no products
+                    "No products available.")),
           Expanded(
             child: GridView.builder(
+              controller: _scrollController,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 10.sp,
-                crossAxisSpacing: 0.sp,
+                crossAxisSpacing: 10.sp,
                 childAspectRatio: 0.62.sp,
               ),
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: widget.args.products.length,
+              itemCount: _displayedProducts.length,
               itemBuilder: (context, index) {
+                final product = _displayedProducts[index];
                 return ProductItemWidget(
-                  price: widget.args.products[index].price.toString(),
-                  name: widget.args.products[index].name,
-                  image: widget.args.products[index].image,
-                  id: widget.args.products[index].id,
-                  inFavorites: widget.args.products[index].isFav,
-                  oldPrice: widget.args.products[index].oldPrice.toString(),
-                  discount: widget.args.products[index].discount.toString(),
+                  price: product.price.toString(),
+                  name: product.name,
+                  image: product.image,
+                  id: product.id,
+                  inFavorites: product.isFav,
+                  oldPrice: product.oldPrice.toString(),
+                  discount: product.discount.toString(),
                   favoriteCubit: favouriteCubit,
                 );
               },
             ),
           ),
+          if (_isLoading && _hasMore)
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: CircularProgressIndicator(color: AppColors.primary),
+            ),
         ],
       ),
     );
