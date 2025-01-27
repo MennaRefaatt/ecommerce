@@ -5,6 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../../../../../core/helpers/shared_pref.dart';
+import '../../../../../core/helpers/shared_pref_keys.dart';
+import '../../../../../core/services/navigation/app_endpoints.dart';
 import '../manager/location_cubit.dart';
 
 class MapScreen extends StatefulWidget {
@@ -27,6 +30,10 @@ class _MapScreenState extends State<MapScreen> {
             final position = state is LocationLoaded
                 ? LatLng(state.position.latitude, state.position.longitude)
                 : (state as LocationMarkerSet).location;
+            final address = state is LocationLoaded
+                ? state.address
+                : (state as LocationMarkerSet).address;
+
             return Column(
               children: [
                 Expanded(
@@ -51,22 +58,33 @@ class _MapScreenState extends State<MapScreen> {
                           ),
                         },
                         onTap: (LatLng tappedLocation) {
-                          context.read<LocationCubit>().setMarker(tappedLocation);
+                          context
+                              .read<LocationCubit>()
+                              .setMarker(tappedLocation);
                         },
                       ),
                       state is LocationMarkerSet
                           ? AppButton(
-                        text: "Save Location",
-                        backgroundColor: AppColors.primary,
-                        onPressed: () {
-                          final selectedLocation = context.read<LocationCubit>().selectedLocation;
-                          if (selectedLocation != null) {
-                            safePrint("Saved Location: ${selectedLocation.latitude}, ${selectedLocation.longitude}");
-                            Navigator.pop(context);
-                          }
-                        },
-                        textStyle: const TextStyle(color: Colors.white),
-                      )
+                              text: "Save Location",
+                              backgroundColor: AppColors.primary,
+                              onPressed: () async {
+                                final selectedLocation = context
+                                    .read<LocationCubit>()
+                                    .selectedLocation;
+                                if (selectedLocation != null) {
+                                  safePrint("Saved Location: $address");
+                                  SharedPref.setString(
+                                      key: MySharedKeys.city, value: address);
+                                  SharedPref.putInt(
+                                      key: MySharedKeys.defaultAddressId,
+                                      value: selectedLocation.latitude.toInt() +
+                                          selectedLocation.longitude.toInt());
+                                  Navigator.pushNamed(
+                                      context, AppEndpoints.confirmOrderScreen);
+                                }
+                              },
+                              textStyle: const TextStyle(color: Colors.white),
+                            )
                           : Container(),
                     ],
                   ),
@@ -75,7 +93,7 @@ class _MapScreenState extends State<MapScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     state is LocationMarkerSet
-                        ? "Latitude: ${state.location.latitude}, Longitude: ${state.location.longitude}"
+                        ? "Address: ${state.location}"
                         : "Tap on the map to select a location",
                     style: const TextStyle(
                       fontSize: 16,

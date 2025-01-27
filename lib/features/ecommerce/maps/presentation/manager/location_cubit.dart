@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:ecommerce/features/ecommerce/maps/domain/use_case/get_realtime_location_use_case.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../../../../../core/helpers/safe_print.dart';
 import '../../domain/use_case/get_location_use_case.dart';
 import '../../domain/use_case/set_location_use_case.dart';
 
@@ -22,7 +24,12 @@ final GetRealtimeLocationUseCase getRealTimeLocationUseCase;
     emit(LocationLoading());
     try {
       final position = await getUserLocationUseCase.getCurrentLocation();
-      emit(LocationLoaded(position));
+      List<Placemark> placemarks =
+      await placemarkFromCoordinates(position.latitude, position.longitude);
+      Placemark place = placemarks[0];
+      final address = '${place.street}';
+      safePrint(address);
+      emit(LocationLoaded(position, address));
     } catch (e) {
       emit(LocationError("Failed to get location"));
     }
@@ -31,7 +38,13 @@ final GetRealtimeLocationUseCase getRealTimeLocationUseCase;
   void setMarker(LatLng location) async {
     selectedLocation = location;
     await setLocationUseCase.setLocation(location);
-    emit(LocationMarkerSet(location));
+    List<Placemark> placemarks =
+    await placemarkFromCoordinates(location.latitude, location.longitude);
+    Placemark place = placemarks[2];
+    final address = '${place.street}';
+    safePrint("Address: $address");
+    emit(LocationMarkerSet(location, address));
+
   }
 
   StreamSubscription<Position>? _positionSubscription;
@@ -39,7 +52,7 @@ final GetRealtimeLocationUseCase getRealTimeLocationUseCase;
   void trackDriverLocation() {
     emit(LocationLoading());
     _positionSubscription = getRealTimeLocationUseCase.getRealTimeLocationUpdates().listen((position) {
-      emit(LocationLoaded(position));
+      emit(LocationLoaded(position,""));
     }, onError: (e) {
       emit(LocationError("Failed to update driver location"));
     });

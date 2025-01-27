@@ -127,8 +127,8 @@ class AddressScreen extends StatelessWidget {
                     Row(
                       children: [
                         AppButton(
-                          onPressed: () =>
-                              Modular.to.pushNamed(AppEndpoints.addAddressScreen),
+                          onPressed: () => Modular.to
+                              .pushNamed(AppEndpoints.addAddressScreen),
                           backgroundColor: AppColors.primary,
                           text: S().addNewAddress,
                           textStyle: const TextStyle(
@@ -147,7 +147,7 @@ class AddressScreen extends StatelessWidget {
                                 dialogType: DialogType.warning,
                                 title: 'Warning',
                                 desc:
-                                'Please select a default address to proceed.',
+                                    'Please select a default address to proceed.',
                                 btnOkOnPress: () {},
                               ).show();
                             } else {

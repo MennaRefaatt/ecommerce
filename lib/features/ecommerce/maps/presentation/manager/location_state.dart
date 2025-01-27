@@ -8,13 +8,15 @@ class LocationLoading extends LocationState {}
 
 class LocationLoaded extends LocationState {
   final Position position;
-  LocationLoaded(this.position);
+  final String address;
+  LocationLoaded(this.position, this.address);
 }
 
 class LocationMarkerSet extends LocationState {
   final LatLng location;
+  final String address;
 
-  LocationMarkerSet(this.location);
+  LocationMarkerSet(this.location, this.address);
 }
 
 class LocationError extends LocationState {
